@@ -60,6 +60,167 @@
     </header>
 
     <main>
+       <script>
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".order-actions a").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      const action = e.target.textContent.trim().toLowerCase();
+
+      if (action.includes("cancel")) showCancelOptions(e.target);
+      else if (action.includes("return")) showReturnStatus(e.target);
+      else if (action.includes("view")) showOrderDetails(e.target);
+      else if (action.includes("track")) trackOrder(e.target);
+    });
+  });
+});
+
+/* ---------- CANCEL ORDER ---------- */
+function showCancelOptions(target) {
+  const card = target.closest(".order-card");
+  const orderId = card.querySelector(".order-id").textContent;
+
+  const html = `
+    <div class="modal-overlay">
+      <div class="modal-box">
+        <span class="close-btn">&times;</span>
+        <h2>${orderId}</h2>
+        <p><strong>Why do you want to cancel this order?</strong></p>
+        <form id="cancelForm" style="margin-top:15px;">
+          <label><input type="radio" name="reason" value="Ordered by mistake"> Ordered by mistake</label><br>
+          <label><input type="radio" name="reason" value="Found a better price elsewhere"> Found a better price elsewhere</label><br>
+          <label><input type="radio" name="reason" value="Delivery taking too long"> Delivery taking too long</label><br>
+          <label><input type="radio" name="reason" value="Change in mind"> Change in mind</label><br>
+          <label><input type="radio" name="reason" value="Other reason"> Other reason</label>
+        </form>
+        <div class="modal-buttons">
+          <button class="btn-secondary close-btn">Close</button>
+          <button class="btn-primary confirm-cancel">Confirm Cancel</button>
+        </div>
+      </div>
+    </div>`;
+  openModal(html);
+
+  document.querySelector(".confirm-cancel").onclick = () => {
+    const selected = document.querySelector("input[name='reason']:checked");
+    if (!selected) {
+      alert("Please select a reason before cancelling.");
+      return;
+    }
+    closeModal();
+    handleCancelConfirm(card, orderId, selected.value, target);
+  };
+}
+
+function handleCancelConfirm(card, orderId, reason, button) {
+  const toast = document.createElement("div");
+  toast.className = "toast-message";
+  toast.textContent = `Refund will be initiated after collection of order. (${reason})`;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 4000);
+
+  const statusEl = card.querySelector(".order-status");
+  statusEl.textContent = "Cancellation in Progress";
+  statusEl.className = "order-status status-pending";
+
+  button.textContent = "View Return Status";
+  button.style.background = "#D4AF37";
+  button.style.color = "#000";
+  button.onclick = e => {
+    e.preventDefault();
+    showReturnStatus(button);
+  };
+}
+
+/* ---------- VIEW RETURN STATUS ---------- */
+function showReturnStatus(target) {
+  const card = target.closest(".order-card");
+  const orderId = card.querySelector(".order-id").textContent;
+  const html = `
+    <div class="modal-overlay">
+      <div class="modal-box">
+        <span class="close-btn">&times;</span>
+        <h2>${orderId} - Return Status</h2>
+        <ul class="progress-list">
+          <li class="done">Return Requested</li>
+          <li class="done">Pickup Scheduled</li>
+          <li>Item Collected</li>
+          <li>Refund Initiated</li>
+          <li>Refund Completed</li>
+        </ul>
+      </div>
+    </div>`;
+  openModal(html);
+}
+
+/* ---------- VIEW ORDER DETAILS ---------- */
+function showOrderDetails(target) {
+  const card = target.closest(".order-card");
+  const orderId = card.querySelector(".order-id").textContent;
+  const productName = card.querySelector(".item-names")?.textContent || "Unknown item";
+  const total = card.querySelector(".order-total-price")?.textContent || "₹—";
+
+  const html = `
+    <div class="modal-overlay">
+      <div class="modal-box">
+        <span class="close-btn">&times;</span>
+        <h2>${orderId} - Order Details</h2>
+        <div class="order-summary">
+          <p><strong>Product:</strong> ${productName}</p>
+          <p><strong>Order Date:</strong> 28 October 2025</p>
+          <p><strong>Payment Method:</strong> UPI (Paid)</p>
+          <p><strong>Delivery Address:</strong><br> Mehak Kumar<br> B-45 Rosewood Apartments<br> Gurugram, Haryana - 122018</p>
+          <p><strong>Total Amount:</strong> ${total}</p>
+          <p><strong>Status:</strong>Delivered</p>
+        </div>
+      </div>
+    </div>`;
+  openModal(html);
+}
+
+/* ---------- TRACK ORDER ---------- */
+function trackOrder(target) {
+  const card = target.closest(".order-card");
+  const orderId = card.querySelector(".order-id").textContent;
+
+  const html = `
+    <div class="modal-overlay">
+      <div class="modal-box track-box">
+        <span class="close-btn">&times;</span>
+        <h2>${orderId} - Tracking</h2>
+        <div class="shipment-info">
+          <p><strong>From:</strong> Mumbai, Maharashtra</p>
+          <p><strong>To:</strong> Gurugram, Haryana</p>
+          <p><strong>Current Status:</strong> Out for Delivery 🚚</p>
+          <p><strong>Estimated Delivery:</strong> 6 November 2025</p>
+        </div>
+        <div class="timeline">
+          <div class="step done"><i class="fa fa-check-circle"></i><p>Order Placed</p><span>Oct 28</span></div>
+          <div class="step done"><i class="fa fa-box"></i><p>Packed</p><span>Oct 29</span></div>
+          <div class="step done"><i class="fa fa-truck"></i><p>Shipped</p><span>Oct 31</span></div>
+          <div class="step current"><i class="fa fa-route"></i><p>Out for Delivery</p><span>Nov 5</span></div>
+          <div class="step"><i class="fa fa-home"></i><p>Delivered</p><span>Pending</span></div>
+        </div>
+      </div>
+    </div>`;
+  openModal(html);
+}
+
+/* ---------- Modal helpers ---------- */
+function openModal(html) {
+  document.body.insertAdjacentHTML("beforeend", html);
+  document.querySelectorAll(".close-btn").forEach(btn => btn.onclick = closeModal);
+  document.querySelector(".modal-overlay").onclick = e => {
+    if (e.target.classList.contains("modal-overlay")) closeModal();
+  };
+}
+function closeModal() {
+  const modal = document.querySelector(".modal-overlay");
+  if (modal) modal.remove();
+}
+</script>
+
+
         <div class="container order-page-wrapper">
             
             <div class="order-history-list">
