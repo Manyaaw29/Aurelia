@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurelia - My Addresses</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="address.css">
+</head>
+
+<body>
+    <div class="offer-bar">
+        <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code: </span>
+        <span class="offer-code">DIWALI</span>
+    </div>
+
+    <header class="header">
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+
+            <nav class="nav-links">
+                <a href="new-arrivals.html" class="nav-link">New Arrivals</a>
+
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        Categories <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="necklaces.html">Necklaces</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="rings.html">Rings</a>
+                        <a href="collections.html">Collections</a>
+                        <a href="new-arrivals.html">New Arrivals</a>
+                        <a href="mens.html">Mens</a>
+                        <a href="waist-chains.html">Waist Chains</a>
+                        <a href="toe-rings.html">Toe Rings</a>
+                        <a href="mangalsutra.html">Mangalsutra</a>
+                        <a href="hair-accessories.html">Hair Accessories</a>
+                        <a href="choker.html">Choker</a>
+                    </div>
+                </div>
+
+                <a href="customerstories.html" class="nav-link customer-stories" target="_blank">Customer Stories</a>
+                <a href="collections.html" class="nav-link">Collections</a>
+                <a href="best-sellers.html" class="nav-link">Best Sellers</a>
+                <a href="gifting.html" class="nav-link">Gifting</a>
+                <a href="about.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="nav-actions">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search jewelry...">
+                </div>
+                <a href="wishlist.html" class="nav-icon">❤</a>
+                <a href="account.html" class="nav-icon">👤</a>
+                <a href="cart.html" class="nav-icon">🛒</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="account-container">
+        <div class="account-header">
+            <h1 class="account-title">My Account</h1>
+            <p class="account-subtitle">Manage your personal information and preferences</p>
+        </div>
+
+        <aside class="account-sidebar">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="account.html">
+                        <span class="menu-icon">👤</span>
+                        Personal Information
+                    </a>
+                </li>
+                <li>
+                    <a href="myorder.html">
+                        <span class="menu-icon">📦</span>
+                        My Orders
+                    </a>
+                </li>
+                <li>
+                    <a href="wishlist.html">
+                        <span class="menu-icon">❤</span>
+                        My Wishlist
+                    </a>
+                </li>
+                <li>
+                    <a href="my-addresses.html" class="active">
+                        <span class="menu-icon">📍</span>
+                        My Addresses
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signOutLink">
+                        <span class="menu-icon">🚪</span>
+                        Sign Out
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="account-content">
+            <div class="content-header">
+                <h2 class="content-title">My Addresses</h2>
+                <button class="add-address-btn" id="openAddModalBtn">+ Add New Address</button>
+            </div>
+
+            <div class="addresses-grid" id="addressesGrid">
+            </div>
+        </main>
+    </div>
+
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle" class="modal-title">Add New Address</h2>
+            <form id="addressForm">
+                <input type="hidden" id="addressId" name="id">
+
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <select id="addressType" name="type" required>
+                        <option value="Home">Home</option>
+                        <option value="Office">Office</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" id="addressLine1" name="line1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addressLine2">Address Line 2 (Area/Locality)</label>
+                    <input type="text" id="addressLine2" name="line2">
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="zipCode">Zip/Pincode</label>
+                        <input type="text" id="zipCode" name="zip" required pattern="[0-9]{6}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" required value="India">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" name="phone" required pattern="[0-9+ ]{10,15}">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="isDefault" name="isDefault">
+                    <label for="isDefault">Set as default address</label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="add-address-btn">Save Address</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-content">
+            <p id="confirmMessage" class="confirm-message">Are you sure you want to remove this address?</p>
+            <div class="confirm-actions">
+                <button id="confirmCancel" class="btn cancel-btn">Cancel</button>
+                <button id="confirmDelete" class="btn delete-btn">Remove Address</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="newsletter">
+                <h3>Stay Connected</h3>
+                <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new
+                    arrivals</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email">
+                    <button type="submit" class="newsletter-button">Subscribe</button>
+                </form>
+            </div>
+
+            <div class="footer-links">
+                <h4>About</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Support</h4>
+                <ul>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+            <div class="social-icons">
+                <a href="https://instagram.com" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram"
+                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+                <a href="https://facebook.com" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook-f"
+                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+                <a href="https://twitter.com" class="social-icon" target="_blank">
+                    <i class="fab fa-twitter"
+                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="notificationModal" class="notification-modal">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <!-- Sign Out Confirmation Modal -->
+    <div class="modal-overlay" id="signOutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h2 class="modal-title">Sign Out</h2>
+            <p class="modal-message">Are you sure you want to sign out?</p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-primary" id="confirmSignOut">Sign Out</button>
+                <button class="modal-btn modal-btn-secondary" id="cancelSignOut">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Sign Out Modal -->
+    <div class="modal-overlay" id="successSignOutModal">
+        <div class="modal-content">
+            <div class="modal-icon success-icon">✓</div>
+            <h2 class="modal-title">Successfully Signed Out!</h2>
+            <p class="modal-message">You have been signed out successfully. Redirecting to sign in page...</p>
+        </div>
+    </div>
+
+    <script>
+        // A simple data structure to hold and manage addresses in memory
+        let addresses = [{
+            id: 1,
+            type: 'Home',
+            name: 'Priya Sharma',
+            line1: '123, Green Valley Apartments',
+            line2: 'Andheri West',
+            city: 'Mumbai',
+            state: 'Maharashtra',
+            zip: '400001',
+            country: 'India',
+            phone: '+91 9876543210',
+            isDefault: true
+        },
+        {
+            id: 2,
+            type: 'Office',
+            name: 'Priya Sharma',
+            line1: 'Tech Tower, 5th Floor',
+            line2: 'Bandra Kurla Complex',
+            city: 'Mumbai',
+            state: 'Maharashtra',
+            zip: '400051',
+            country: 'India',
+            phone: '+91 9876543210',
+            isDefault: false
+        }
+        ];
+
+        // --- DOM Elements ---
+        const addressesGrid = document.getElementById('addressesGrid');
+        const addressModal = document.getElementById('addressModal');
+        const form = document.getElementById('addressForm');
+        const openAddModalBtn = document.getElementById('openAddModalBtn');
+        const closeBtn = addressModal.querySelector('.close-btn');
+        const modalTitle = document.getElementById('modalTitle');
+        const addressIdInput = document.getElementById('addressId');
+        const phoneInput = document.getElementById('phoneNumber');
+
+        // Notification Elements
+        const notificationModal = document.getElementById('notificationModal');
+        const notificationMessage = document.getElementById('notificationMessage');
+
+        // Confirmation Elements
+        const confirmModal = document.getElementById('confirmModal');
+        const confirmCancel = document.getElementById('confirmCancel');
+        const confirmDelete = document.getElementById('confirmDelete');
+        let addressToDeleteId = null;
+
+        // Sign Out Modal Elements
+        const signOutLink = document.getElementById('signOutLink');
+        const signOutModal = document.getElementById('signOutModal');
+        const successSignOutModal = document.getElementById('successSignOutModal');
+        const confirmSignOut = document.getElementById('confirmSignOut');
+        const cancelSignOut = document.getElementById('cancelSignOut');
+
+        let nextId = addresses.length > 0 ? Math.max(...addresses.map(a => a.id)) + 1 : 1;
+
+        // --- Utility Functions ---
+
+        function showNotification(message) {
+            notificationMessage.textContent = message;
+            notificationModal.classList.add('show');
+
+            setTimeout(() => {
+                notificationModal.classList.remove('show');
+            }, 3000);
+        }
+
+        function closeModal() {
+            addressModal.style.display = 'none';
+            form.reset();
+            addressIdInput.value = '';
+            // Clear validation errors
+            phoneInput.style.borderColor = '';
+            const validationMsg = document.querySelector('.validation-message');
+            if (validationMsg) validationMsg.remove();
+        }
+
+        function closeConfirmModal() {
+            confirmModal.style.display = 'none';
+            addressToDeleteId = null;
+        }
+
+        function showPhoneValidationMessage(message) {
+            // Remove any existing validation message
+            const existingMessage = document.querySelector('.validation-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+
+            // Create and show validation message
+            const validationMsg = document.createElement('div');
+            validationMsg.className = 'validation-message';
+            validationMsg.textContent = message;
+
+            phoneInput.parentElement.appendChild(validationMsg);
+
+            // Remove message after 5 seconds
+            setTimeout(() => {
+                validationMsg.remove();
+            }, 5000);
+        }
+
+        function openModal(address = null) {
+            if (address) {
+                // Edit Mode
+                modalTitle.textContent = 'Edit Address';
+                addressIdInput.value = address.id;
+                document.getElementById('addressType').value = address.type;
+                document.getElementById('fullName').value = address.name;
+                document.getElementById('addressLine1').value = address.line1;
+                document.getElementById('addressLine2').value = address.line2;
+                document.getElementById('city').value = address.city;
+                document.getElementById('state').value = address.state;
+                document.getElementById('zipCode').value = address.zip;
+                document.getElementById('country').value = address.country;
+                document.getElementById('phoneNumber').value = address.phone;
+                document.getElementById('isDefault').checked = address.isDefault;
+            } else {
+                // Add Mode
+                modalTitle.textContent = 'Add New Address';
+                form.reset();
+                addressIdInput.value = '';
+                document.getElementById('country').value = 'India';
+                document.getElementById('isDefault').checked = addresses.length === 0;
+            }
+            addressModal.style.display = 'block';
+        }
+
+        function renderAddressCard(address) {
+            const isDefaultClass = address.isDefault ? ' default' : '';
+            const defaultBadge = address.isDefault ?
+                '<span class="default-badge">Default</span>' :
+                '';
+            const setDefaultButton = address.isDefault ?
+                '' :
+                `<a href="#" class="action-link set-default-btn" data-address-id="${address.id}">Set as Default</a>`;
+
+            return `
+            <div class="address-card${isDefaultClass}" data-address-id="${address.id}">
+                ${defaultBadge}
+                <div class="address-header">
+                    <div class="address-type">${address.type}</div>
+                </div>
+                <div class="address-name">${address.name}</div>
+                <div class="address-details">
+                    ${address.line1}<br>
+                    ${address.line2 ? address.line2 + '<br>' : ''}
+                    ${address.city}, ${address.state} ${address.zip}<br>
+                    ${address.country}
+                </div>
+                <div class="address-phone">Phone: ${address.phone}</div>
+                <div class="address-actions">
+                    <a href="#" class="action-link edit-address-btn" data-address-id="${address.id}">Edit</a>
+                    ${setDefaultButton}
+                    <a href="#" class="action-link remove remove-address-btn" data-address-id="${address.id}">Remove</a>
+                </div>
+            </div>
+        `;
+        }
+
+        function renderAddresses() {
+            addressesGrid.innerHTML = '';
+            addresses.sort((a, b) => (b.isDefault - a.isDefault));
+
+            if (addresses.length === 0) {
+                addressesGrid.innerHTML =
+                    '<p style="color: #CCCCCC; grid-column: 1/-1;">You have no saved addresses. Click "Add New Address" to begin.</p>';
+                return;
+            }
+
+            addresses.forEach(address => {
+                addressesGrid.innerHTML += renderAddressCard(address);
+            });
+            attachEventListeners();
+        }
+
+        // --- Phone Number Validation ---
+        phoneInput.addEventListener('input', function (e) {
+            // Remove any non-numeric characters except + and spaces
+            let value = e.target.value.replace(/[^\d+\s]/g, '');
+            e.target.value = value;
+        });
+
+        phoneInput.addEventListener('blur', function (e) {
+            const phoneNumber = e.target.value.replace(/\s/g, '');
+
+            // Indian phone number validation
+            const indianPhoneRegex = /^\+91\d{10}$/;
+
+            if (phoneNumber && !indianPhoneRegex.test(phoneNumber)) {
+                e.target.style.borderColor = '#ff4444';
+                showPhoneValidationMessage('Please enter a valid Indian phone number (+91 followed by 10 digits)');
+            } else {
+                e.target.style.borderColor = '';
+                const existingMessage = document.querySelector('.validation-message');
+                if (existingMessage) {
+                    existingMessage.remove();
+                }
+            }
+        });
+
+        // --- Core Logic Functions ---
+
+        function handleSaveAddress(e) {
+            e.preventDefault();
+
+            // Validate phone number before saving
+            const phoneNumber = phoneInput.value.replace(/\s/g, '');
+            const indianPhoneRegex = /^\+91\d{10}$/;
+
+            if (!indianPhoneRegex.test(phoneNumber)) {
+                phoneInput.style.borderColor = '#ff4444';
+                showPhoneValidationMessage('Please enter a valid Indian phone number (+91 followed by 10 digits)');
+                phoneInput.focus();
+                return;
+            }
+
+            const isEdit = !!addressIdInput.value;
+            const id = isEdit ? parseInt(addressIdInput.value) : nextId;
+
+            const newAddress = {
+                id: id,
+                type: form.addressType.value,
+                name: form.fullName.value,
+                line1: form.addressLine1.value,
+                line2: form.addressLine2.value,
+                city: form.city.value,
+                state: form.state.value,
+                zip: form.zipCode.value,
+                country: form.country.value,
+                phone: form.phoneNumber.value,
+                isDefault: form.isDefault.checked
+            };
+
+            // Manage Default Status
+            if (newAddress.isDefault) {
+                addresses.forEach(a => a.isDefault = false);
+            } else if (addresses.length === 0 || (isEdit && addresses.length === 1)) {
+                newAddress.isDefault = true;
+            }
+
+            // Add or Update
+            if (isEdit) {
+                const index = addresses.findIndex(a => a.id === id);
+                if (index !== -1) {
+                    addresses[index] = newAddress;
+                }
+            } else {
+                addresses.push(newAddress);
+                nextId++;
+                if (addresses.length === 1) {
+                    newAddress.isDefault = true;
+                }
+            }
+
+            // Force the first one to be default if none is set
+            if (!addresses.some(a => a.isDefault) && addresses.length > 0) {
+                addresses[0].isDefault = true;
+            }
+
+            renderAddresses();
+            closeModal();
+            showNotification(`Address ${isEdit ? 'Edited' : 'Saved'} Successfully!`);
+        }
+
+        function executeDeleteAddress(id) {
+            const index = addresses.findIndex(a => a.id === id);
+            if (index !== -1) {
+                const wasDefault = addresses[index].isDefault;
+                addresses.splice(index, 1);
+
+                if (wasDefault && addresses.length > 0) {
+                    addresses[0].isDefault = true;
+                }
+                renderAddresses();
+                showNotification('Address Deleted!');
+            }
+        }
+
+        function deleteAddress(id) {
+            addressToDeleteId = id;
+            confirmModal.style.display = 'block';
+        }
+
+        function setDefaultAddress(id) {
+            addresses.forEach(address => {
+                address.isDefault = address.id === id;
+            });
+            renderAddresses();
+            showNotification('Default Address Updated!');
+        }
+
+        function attachEventListeners() {
+            // Edit Button Listener
+            document.querySelectorAll('.edit-address-btn').forEach(button => {
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    const id = parseInt(e.target.dataset.addressId);
+                    const address = addresses.find(a => a.id === id);
+                    if (address) {
+                        openModal(address);
+                    }
+                };
+            });
+
+            // Remove Button Listener
+            document.querySelectorAll('.remove-address-btn').forEach(button => {
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    const id = parseInt(e.target.dataset.addressId);
+                    deleteAddress(id);
+                };
+            });
+
+            // Set as Default Button Listener
+            document.querySelectorAll('.set-default-btn').forEach(button => {
+                button.onclick = (e) => {
+                    e.preventDefault();
+                    const id = parseInt(e.target.dataset.addressId);
+                    setDefaultAddress(id);
+                };
+            });
+        }
+
+        // --- Sign Out Modal Functionality ---
+        // Open modal when sign out link is clicked
+        signOutLink.addEventListener('click', function (e) {
+            e.preventDefault();
+            signOutModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal when cancel is clicked
+        cancelSignOut.addEventListener('click', function () {
+            signOutModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Show success message and redirect when confirm is clicked
+        confirmSignOut.addEventListener('click', function () {
+            // Close the confirmation modal
+            signOutModal.classList.remove('active');
+            
+            // Show success modal
+            successSignOutModal.classList.add('active');
+            
+            // Redirect to signin.html after 3 seconds
+            setTimeout(function() {
+                window.location.href = 'signin.html';
+            }, 3000);
+        });
+
+        // Close modal when clicking outside of it
+        signOutModal.addEventListener('click', function (e) {
+            if (e.target === signOutModal) {
+                signOutModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && signOutModal.classList.contains('active')) {
+                signOutModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // --- Initialization & Main Event Listeners ---
+
+        // Address Modal Listeners
+        openAddModalBtn.onclick = () => openModal();
+        closeBtn.onclick = closeModal;
+        addressModal.addEventListener('click', (event) => {
+            if (event.target == addressModal) {
+                closeModal();
+            }
+        });
+        form.onsubmit = handleSaveAddress;
+
+        // Confirmation Modal Listeners
+        confirmCancel.onclick = closeConfirmModal;
+        confirmDelete.onclick = () => {
+            if (addressToDeleteId !== null) {
+                executeDeleteAddress(addressToDeleteId);
+            }
+            closeConfirmModal();
+        };
+        confirmModal.addEventListener('click', (event) => {
+            if (event.target == confirmModal) {
+                closeConfirmModal();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', renderAddresses);
+
+        // --- Newsletter Subscription Logic ---
+        const newsletterForm = document.querySelector('.newsletter-form');
+        const newsletterInput = document.querySelector('.newsletter-input');
+        const subscribedEmails = new Set();
+
+        newsletterForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const email = newsletterInput.value.trim();
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailPattern.test(email)) {
+                showNotification("❌ Invalid email address. Please enter a valid one.");
+                return;
+            }
+
+            if (subscribedEmails.has(email)) {
+                showNotification("📩 You're already subscribed!");
+            } else {
+                subscribedEmails.add(email);
+                showNotification("✅ Thank you for subscribing!");
+                newsletterInput.value = "";
+            }
+        });
+    </script>
+</body>
+
+</html>

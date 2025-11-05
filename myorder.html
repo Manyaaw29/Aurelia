@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders - Aurelia Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="myorder.css">
+</head>
+<body>
+    <div class="offer-bar">
+      <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code :</span>
+      <span class="offer-code">DIWALI</span>
+    </div>
+
+    <header class="header">
+      <div class="header-container">
+        <a href="index.html" class="logo">Aurelia</a>
+        
+        <nav class="nav-links">
+          <a href="new-arrivals.html" class="nav-link">New Arrivals</a>
+    
+          <div class="dropdown">
+            <button class="dropbtn">
+              Categories <span class="dropdown-arrow">▼</span>
+            </button>
+            <div class="dropdown-content">
+              <a href="bracelets.html">Bracelets</a>
+              <a href="necklaces.html">Necklaces</a>
+              <a href="earrings.html">Earrings</a>
+              <a href="rings.html">Rings</a>
+              <a href="collections.html">Collections</a>
+              <a href="new-arrivals.html">New Arrivals</a>
+              <a href="mens.html">Mens</a>
+              <a href="waist-chains.html">Waist Chains</a>
+              <a href="toe-rings.html">Toe Rings</a>
+              <a href="mangalsutra.html">Mangalsutra</a>
+              <a href="hair-accessories.html">Hair Accessories</a>
+              <a href="choker.html">Choker</a>
+            </div>
+          </div>
+    
+          <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+          <a href="collections.html" class="nav-link">Collections</a>
+          <a href="best-sellers.html" class="nav-link">Best Sellers</a>
+          <a href="gifting.html" class="nav-link">Gifting</a>
+          <a href="about.html" class="nav-link">About Us</a>
+        </nav>
+    
+        <div class="nav-actions">
+          <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search jewelry...">
+          </div>
+          <a href="wishlist.html" class="nav-icon">❤</a>
+          <a href="account.html" class="nav-icon">👤</a>
+          <a href="cart.html" class="nav-icon">🛒</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+        <div class="container order-page-wrapper">
+            
+            <div class="order-history-list">
+                <h1 class="page-title">Order History</h1>
+                
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100293</div>
+                            <div class="order-date">Delivered: September 02, 2025</div>
+                        </div>
+                        <span class="order-status status-delivered">Delivered</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748" alt="Ring Image" class="item-thumbnail">
+                        
+                        <div class="item-details">
+                            <div class="item-names">
+                                Aurelia Golden Elegant (x1)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹3,999</div>
+                        <div class="order-actions">
+                            <a href="#">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100451</div>
+                            <div class="order-date">Shipped: September 17, 2025</div>
+                        </div>
+                        <span class="order-status status-shipped">Shipped</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://www.goodthing.co.nz/cdn/shop/files/Silk_Steel_Jewellery_-_Halo_Medium_Hoop_Earrings_232bc4b1-7b0c-4a93-a101-15491ce0837e_1600x.webp?v=1748477656" alt="Necklace Image" class="item-thumbnail">
+                        
+                        <div class="item-details">
+                            <div class="item-names">
+                                The Golden Hoop (x1)
+                            </div>
+                            <div class="item-names" style="color: var(--color-text-muted); font-size: 0.9em;">
+                                And 1 other item...
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹7,999</div>
+                        <div class="order-actions">
+                            <a href="track_order.html">Track Order</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100522</div>
+                            <div class="order-date">Placed: September 29, 2025</div>
+                        </div>
+                        <span class="order-status status-pending">Processing</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://robinsonsjewelers.com/cdn/shop/articles/How_many_rings_is_it_OK_to_wear_at_one_time_20241122.jpg?v=1732479977" alt="Earring Image" class="item-thumbnail">
+                        
+                        <div class="item-details">
+                            <div class="item-names">
+                                Elegant Ring (x2)
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹9,998</div>
+                        <div class="order-actions">
+                            <a href="#">Cancel Order</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="order-metrics-sidebar">
+                <h3 class="metrics-title">Your Order Metrics</h3>
+                
+                <div class="metric-row">
+                    <span><i class="fas fa-box-open metric-icon"></i> Total Orders</span>
+                    <span class="metric-value">5</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-gem metric-icon"></i> Total Items Purchased</span>
+                    <span class="metric-value">12</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-infinity metric-icon"></i> Lifetime Value</span>
+                    <span class="metric-value">₹85,350</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-check-circle metric-icon"></i> Delivered Orders</span>
+                    <span class="metric-value status-delivered">4</span>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: var(--color-text-grey); font-size: 0.9rem;">&copy; 2025 Aurelia Jewelry. All rights reserved.</p>
+                  <div class="social-icons">
+      <a href="https://instagram.com" class="social-icon" target="_blank">
+        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://facebook.com" class="social-icon" target="_blank">
+        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://pinterest.com" class="social-icon" target="_blank">
+        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://twitter.com" class="social-icon" target="_blank">
+        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+    </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

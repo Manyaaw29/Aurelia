@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In - Aurelia</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="signin.css">
+
+</head>
+
+<body>
+    <div class="global-success-notification" id="loginSuccessNotification">
+        <p>Login successful! Redirecting to homepage...</p>
+    </div>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="signin-container">
+        <div class="signin-box">
+            <div class="logo">
+                <h1 class="logo-text">Aurelia</h1>
+                <p class="logo-subtitle">Elegance That Lasts Forever</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                &nbsp; </div>
+
+            <form id="signinForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="signin-btn">
+                    Sign In
+                </button>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink"> <strong> Forgot your password? </strong></a>
+                </div>
+            </form>
+
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-signin">
+                <a href="https://accounts.google.com/" class="social-btn" title="Sign in with Google" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                        alt="Google logo">
+                </a>
+                <a href="https://www.facebook.com/" class="social-btn" title="Sign in with Facebook" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Facebook_icon_2013.svg"
+                        alt="Facebook logo">
+                </a>
+                <a href="https://appleid.apple.com/" class="social-btn" title="Sign in with Apple" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg"
+                        alt="Apple logo">
+                </a>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="signup.html">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">Reset Password</h2>
+            <p class="modal-subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+
+            <div class="success-message" id="successMessage">
+                Password reset link sent! Please check your email.
+            </div>
+
+            <form id="resetPasswordForm">
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" name="resetEmail" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="reset-btn">
+                    Send Reset Link
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================================
+        // JAVASCRIPT LOGIC
+        // ==========================================================
+
+        // Simulated database of existing accounts with associated passwords
+        const existingAccounts = [
+            { email: 'user@example.com', password: 'password123' },
+            { email: 'demo@aurelia.com', password: 'demo' },
+            { email: 'test@test.com', password: 'test' }
+        ];
+
+        const signinForm = document.getElementById('signinForm');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        // 🚨 NEW VARIABLE: Reference to the global success notification
+        const loginSuccessNotification = document.getElementById('loginSuccessNotification'); 
+
+
+        signinForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = emailInput.value.trim().toLowerCase();
+            const password = passwordInput.value;
+            
+            // Find the account object that matches the email
+            const userAccount = existingAccounts.find(account => account.email === email);
+            
+            // Reset previous errors/styles
+            errorMessage.classList.remove('active');
+            emailInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+
+            let errorText = '';
+            let isError = false;
+
+            // 1. Check if the account exists
+            if (!userAccount) {
+                errorText = "Account doesn't exist. Please sign up first.";
+                isError = true;
+                emailInput.classList.add('error');
+            } 
+            // 2. If the account exists, check the password
+            else if (userAccount.password !== password) {
+                errorText = "Invalid email or password. Please try again.";
+                isError = true;
+                // Apply error only to the password field for better UX
+                passwordInput.classList.add('error'); 
+            }
+
+            // Handle Error State
+            if (isError) {
+                errorMessage.textContent = errorText; // Set the specific error message
+                errorMessage.classList.add('active');
+                
+                // Auto-hide error after 5 seconds
+                setTimeout(() => {
+                    errorMessage.classList.remove('active');
+                    emailInput.classList.remove('error');
+                    passwordInput.classList.remove('error');
+                }, 5000);
+            } 
+            // Handle Success State (UPDATED: Show notification and redirect)
+            else {
+                console.log('Login successful:', { email, password });
+                
+                // 1. Show the success notification box
+                loginSuccessNotification.classList.add('show');
+                
+                // 2. Set the timeout for redirection
+                setTimeout(() => {
+                    // Hide the notification (optional cleanup)
+                    loginSuccessNotification.classList.remove('show');
+                    
+                    // Redirect to the home page
+                    window.location.href = 'homepage.html'; 
+                }, 3000); // 3000 milliseconds = 3 seconds
+            }
+        });
+
+        // Clear error when user starts typing in EITHER field
+        const clearErrorOnInput = function() {
+            if (errorMessage.classList.contains('active')) {
+                errorMessage.classList.remove('active');
+                emailInput.classList.remove('error');
+                passwordInput.classList.remove('error');
+            }
+        };
+
+        emailInput.addEventListener('input', clearErrorOnInput);
+        passwordInput.addEventListener('input', clearErrorOnInput);
+
+
+        // ==========================================================
+        // FORGOT PASSWORD MODAL LOGIC (UNCHANGED)
+        // ==========================================================
+        const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+        const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+        const closeModal = document.getElementById('closeModal');
+        const resetPasswordForm = document.getElementById('resetPasswordForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Open modal
+        forgotPasswordLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            forgotPasswordModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close modal function
+        const closePasswordModal = () => {
+            forgotPasswordModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            resetPasswordForm.reset();
+            successMessage.classList.remove('active');
+        };
+
+        // Close modal listeners
+        closeModal.addEventListener('click', closePasswordModal);
+
+        forgotPasswordModal.addEventListener('click', (e) => {
+            if (e.target === forgotPasswordModal) {
+                closePasswordModal();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && forgotPasswordModal.classList.contains('active')) {
+                closePasswordModal();
+            }
+        });
+
+        // Handle form submission for reset
+        resetPasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+
+            // Show success message
+            successMessage.classList.add('active');
+            console.log('Password reset requested for:', email);
+
+            // Auto-close modal after 3 seconds
+            setTimeout(closePasswordModal, 3000);
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,520 @@
+  * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0D2818 0%, #1A3D2E 100%);
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ===== Header Styling ===== */
+        .header {
+            width: 100%;
+            background: rgba(13, 40, 24, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            white-space: nowrap;
+            overflow: visible;
+        }
+
+        /* ===== Logo ===== */
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #D4AF37;
+            text-decoration: none;
+            margin-right: 25px;
+        }
+
+        /* ===== Nav Links ===== */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: nowrap;
+        }
+
+        .nav-link, .dropbtn {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .nav-link:hover,
+        .dropbtn:hover {
+            color: #D4AF37;
+        }
+
+        .nav-link.customer-stories {
+            color: #fff; 
+            font-weight: 600;
+        }
+
+        .nav-link.customer-stories:hover {
+            color: #D4AF37;
+        }
+
+        /* Dropdown styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 9999;
+        }
+
+        .dropbtn {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .dropdown-arrow {
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
+        /* Dropdown Content */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #fff;
+            min-width: 400px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 8px 24px rgba(0,0,0,0.3);
+            column-count: 2;
+            column-gap: 20px;
+            z-index: 99999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+            transform: translateY(10px);
+        }
+
+        .dropdown-content a {
+            padding: 8px 0;
+            display: block;
+            font-size: 0.9rem;
+            color: #333;
+            text-decoration: none;
+            break-inside: avoid;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f5f5f5;
+            color: #2d5a3d;
+            border-radius: 4px;
+            padding-left: 8px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(5px);
+        }
+
+        .dropdown-content:hover {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ===== Search + Icons ===== */
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-left: auto;
+        }
+
+        .search-input {
+            padding: 6px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .search-input::placeholder {
+            color: #ccc;
+        }
+
+        .nav-icon {
+            font-size: 1.2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .nav-icon:hover {
+            color: #D4AF37;
+        }
+        
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-section {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Main heading */
+        .main-heading {
+            text-align: center;
+            padding: 140px 0 50px;
+        }
+
+        .main-heading h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: -0.02em;
+            margin-bottom: 15px;
+        }
+        
+        .main-heading p {
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* ================================================= */
+        /* ===== Testimonials section - DULL LIGHT COLOR ===== */
+        /* ================================================= */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .testimonial-card {
+            background-color: #E6D7B7; /* Dull, light cream/beige */
+            padding: 40px 35px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        /* Decorative quotation mark - now darker for light backgrounds */
+        .testimonial-card::before {
+            content: '“';
+            font-family: 'Playfair Display', serif;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            font-size: 6rem;
+            color: rgba(0, 0, 0, 0.08); /* Dark, subtle quote */
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Name color updated for dark text on light bg */
+        .testimonial-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #1A3D2E; /* Dark green for contrast and theme consistency */
+            margin-bottom: 10px;
+            font-weight: 700;
+            z-index: 1;
+        }
+        
+        .testimonial-stars {
+            color: #D4AF37; /* Gold stars still work beautifully */
+            margin-bottom: 20px;
+            font-size: 1rem;
+            z-index: 1;
+        }
+
+        /* Text color updated for dark text on light bg */
+        .testimonial-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #4A4A4A; /* Dark grey for readability */
+            line-height: 1.7;
+            z-index: 1;
+            flex-grow: 1;
+        }
+
+        /* Product showcase */
+        .product-showcase {
+            margin-bottom: 100px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .product-card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Gifting section */
+        .gifting-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 100px;
+            background: #1A3D2E;
+            padding: 50px;
+            border-radius: 12px;
+        }
+
+        .gifting-image-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .gifting-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            transition: transform 0.4s ease;
+        }
+        
+        .gifting-image-container:hover .gifting-image {
+            transform: scale(1.05);
+        }
+
+        .gifting-content {
+            padding-left: 20px;
+        }
+
+        .gifting-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+        
+        .gifting-description {
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            color: #CCCCCC;
+            font-weight: 300;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 35px;
+            border: 1px solid #D4AF37;
+            color: #D4AF37;
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            background: transparent;
+            border-radius: 4px;
+        }
+
+        .cta-button:hover {
+            background: #D4AF37;
+            border-color: #D4AF37;
+            color: #0D2818;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0D2818;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 50px;
+            margin-bottom: 40px;
+        }
+
+        .newsletter h3 {
+            font-family: 'Playfair Display', serif;
+            color: #D4AF37;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .newsletter-button {
+            padding: 12px 25px;
+            background: #D4AF37;
+            color: #000000;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .footer-links h4 {
+            color: #D4AF37;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #CCCCCC;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #D4AF37;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icon {
+            width: 35px;
+            height: 35px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 50%;
+            transition: background 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: #D4AF37;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1200px) {
+            .nav-links { gap: 15px; }
+            .header-container { padding: 10px 15px; }
+            .dropdown-content { min-width: 300px; left: -100px; }
+        }
+        
+        @media (max-width: 992px) {
+            .testimonials, .showcase-grid { grid-template-columns: 1fr 1fr; }
+            .gifting-section { grid-template-columns: 1fr; gap: 40px; padding: 40px; }
+            .gifting-content { padding-left: 0; text-align: center; }
+            .footer-content { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            .header-container { padding: 15px 20px; flex-wrap: wrap; justify-content: space-between; }
+            .nav-links { order: 3; width: 100%; justify-content: center; gap: 10px; padding-top: 15px; }
+            .main-heading h1 { font-size: 2.5rem; }
+            .testimonials, .showcase-grid { grid-template-columns: 1fr; gap: 25px; }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; }
+        }
+    
