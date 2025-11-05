@@ -16,35 +16,66 @@ body {
     overflow-x: hidden;
 }
 
+/* ===== ENHANCED OFFER BAR (Applied Changes) ===== */
 .offer-bar {
-    background-color: #000;
+    background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
     color: #fff;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px; /* Reduced from 16px */
     font-weight: 500;
-    padding: 10px 0;
+    padding: 12px 20px; /* Adjusted padding */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
-    height: 40px;
+    z-index: 10000; /* Increased z-index */
+    height: 45px; /* Adjusted height */
+    display: flex; /* Added flex properties */
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    animation: slideDown 0.5s ease;
 }
 
+.offer-bar::before {
+    content: '🎉';
+    font-size: 16px;
+    animation: bounce 2s infinite;
+}
+
+.offer-bar span {
+    letter-spacing: 0.5px;
+}
+
+.offer-code {
+    background: linear-gradient(135deg, #D4AF37, #F4D03F);
+    color: #000;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    animation: pulse 2s infinite;
+}
+
+/* ===== ENHANCED HEADER (Applied Changes) ===== */
 .header {
     width: 100%;
-    background: rgba(13, 40, 24, 0.95);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(13, 40, 24, 0.98) 0%, rgba(26, 61, 46, 0.98) 100%); /* Changed background to gradient with high opacity */
+    backdrop-filter: blur(20px); /* Increased blur */
     position: fixed;
-    top: 40px;
+    top: 45px; /* Adjusted to sit below the 45px offer-bar */
     left: 0;
-    z-index: 1000;
+    z-index: 9999;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4); /* Added stronger shadow */
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2); /* Added subtle border */
 }
 
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 12px 30px;
+    padding: 16px 5px; /* Adjusted padding */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,38 +83,68 @@ body {
     overflow: visible;
 }
 
+/* ===== LOGO (Applied Changes) ===== */
 .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-size: 2rem; /* Increased font size */
     font-weight: 700;
+    background: linear-gradient(135deg, #D4AF37, #F4D03F); /* Added gold gradient for text */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: #D4AF37;
     text-decoration: none;
     margin-right: 25px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.3); /* Added text shadow */
 }
 
+.logo:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+}
+
+/* ===== NAV LINKS (Applied Changes) ===== */
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 35px; /* Increased gap */
     flex-wrap: nowrap;
 }
 
 .nav-link, .dropbtn {
     font-size: 0.95rem;
     font-weight: 500;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.9); /* Subtly dimmed color */
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease; /* Changed to 'all' for better hover */
+    position: relative; /* For the ::after hover effect */
     background: none;
     border: none;
     cursor: pointer;
 }
 
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #D4AF37, #F4D03F); /* Gold gradient line */
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
 .nav-link:hover,
 .dropbtn:hover {
     color: #D4AF37;
+    transform: translateY(-2px); /* Added subtle lift */
 }
 
+/* ===== DROPDOWN (Applied Changes) ===== */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -92,26 +153,31 @@ body {
 
 .dropdown-arrow {
     font-size: 0.7rem;
-    margin-left: 5px;
+    margin-left: 6px; /* Adjusted margin */
+    transition: transform 0.3s ease; /* Added transition */
+}
+
+.dropdown:hover .dropdown-arrow {
+    transform: rotate(180deg);
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    transform: translateY(5px);
-    background-color: #fff;
-    min-width: 400px;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0px 8px 24px rgba(0,0,0,0.3);
-    column-count: 2;
+    left: 50%; /* Centered dropdown */
+    transform: translateX(-50%) translateY(10px); /* Initial transform for animation */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(245, 245, 245, 0.98)); /* New background */
+    min-width: 220px; /* Adjusted width */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 16px; /* Adjusted border radius */
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+    column-count: 2; /* Kept for potential mega menu, but width is smaller now */
     column-gap: 20px;
     z-index: 99999;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transition: all 0.3s ease; /* Changed to 'all' */
 }
 
 .dropdown-content a {
@@ -134,41 +200,87 @@ body {
     display: block;
     opacity: 1;
     visibility: visible;
-    transform: translateY(5px);
+    transform: translateX(-50%) translateY(15px); /* Final position */
 }
 
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-left: auto;
+/* ===== SEARCH BOX (New Wrapper and Input Changes) ===== */
+.search-box {
+    position: relative;
+    margin: 0 30px;
 }
 
 .search-input {
-    padding: 6px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 20px 12px 45px; /* Adjusted padding for icon */
+    min-width: 500px; /* Increased min-width */
+    border: 2px solid rgba(212, 175, 55, 0.3); /* Gold border */
+    border-radius: 30px; /* More rounded */
+    background: rgba(255, 255, 255, 0.08); /* More subtle background */
     color: #fff;
-    font-size: 0.85rem;
+    font-size: 0.9rem; /* Increased font size */
 }
 
 .search-input::placeholder {
     color: #ccc;
 }
 
+.search-box::before {
+    content: '🔍';
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #D4AF37;
+    z-index: 10; /* Ensure the icon is above the input content */
+}
+
+/* Original .nav-actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Adjusted gap */
+    margin-left: auto;
+}
+
+/* Original .nav-icon structure, updated with enhanced styles */
 .nav-icon {
     font-size: 1.2rem;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
     text-decoration: none;
+    padding: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
 }
 
 .nav-icon:hover {
+    background: rgba(212, 175, 55, 0.15);
     color: #D4AF37;
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
 }
 
+.wishlist-icon svg {
+    stroke: #FF0000;
+    fill: #FF0000;
+}
+
+.account-icon svg {
+    stroke: #FFD700;
+    fill: #FFD700;
+}
+
+.cart-icon svg {
+    stroke: rgba(255, 255, 255, 0.85);
+}
+
+
+/* --- Wishlist Content Styles --- */
 .wishlist-container {
     max-width: 1400px;
     margin: 150px auto 80px;
@@ -549,6 +661,41 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-5px);
+    }
+    60% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(212, 175, 55, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+    }
+}
+
 /* --- Modal Styles (NEW, based on reference) --- */
 .app-modal {
     display: none; /* Hidden by default */
@@ -654,6 +801,21 @@ body {
     .header-container {
         padding: 0 20px;
         flex-wrap: wrap;
+    }
+
+    .search-box {
+        order: 10; /* Push search to a new line */
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    .search-box::before {
+        left: 30px; /* Adjust icon position in mobile view */
+    }
+
+    .search-input {
+        min-width: 100%; /* Make search input full width */
+        box-sizing: border-box;
     }
 
     .nav-links {

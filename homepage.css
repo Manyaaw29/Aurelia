@@ -76,7 +76,8 @@ body {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 16px 40px;
+    /* Updated padding for more left shift */
+    padding: 16px 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -247,7 +248,8 @@ body {
 
 .search-input {
     padding: 12px 20px 12px 45px;
-    min-width: 400px;
+    /* EXTENDED WIDTH */
+    min-width: 500px;
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 30px;
     background: rgba(255, 255, 255, 0.08);
@@ -855,7 +857,7 @@ body {
     }
     
     .header-container {
-        padding: 12px 20px;
+        padding: 12px 5px; /* Further reduced padding */
     }
     
     .search-input {
@@ -879,7 +881,7 @@ body {
 
 @media (max-width: 768px) {
     .header-container {
-        padding: 12px 20px;
+        padding: 12px 5px; /* Further reduced padding */
         flex-wrap: wrap;
     }
 
