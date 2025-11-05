@@ -76,7 +76,6 @@ body {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* Updated padding for more left shift */
     padding: 16px 5px;
     display: flex;
     justify-content: space-between;
@@ -240,15 +239,29 @@ body {
     visibility: visible;
 }
 
-/* ===== ENHANCED SEARCH BOX ===== */
+/* ========== UPDATED: ENHANCED SEARCH BOX WITH SVG ICON ========== */
 .search-box {
     position: relative;
     margin: 0 30px;
+    display: flex;
+    align-items: center;
+}
+
+/* NEW: SVG Search Icon Styling */
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    stroke: rgba(212, 175, 55, 0.7);
+    pointer-events: auto; /* Changed from none to allow clicks */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1;
 }
 
 .search-input {
-    padding: 12px 20px 12px 45px;
-    /* EXTENDED WIDTH */
+    padding: 12px 20px 12px 50px; /* Added left padding for icon */
     min-width: 500px;
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 30px;
@@ -257,16 +270,6 @@ body {
     font-size: 0.9rem;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-}
-
-.search-box::before {
-    content: '🔍';
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 16px;
-    pointer-events: none;
 }
 
 .search-input:focus {
@@ -280,6 +283,17 @@ body {
 .search-input::placeholder {
     color: rgba(255, 255, 255, 0.6);
 }
+
+/* NEW: Search pulse animation for icon */
+@keyframes searchPulse {
+    0%, 100% {
+        transform: translateY(-50%) scale(1);
+    }
+    50% {
+        transform: translateY(-50%) scale(1.2);
+    }
+}
+/* ========== END OF SEARCH BOX UPDATE ========== */
 
 /* ===== ENHANCED NAV ACTIONS WITH BOLDER ICONS ===== */
 .nav-actions {
@@ -857,9 +871,10 @@ body {
     }
     
     .header-container {
-        padding: 12px 5px; /* Further reduced padding */
+        padding: 12px 5px;
     }
     
+    /* UPDATED: Responsive search box */
     .search-input {
         min-width: 250px;
     }
@@ -881,7 +896,7 @@ body {
 
 @media (max-width: 768px) {
     .header-container {
-        padding: 12px 5px; /* Further reduced padding */
+        padding: 12px 5px;
         flex-wrap: wrap;
     }
 
@@ -889,6 +904,7 @@ body {
         display: none;
     }
     
+    /* UPDATED: Mobile search box adjustments */
     .search-box {
         order: 3;
         width: 100%;
