@@ -230,6 +230,7 @@
     transform: translateY(-50%);
     font-size: 16px;
     pointer-events: none;
+    z-index: 10;
 }
 
 .search-input:focus {
