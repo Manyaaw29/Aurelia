@@ -1,4 +1,4 @@
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -127,11 +127,11 @@
             left: 0;
             transform: translateY(5px);
             background-color: #fff;
-            min-width: 400px;
+            min-width: 200px; /* Reduced min-width since fewer items */
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0px 8px 24px rgba(0,0,0,0.3);
-            column-count: 2;
+            column-count: 1; /* Changed to 1 column for fewer items */
             column-gap: 20px;
             z-index: 99999;
             opacity: 0;
@@ -210,8 +210,8 @@
                 padding: 10px 15px;
             }
             .dropdown-content {
-                min-width: 300px;
-                left: -100px;
+                min-width: 200px;
+                left: 0; /* Keep dropdown aligned left */
             }
         }
 
@@ -322,16 +322,29 @@
         }
 
         .category-grid {
+            /* Updated to only show 4 columns (for the 4 main categories) */
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr); 
             gap: 25px;
+        }
+
+        @media (max-width: 1200px) {
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .category-grid {
+                grid-template-columns: 1fr; /* 1 column on small screens */
+            }
         }
 
         .category-card {
             position: relative;
             border-radius: 16px;
             overflow: hidden;
-            height: 250px;
+            height: 320px; /* INCREASED HEIGHT */
             cursor: pointer;
             transition: all 0.4s ease;
             text-decoration: none;
@@ -707,4 +720,3 @@
                 padding: 0 20px;
             }
         }
-    
