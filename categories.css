@@ -291,7 +291,7 @@ body {
 }
 
 .nav-icon {
-    color: rgba(255, 255, 255, 0.9);
+    color: inherit;
     cursor: pointer;
     transition: all 0.3s ease;
     padding: 10px;
@@ -444,6 +444,12 @@ body {
     margin-bottom: 60px;
 }
 
+.product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .product-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -452,8 +458,6 @@ body {
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: block;
-    text-decoration: none;
-    color: inherit;
 }
 
 .product-card:hover {
