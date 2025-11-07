@@ -172,8 +172,7 @@ body {
     padding: 20px; /* Adjusted padding */
     border-radius: 16px; /* Adjusted border radius */
     box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4); /* Stronger shadow */
-    column-count: 2; /* Kept for potential mega menu, but width is smaller now */
-    column-gap: 20px;
+    column-count: 1; /* Kept for potential mega menu, but width is smaller now */
     z-index: 99999;
     opacity: 0;
     visibility: hidden;
