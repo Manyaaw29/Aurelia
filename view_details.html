@@ -201,6 +201,79 @@
     </div>
         </div>
     </footer>
+    <script>
+// ======= Newsletter Form Validation =======
+document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const input = document.querySelector('.newsletter-input');
+    const email = input.value.trim();
+
+    if (!email || !email.includes('@') || !email.includes('.')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+
+    // Simulate successful subscription
+    alert('🎉 Thank you for subscribing to Aurelia!');
+    input.value = '';
+});
+
+// ======= Smooth Scroll to Order History =======
+document.querySelector('a[href="myorder.html"]').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+        window.location.href = this.href;
+    }, 600);
+});
+
+// ======= Copy Order ID Feature =======
+const orderIdElement = document.querySelector('.order-id');
+if (orderIdElement) {
+    const copyButton = document.createElement('button');
+    copyButton.textContent = '📋 Copy';
+    copyButton.style.marginLeft = '10px';
+    copyButton.style.padding = '3px 10px';
+    copyButton.style.border = 'none';
+    copyButton.style.borderRadius = '10px';
+    copyButton.style.background = '#D4AF37';
+    copyButton.style.color = '#000';
+    copyButton.style.cursor = 'pointer';
+    copyButton.style.fontSize = '0.8rem';
+    copyButton.style.transition = 'background 0.3s ease';
+
+    copyButton.addEventListener('mouseover', () => copyButton.style.background = '#f0c94d');
+    copyButton.addEventListener('mouseout', () => copyButton.style.background = '#D4AF37');
+
+    copyButton.addEventListener('click', () => {
+        const text = orderIdElement.textContent.split('|')[0].trim();
+        navigator.clipboard.writeText(text);
+        copyButton.textContent = '✅ Copied!';
+        setTimeout(() => (copyButton.textContent = '📋 Copy'), 1500);
+    });
+
+    orderIdElement.appendChild(copyButton);
+}
+
+// ======= Social Icons Hover Animation =======
+document.querySelectorAll('.social-icon').forEach(icon => {
+    icon.addEventListener('mouseenter', () => {
+        icon.style.transform = 'scale(1.15)';
+        icon.style.transition = 'transform 0.3s ease';
+    });
+    icon.addEventListener('mouseleave', () => {
+        icon.style.transform = 'scale(1)';
+    });
+});
+
+// ======= Dynamic Year in Footer =======
+const footerText = document.querySelector('.footer-bottom p');
+if (footerText) {
+    const year = new Date().getFullYear();
+    footerText.innerHTML = `© ${year} Aurelia Jewelry. All rights reserved.`;
+}
+</script>
 
 </body>
+
 </html>
