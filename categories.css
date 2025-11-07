@@ -450,6 +450,22 @@ body {
     display: block;
 }
 
+.product-card-link,
+a.product-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    outline: none;
+}
+
+/* ensure anchor elements with .product-card don't show default focus/outline */
+a.product-card:focus,
+.product-card-link:focus,
+.product-card:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .product-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 16px;
@@ -459,13 +475,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     display: block;
 }
-
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
-    border-color: rgba(212, 175, 55, 0.3);
-}
-
 .product-image {
     width: 100%;
     height: 200px;
