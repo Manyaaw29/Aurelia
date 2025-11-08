@@ -6,7 +6,7 @@
 <title>Aurelia - Evil Eye Bracelet</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" href="matching.css">
+<link rel="stylesheet" href="../matching.css">
 </head>
 <body>
 
@@ -35,9 +35,29 @@
     </div>
 
     <div class="nav-actions">
-      <a href="wishlist.html" class="nav-icon"><i class="fa-regular fa-heart"></i></a>
-      <a href="account.html" class="nav-icon"><i class="fa-regular fa-user"></i></a>
-      <a href="cart.html" class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></a>
+       <a href="wishlist.html" class="nav-icon wishlist-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+            </path>
+          </svg>
+        </a>
+        <a href="account.html" class="nav-icon account-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
+        <a href="cart.html" class="nav-icon cart-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+        </a>
     </div>
   </div>
 </header>
@@ -90,27 +110,78 @@
           <img src="https://palmonas.com/cdn/shop/files/RG261_2.jpg?v=1744524208&width=1000" alt="Matching Ring">
           <a href="matching3.html"><img src="https://palmonas.com/cdn/shop/files/DSC00324_6b58cfcc-991a-4329-8395-abb2a2195627.jpg?v=1744524271" alt="Matching Earrings"></a>
         </div>
-      </div>
 
-      <div class="suggested-items">
-        <h2>You May Also Like</h2>
-        <div class="suggested-wrapper">
-          <div class="suggested-item">
-            <img src="https://palmonas.com/cdn/shop/files/PM-BRACELETS-027.jpg?v=1745909284&width=800" alt="Golden Mesh Bar Bracelet">
-            <div class="item-name">Golden Mesh Bar Bracelet</div>
-            <div class="item-price">₹4,299</div>
-          </div>
-          <div class="suggested-item">
-            <img src="https://palmonas.com/cdn/shop/files/BR142_1.jpg?v=1744524524&width=800" alt="Gold Interlink Bracelet">
-            <div class="item-name">Gold Interlink Bracelet</div>
-            <div class="item-price">₹4,799</div>
-          </div>
-          <div class="suggested-item">
-            <img src="https://palmonas.com/cdn/shop/files/SSWBR0517_1_1.jpg?v=1754041875" alt="Silver Dual Charm Bracelet">
-            <div class="item-name">Silver Dual Charm Bracelet</div>
-            <div class="item-price">₹3,499</div>
-          </div>
-        </div>
+        
+        <!-- Suggested Items Section -->
+        <div class="suggested-items">
+          <h2>You May Also Like</h2>
+          <div class="suggested-wrapper">
+            
+           <a href="../bracelets/product11.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/BR167-1_06a71363-6b06-4651-9ea0-99dc0d492a9b.jpg?v=1744524363&width=900" alt="">
+              <div class="item-name">Solitary Spark Bracelet</div>
+              <div class="item-price">₹3,899</div>
+            </a>
+
+            <a href="../rings/product5.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/RG164_1_ae769c26-5c65-413a-bf8d-d08fd22f64b9.jpg?v=1744526556&width=900" alt="">
+              <div class="item-name">Chevron Ring</div>
+              <div class="item-price">₹3,989</div>
+            </a>
+
+            <a href="../necklaces/product2.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/NK484-MD2_62386ed4-932f-4a2e-8365-0bdb191525e6.jpg?v=1748420308&width=1000" alt="">
+              <div class="item-name">Delicate Diamond Studded Necklace</div>
+              <div class="item-price">₹2,611</div>
+            </a>
+
+            <a href="../earrings/product7.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/fridaydrop10_1_9e3b260f-54d2-4dd5-89ba-a08ef743bf06.jpg?v=1744526611" alt="">
+              <div class="item-name">Curvy Embrace Earrings</div>
+              <div class="item-price">₹3,499</div>
+            </a>
+
+            <a href="../earrings/product8.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/butterfly_6b03725e-3bda-43d4-9804-3eebda758a11.jpg?v=1744527016" alt="">
+              <div class="item-name">Butterfly Wing Stud Earrings</div>
+              <div class="item-price">₹1,959</div>
+            </a>
+
+            <a href="../necklaces/product10.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/PM-NECKLACE-055_1_d544969c-adbe-440f-9ad2-941718455fda.jpg?v=1745909948&width=1000" alt="">
+              <div class="item-name">Black Onyx Two Layer Necklace</div>
+              <div class="item-price">₹2,471</div>
+            </a>
+
+            <a href="../bracelets/product5.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/PM-BRACELETS-012_1.jpg?v=1744528623&width=900" alt="">
+              <div class="item-name">Small Bar Bracelet</div>
+              <div class="item-price">₹3,899</div>
+            </a>
+
+            <a href="../rings/product2.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/Artboard5_7.jpg?v=1761797858&width=900" alt="">
+              <div class="item-name">Thin Twig Ring</div>
+              <div class="item-price">₹1,799</div>
+            </a>
+
+            <a href="../bracelets/product8.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/PM-BRACELETS-027_935c2a30-fcff-4f5f-a9d6-5cc7c5043822.jpg?v=1745909284" alt="">
+              <div class="item-name">Infinity Wish Bracelet</div>
+              <div class="item-price">₹4,299</div>
+            </a>
+
+            <a href="../earrings/product9.html" class="suggested-item">
+              <img src="https://palmonas.com/cdn/shop/files/ER153_2_7b635fdc-e3d3-418a-af16-3e2d34f010a9.jpg?v=1744526505" alt="">
+              <div class="item-name">Pearl Hook Earrings</div>
+              <div class="item-price">₹2,499</div>
+            </a>
+
+          
+
+      </div>
+    </div>
+
       </div>
     </div>
 
@@ -144,9 +215,21 @@
       </div>
 
       <div class="guarantee-section">
-        <div class="guarantee-item">🛡 1-Year Warranty — Covers clasp & plating</div>
-        <div class="guarantee-item">🚚 Express Delivery — Ships in 2–4 days</div>
-        <div class="guarantee-item">💎 Certified Quality — Nickel-free & skin-safe</div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🛡</span>
+          <div class="guarantee-title">Lifetime Warranty</div>
+          <div class="guarantee-desc">Free repair & maintenance</div>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🚚</span>
+          <div class="guarantee-title">Express Delivery</div>
+          <div class="guarantee-desc">Free shipping on all orders</div>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">💎</span>
+          <div class="guarantee-title">Certified Quality</div>
+          <div class="guarantee-desc">Hallmarked & authenticated</div>
+        </div>
       </div>
 
       <div class="button-section">
@@ -182,7 +265,73 @@
           <div class="review-item">
             <div class="review-stars">★★★★★</div>
             <div class="review-name">Meera Jain - June 2025</div>
-            <div class="review-text">I’ve been wearing it for weeks, and it still looks brand new. It’s now my favorite statement piece!</div>
+            <div class="review-text">I've been wearing it for weeks, and it still looks brand new. It's now my favorite statement piece!</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Vikram Malhotra - June 2025</div>
+            <div class="review-text">Bought this for my girlfriend's anniversary gift. She was thrilled! The cuff design is romantic and the quality exceeded expectations.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★☆☆</div>
+            <div class="review-name">Riya Kapoor - May 2025</div>
+            <div class="review-text">Pretty bracelet but took longer to deliver than expected. Quality is good though, and customer service was helpful when I inquired about shipping.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Deepak Agarwal - May 2025</div>
+            <div class="review-text">Excellent craftsmanship! The hammered texture is perfectly executed. My wife wears it daily and it still looks brand new after months.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★☆</div>
+            <div class="review-name">Pooja Sinha - April 2025</div>
+            <div class="review-text">Love the design and feel of this bracelet. Goes well with both ethnic and western outfits. The fit is comfortable and secure.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Amit Kumar - April 2025</div>
+            <div class="review-text">Perfect Valentine's Day gift! My partner loves how bold and elegant it looks. The packaging was also very premium.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★☆</div>
+            <div class="review-name">Shreya Nair - March 2025</div>
+            <div class="review-text">Beautiful bracelet with intricate hammered details. Slightly heavier than expected but fits perfectly. Good value for money!</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Rohit Verma - March 2025</div>
+            <div class="review-text">Outstanding quality and finish. The gold has a rich, warm tone that looks expensive. Highly recommend this piece!</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Nikita Shah - February 2025</div>
+            <div class="review-text">This bracelet is a showstopper! Got so many compliments at my cousin's wedding. The cuff catches light beautifully and the comfort is amazing.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★☆☆</div>
+            <div class="review-name">Karan Bajaj - February 2025</div>
+            <div class="review-text">Good product but wish it came with better care instructions. The bracelet itself is lovely and my wife is happy with it.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★★</div>
+            <div class="review-name">Divya Rajput - January 2025</div>
+            <div class="review-text">Absolutely love this bracelet! The cuff design is so bold and the gold finish is flawless. Perfect addition to my jewelry collection.</div>
+          </div>
+
+          <div class="review-item">
+            <div class="review-stars">★★★★☆</div>
+            <div class="review-name">Priya Malhotra - January 2025</div>
+            <div class="review-text">Elegant and timeless piece. The bracelet is comfortable to wear all day and matches perfectly with my other gold jewelry.</div>
           </div>
         </details>
       </section>
@@ -191,58 +340,66 @@
 </div>
 
 <!-- Footer -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-content">
-      <div class="newsletter">
-        <h3>Stay Connected</h3>
-        <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
-        <form class="newsletter-form">
-          <input type="email" class="newsletter-input" placeholder="Enter your email">
-          <button type="submit" class="newsletter-button">Subscribe</button>
-        </form>
-      </div>
-
-      <div class="footer-links">
-        <h4>About</h4>
-        <ul>
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-links">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">Shipping</a></li>
-          <li><a href="#">Returns</a></li>
-          <li><a href="#">Size Guide</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-links">
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
-          <li><a href="#">Cookies</a></li>
-        </ul>
-      </div>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                 <div class="social-icons">
+      <a href="https://instagram.com" class="social-icon" target="_blank">
+        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://facebook.com" class="social-icon" target="_blank">
+        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://pinterest.com" class="social-icon" target="_blank">
+        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
+      <a href="https://twitter.com" class="social-icon" target="_blank">
+        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+      </a>
     </div>
-
-    <div class="footer-bottom">
-      <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
-      <div class="social-icons">
-        <a href="https://instagram.com"><i class="fab fa-instagram" style="color: #D4AF37;"></i></a>
-        <a href="https://facebook.com"><i class="fab fa-facebook-f" style="color: #D4AF37;"></i></a>
-        <a href="https://pinterest.com"><i class="fab fa-pinterest-p" style="color: #D4AF37;"></i></a>
-        <a href="https://twitter.com"><i class="fab fa-twitter" style="color: #D4AF37;"></i></a>
-      </div>
-    </div>
-  </div>
-</footer>
+            </div>
+        </div>
+    </footer>
 
 </body>
 </html>
