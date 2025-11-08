@@ -431,12 +431,21 @@
             transition: all 0.4s ease;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            outline: none;
         }
 
         .product-card:hover {
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
             border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        .product-card:focus {
+            outline: none;
+            box-shadow: none;
         }
 
         .product-image {
@@ -498,31 +507,6 @@
         .action-icon.active {
             background: #D4AF37;
             color: #000;
-        }
-
-        .shop-more-section {
-            text-align: center;
-            padding: 40px 0 80px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .shop-more-btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: #D4AF37;
-            color: #000000;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .shop-more-btn:hover {
-            background: #F4D03F;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
         }
 
         .footer {

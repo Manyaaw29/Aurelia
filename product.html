@@ -21,7 +21,7 @@
             <a href="homepage.html" class="logo">Aurelia</a>
             
             <nav class="nav-links">
-                <a href="collections.html" class="nav-link">Latest Collections</a>
+                <a href="product.html" class="nav-link">Latest Collections</a>
                 <div class="dropdown">
                     <button class="dropbtn nav-link">
                         Categories <span class="dropdown-arrow">▼</span>
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
-                <a href="about.html" class="nav-link">About Us</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
             </nav>
 
             <div class="search-box">
@@ -105,21 +105,17 @@
         </div>
     </section>
 
-    <!-- Recently Viewed Section -->
+    <!-- Recommended for You Section -->
     <section class="product-section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Recently Viewed</h2>
+                <h2 class="section-title">Recommended for You</h2>
             </div>
-            <div id="recentlyViewedGrid" class="products-grid">
+            <div id="recommendedGrid" class="products-grid">
                 <div class="loading">Loading products...</div>
             </div>
         </div>
     </section>
-
-    <div class="shop-more-section">
-        <a href="#" class="shop-more-btn">Shop More</a>
-    </div>
 
     <footer class="footer">
         <div class="container">
@@ -195,6 +191,7 @@
                 this.image = data.image;
                 this.category = data.category;
                 this.description = data.description || '';
+                this.productPage = data.productPage || '#';
             }
 
             getFormattedPrice() {
@@ -203,7 +200,7 @@
 
             renderHTML() {
                 return `
-                    <div class="product-card" data-id="${this.id}" data-category="${this.category}">
+                    <a href="${this.productPage}" class="product-card" data-id="${this.id}" data-category="${this.category}">
                         <div class="product-image" style="background-image: url('${this.image}');"></div>
                         <div class="product-info">
                             <div class="product-name">${this.name}</div>
@@ -215,7 +212,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 `;
             }
         }
@@ -248,6 +245,7 @@
                 // Wishlist functionality
                 container.querySelectorAll('.wishlist-icon').forEach(icon => {
                     icon.addEventListener('click', (e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         icon.classList.toggle('active');
                         const productId = icon.getAttribute('data-id');
@@ -261,6 +259,7 @@
                 // Compare functionality
                 container.querySelectorAll('.compare-icon').forEach(icon => {
                     icon.addEventListener('click', (e) => {
+                        e.preventDefault();
                         e.stopPropagation();
                         icon.classList.toggle('active');
                         const productId = icon.getAttribute('data-id');
@@ -402,7 +401,7 @@
         // Collections
         let newArrivalsCollection;
         let mostGiftedCollection;
-        let recentlyViewedCollection;
+        let recommendedCollection;
         let allProducts = [];
 
         // Fetch and render products
@@ -416,24 +415,24 @@
                 // Create collections
                 newArrivalsCollection = new ProductCollection('New Arrivals');
                 mostGiftedCollection = new ProductCollection('Most Gifted');
-                recentlyViewedCollection = new ProductCollection('Recently Viewed');
+                recommendedCollection = new ProductCollection('Recommended for You');
 
                 // Add products to collections
                 newArrivalsCollection.addProducts(data.collections.newArrivals);
                 mostGiftedCollection.addProducts(data.collections.mostGifted);
-                recentlyViewedCollection.addProducts(data.collections.recentlyViewed);
+                recommendedCollection.addProducts(data.collections.recommended);
 
                 // Store all products for search
                 allProducts = [
                     ...newArrivalsCollection.products,
                     ...mostGiftedCollection.products,
-                    ...recentlyViewedCollection.products
+                    ...recommendedCollection.products
                 ];
 
                 // Render products
                 newArrivalsCollection.render('newArrivalsGrid');
                 mostGiftedCollection.render('mostGiftedGrid');
-                recentlyViewedCollection.render('recentlyViewedGrid');
+                recommendedCollection.render('recommendedGrid');
 
                 console.log('Products loaded successfully!');
                 console.log('Total products:', allProducts.length);
@@ -446,7 +445,7 @@
 
         // Show error message
         function showError(message) {
-            const grids = ['newArrivalsGrid', 'mostGiftedGrid', 'recentlyViewedGrid'];
+            const grids = ['newArrivalsGrid', 'mostGiftedGrid', 'recommendedGrid'];
             grids.forEach(gridId => {
                 const container = document.getElementById(gridId);
                 if (container) {
@@ -588,7 +587,7 @@
             newsletter,
             newArrivalsCollection,
             mostGiftedCollection,
-            recentlyViewedCollection,
+            recommendedCollection,
             allProducts
         };
     </script>

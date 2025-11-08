@@ -586,6 +586,18 @@ body {
     gap: 40px;
 }
 
+a.product-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    outline: none;
+}
+
+a.product-card:focus {
+    outline: none;
+    box-shadow: none;
+}
+
 .product-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 20px;

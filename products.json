@@ -7,7 +7,8 @@
         "price": 2229,
         "image": "https://palmonas.com/cdn/shop/files/01_e869a853-ae2b-4543-8f22-61455b80f6a6.webp?v=1744528231&width=1000",
         "category": "Bracelets",
-        "description": "Elegant gold bracelet with heart motifs"
+        "description": "Elegant gold bracelet with heart motifs",
+        "productPage": "products/bracelets/product1.html"
       },
       {
         "id": 2,
@@ -15,23 +16,26 @@
         "price": 2258,
         "image": "https://palmonas.com/cdn/shop/files/PM-EARRINGS-032_3_0040.jpg?v=1744528692&width=1000",
         "category": "Earrings",
-        "description": "Classic solitaire hoop earrings"
+        "description": "Classic solitaire hoop earrings",
+        "productPage": "products/earrings/product2.html"
       },
       {
         "id": 3,
-        "name": "Greenstone Enigma Ring",
-        "price": 2611,
-        "image": "https://palmonas.com/cdn/shop/files/RG261_2.jpg?v=1744524208&width=1000",
+        "name": "Glossy Enamel Ring",
+        "price": 4299,
+        "image": "https://assets-jiocdn.ajio.com/medias/sys_master/root/20230720/fr1X/64b961baeebac147fc7f8ade/-473Wx593H-466374171-gold-MODEL.jpg",
         "category": "Rings",
-        "description": "Mysterious greenstone ring design"
+        "description": " Stylish glossy enamel ring",
+        "productPage": "products/rings/product10.html"
       },
       {
         "id": 4,
-        "name": "Golden Infinity Necklace",
-        "price": 2235,
-        "image": "https://palmonas.com/cdn/shop/files/DSC09655_055ee629-d651-4e12-9293-f1be17bfc29f.jpg?v=1744524152&width=1000",
+        "name": "Ribbon Pendant Necklace",
+        "price": 1611,
+        "image": "https://palmonas.com/cdn/shop/files/PMW01NC030_2_398d341a-ddb6-4c65-a72e-0883c6c8b3a5.jpg?v=1744519728",
         "category": "Necklaces",
-        "description": "Timeless infinity symbol necklace"
+        "description": "Delicate ribbon pendant necklace",
+        "productPage": "products/necklaces/product4.html"
       },
       {
         "id": 5,
@@ -39,7 +43,8 @@
         "price": 3699,
         "image": "https://palmonas.com/cdn/shop/files/SSWRG0502-A_1.jpg?v=1749557671",
         "category": "Rings",
-        "description": "Multicolour Heart Open Ring"
+        "description": "Multicolour Heart Open Ring",
+        "productPage": "products/rings/product1.html"
       },
       {
         "id": 6,
@@ -47,7 +52,8 @@
         "price": 2258,
         "image": "https://palmonas.com/cdn/shop/files/BR090G-4.jpg?v=1744526375&width=1000",
         "category": "Bracelets",
-        "description": "gold-plated bracelet"
+        "description": "gold-plated bracelet",
+        "productPage": "products/bracelets/product3.html"
       },
       {
         "id": 7,
@@ -55,7 +61,8 @@
         "price": 2235,
         "image": "https://palmonas.com/cdn/shop/files/ER-117_11bf7df1-3fa4-464f-8cb4-60b85e0ddc06.jpg?v=1749035189",
         "category": "Earrings",
-        "description": "18k gold plated emerald hoop earrings"
+        "description": "18k gold plated emerald hoop earrings",
+        "productPage": "products/earrings/product4.html"
       },
       {
         "id": 8,
@@ -63,75 +70,84 @@
         "price": 2258,
         "image": "https://palmonas.com/cdn/shop/files/PM-NECKLACE-170_4.jpg?v=1745910303&width=1000",
         "category": "Necklaces",
-        "description": "Plain Chain Two Layer Necklace"
+        "description": "Plain Chain Two Layer Necklace",
+        "productPage": "products/necklaces/product7.html"
       }
     ],
     "mostGifted": [
       {
         "id": 9,
-        "name": "Halo Hoop Earrings Medium Gold",
-        "price": 2499,
-        "image": "https://www.silkandsteel.co.nz/cdn/shop/files/Silk-and-Steel-Jewellery-Halo-44b_f89b98cc-4d77-4c78-8ffd-701a90489ea5.jpg?v=1750304501&width=1800",
-        "category": "Earrings",
-        "description": "Classic golden hoop earrings"
+        "name": "Chunky Textured Cuff Bracelet",
+        "price": 3499,
+        "image": "https://palmonas.com/cdn/shop/files/SSWBR0517_1.jpg?v=1754041875",
+        "category": "Bracelets",
+        "description": "Chunky Textured Cuff Bracelet",
+        "productPage": "products/bracelets/product9.html"
       },
       {
         "id": 10,
-        "name": "Elegant Ring",
-        "price": 4999,
-        "image": "https://www.ootbjewelry.com/wp-content/uploads/2025/08/how-many-rings-should-a-woman-wear.webp",
-        "category": "Rings",
-        "description": "Sophisticated elegant ring"
+        "name": "Pearl Drop Heart Earrings",
+        "price": 3999,
+        "image": "https://palmonas.com/cdn/shop/files/FRIDAYDROP_11_276348f6-d40e-40c2-bd4b-05c37855f5ce.jpg?v=1744526472",
+        "category": "Earrings",
+        "description": "Elegant pearl drop heart earrings",
+        "productPage": "products/earrings/product11.html"
       },
       {
         "id": 11,
-        "name": "Golden Elegant",
-        "price": 3999,
-        "image": "https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748",
-        "category": "Earrings",
-        "description": "Premium golden earrings"
+        "name": "Paris Heart Necklace",
+        "price": 999,
+        "image": "https://palmonas.com/cdn/shop/files/DSC09656_cb5c9c91-a023-49be-ac39-4e632b29db41.jpg?v=1744529085&width=1000",
+        "category": "Necklaces",
+        "description": "Chic heart pendant necklace",
+        "productPage": "products/necklaces/product9.html"
       },
       {
         "id": 12,
-        "name": "Rose Gold Ring",
-        "price": 2999,
-        "image": "https://png.pngtree.com/thumb_back/fh260/background/20240207/pngtree-a-diamond-engagement-ring-with-round-brilliant-image_15623471.jpg",
+        "name": "Blush Bloom Rose Gold Ring",
+        "price": 2599,
+        "image": "https://palmonas.com/cdn/shop/files/DSC00351.jpg?v=1756363976&width=900",
         "category": "Rings",
-        "description": "Beautiful rose gold ring"
+        "description": "  Delicate rose gold ring with floral design",
+        "productPage": "products/rings/product6.html"
       }
     ],
-    "recentlyViewed": [
+    "recommended": [
       {
         "id": 13,
-        "name": "Toe Rings",
-        "price": 2459,
-        "image": "https://m.media-amazon.com/images/I/51Vn4YfukgL._UY1100_.jpg",
-        "category": "Toe Rings",
-        "description": "Traditional toe ring set"
+        "name": "Round Soltaire Necklace",
+        "price": 2991,
+        "image": "https://palmonas.com/cdn/shop/files/NK390-3_57103915-34f0-4fc6-a913-13d4091cc5e4.jpg?v=1744526106&width=1000",
+        "category": "Necklaces",
+        "description": "Simple round solitaire pendant necklace",
+        "productPage": "products/necklaces/product3.html"
       },
       {
         "id": 14,
-        "name": "Classic Pearl Choker",
-        "price": 3499,
-        "image": "https://mediacloud.saffronart.com/auctions/2009/jewel04/emedecochokr_9jw090218_big.jpg",
-        "category": "Choker",
-        "description": "Elegant pearl choker necklace"
+        "name": "Cross-Over Stones Lined Twist Ring",
+        "price": 5499,
+        "image": "https://roohjewel.in/cdn/shop/files/FC905209-78B1-469E-9A1E-118CD64A53A9.jpg?v=1738000498&width=1445",
+        "category": "Rings",
+        "description": "Elegant cross-over twist ring with stones",
+        "productPage": "products/rings/product9.html"
       },
       {
         "id": 15,
-        "name": "Elegant Hair Clip",
-        "price": 2499,
-        "image": "https://assets0.mirraw.com/images/12873597/image_zoom.jpeg?1727795194",
-        "category": "Hair Accessories",
-        "description": "Decorative hair clip"
+        "name": "Multi Stone Q Clasp Bracelet",
+        "price": 4799,
+        "image": "https://palmonas.com/cdn/shop/files/BR082G.jpg?v=1744526804",
+        "category": "Bracelets",
+        "description": " Multi stone bracelet with Q clasp",
+        "productPage": "products/bracelets/product6.html"
       },
       {
         "id": 16,
-        "name": "Diamond Earrings",
-        "price": 36499,
-        "image": "https://stylishlooks.in/wp-content/uploads/2023/01/Round-Brilliant-Cut-Cubic-Zirconia-Stud-Earrings-2.webp",
+        "name": "Diamond Studded Hoop Earrings",
+        "price": 2299,
+        "image": "https://palmonas.com/cdn/shop/files/er1542_23141ee9-0ab7-47f8-8a29-e7e7d590feaf.jpg?v=1744526497",
         "category": "Earrings",
-        "description": "Luxury diamond stud earrings"
+        "description": "Luxurious diamond studded hoop earrings",
+        "productPage": "products/earrings/product1.html"
       }
     ]
   },
