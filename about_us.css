@@ -1,4 +1,3 @@
-/* --- Root and Base Styles (Merged) ---------------------------------------- */
 :root {
     --color-dark-bg: #0D2818;
     --color-light-bg: #1A3D2E;
@@ -27,7 +26,7 @@ body {
     flex-direction: column;
     /* REQUIRED: Padding to clear fixed header (Offer Bar 45px + Header ~45px) */
     padding-top: 90px;
-    overflow-x: hidden; /* Prevent horizontal scroll from minor layout shifts */
+    overflow-x: hidden;
 }
 
 main {
@@ -46,20 +45,28 @@ main {
     display: none;
 }
 
-#ethos-toggle:checked~#ethos-content {
+#ethos-toggle:checked ~ #ethos-content {
     opacity: 1;
     visibility: visible;
     pointer-events: all;
 }
 
-#load-more-toggle:checked~.hidden-news {
-    max-height: 500px;
+#load-more-toggle:checked ~ main .hidden-news {
+    max-height: 5000px;
     opacity: 1;
     padding: 10px 0;
 }
 
-#load-more-toggle:checked~.read-more-btn {
+#load-more-toggle:checked ~ main .read-more-btn {
     display: none;
+}
+
+.hidden-news {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.8s ease;
+    padding: 0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -73,7 +80,7 @@ main {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: fixed;
-    top: 45px;
+    top: 0;
     left: 0;
     z-index: 9999;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -83,7 +90,6 @@ main {
 .header-container {
     max-width: 1400px;
     margin: 0 auto;
-    /* Updated padding for more left shift */
     padding: 16px 5px;
     display: flex;
     justify-content: space-between;
@@ -255,7 +261,6 @@ main {
 
 .search-input {
     padding: 12px 20px 12px 45px;
-    /* EXTENDED WIDTH */
     min-width: 500px;
     border: 2px solid rgba(212, 175, 55, 0.3);
     border-radius: 30px;
@@ -484,7 +489,6 @@ main {
     border-radius: 8px;
     text-decoration: none;
     color: inherit;
-    display: flex;
 }
 
 .top-story-card:hover {
@@ -535,6 +539,7 @@ main {
     letter-spacing: 0.8px;
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .cta-btn:hover {
