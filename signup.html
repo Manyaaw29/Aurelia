@@ -5,9 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Aurelia Jewelry</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="signup.css">
 </head>
 <body>
+
+    
+    <!-- Enhanced Offer Bar -->
+<div class="offer-bar">
+    <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code:</span>
+    <span class="offer-code">DIWALI</span>
+</div>
+
+<!-- Enhanced Header -->
+<header class="header">
+    <div class="header-container">
+        <a href="homepage.html" class="logo">Aurelia</a>
+        
+        <nav class="nav-links">
+            <a href="collections.html" class="nav-link">Latest Collections</a>
+            <div class="dropdown">
+                <button class="dropbtn nav-link">
+                    Categories <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="rings.html">Rings</a>
+                    <a href="bracelets.html">Bracelets</a>
+                    <a href="earrings.html">Earrings</a>
+                    <a href="necklaces.html">Necklaces</a>
+                </div>
+            </div>
+            <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+            <a href="about_us.html" class="nav-link">About Us</a>
+        </nav>
+
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search jewelry...">
+        </div>
+
+        <div class="nav-actions">
+            <a href="wishlist.html" class="nav-icon wishlist-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </a>
+            <a href="account.html" class="nav-icon account-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="cart.html" class="nav-icon cart-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+            </a>
+        </div>
+    </div>
+</header>
+
     <div class="jewelry-bg">
         <div class="jewel-item">💎</div>
         <div class="jewel-item">👑</div>
@@ -65,45 +123,63 @@
         </div>
     </main>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="newsletter">
-                <h3>Stay Connected</h3>
-                <p>Subscribe to our newsletter for exclusive offers and new arrivals</p>
-                <form class="newsletter-form">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email">
-                    <button type="submit" class="newsletter-button">Subscribe</button>
-                </form>
+   <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-links">
-                <h4>About</h4>
-                <ul>
-                    <li><a href="#">Our Story</a></li>
-                    <li><a href="#">Careers</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Support</h4>
-                <ul>
-                    <li><a href="#">Shipping</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4>Legal</h4>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2024 Aurelia Jewelry. All rights reserved.</p>
-            <div class="social-icons">
-                <div class="social-icon"></div>
-                <div class="social-icon"></div>
-                <div class="social-icon"></div>
+            
+            <div class="footer-bottom">
+                <p style="color: var(--color-text-grey); font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://facebook.com" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://pinterest.com" class="social-icon" target="_blank">
+                        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
