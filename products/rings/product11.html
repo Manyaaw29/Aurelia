@@ -185,7 +185,15 @@
 
     <!-- Right Column: Product Details -->
     <div class="product-details">
-      <h1 class="product-title">White Heart Ring</h1>
+      
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <h1 class="product-title" style="margin: 0;">White Heart Ring</h1>
+        <button id="wishlistBtn" style="background: none; border: none; cursor: pointer; padding: 5px; transition: all 0.3s ease;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
       <div class="price-section">
         <span class="current-price">₹1,999</span>
         <span class="original-price">₹2,199</span>
@@ -260,8 +268,8 @@
         </div>
 
         <!-- Collapsible Section -->
-        <details class="reviews-toggle">
-          <summary></summary>
+        <details class="reviews-toggle" id="reviewsToggle">
+            <summary id="showMoreReviews"></summary>
 
           <!-- Hidden reviews until "Show More" -->
           <div class="review-item">
@@ -354,7 +362,8 @@
             <div class="review-text">Premium quality bracelet with exquisite detailing. The heart charms are perfectly symmetrical and the clasp is very secure. Love it!</div>
           </div>
 
-        </details>
+        <summary id="showLessReviews" style="display: none;"></summary>
+          </details>
       </section>
 
     </div>
@@ -422,5 +431,294 @@
             </div>
         </div>
     </footer>
+
+    
+
+    
+
+    
+
+    <script>
+        // Product Class - Represents a jewelry product
+        class Product {
+            constructor(id, name, price, image, category) {
+                this.id = id;
+                this.name = name;
+                this.price = price;
+                this.image = image;
+                this.category = category;
+            }
+
+            getFormattedPrice() {
+                return `₹${this.price.toLocaleString('en-IN')}`;
+            }
+        }
+
+        // CartItem Class - Represents an item in the cart
+        class CartItem {
+            constructor(product, quantity = 1) {
+                this.product = product;
+                this.quantity = quantity;
+            }
+
+            increaseQuantity() {
+                this.quantity++;
+            }
+
+            decreaseQuantity() {
+                if (this.quantity > 1) {
+                    this.quantity--;
+                }
+            }
+
+            getTotalPrice() {
+                return this.product.price * this.quantity;
+            }
+        }
+
+        // ShoppingCart Class - Manages the shopping cart
+        class ShoppingCart {
+            constructor() {
+                this.items = [];
+                this.cartBadge = null;
+            }
+
+            addItem(product) {
+                const existingItem = this.items.find(item => item.product.id === product.id);
+                
+                if (existingItem) {
+                    existingItem.increaseQuantity();
+                } else {
+                    this.items.push(new CartItem(product));
+                }
+                
+                this.updateCartBadge();
+                this.showNotification(`${product.name} added to cart!`);
+            }
+
+            getTotalItems() {
+                return this.items.reduce((total, item) => total + item.quantity, 0);
+            }
+
+            getTotalPrice() {
+                return this.items.reduce((total, item) => total + item.getTotalPrice(), 0);
+            }
+
+            getFormattedTotalPrice() {
+                return `₹${this.getTotalPrice().toLocaleString('en-IN')}`;
+            }
+
+            updateCartBadge() {
+                const cartIcon = document.querySelector('a[href="../../cart.html"]');
+                if (!this.cartBadge) {
+                    this.cartBadge = document.createElement('span');
+                    this.cartBadge.style.cssText = 'position: absolute; top: -8px; right: -8px; background: #D4AF37; color: #000; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 700;';
+                    cartIcon.style.position = 'relative';
+                    cartIcon.appendChild(this.cartBadge);
+                }
+                
+                const totalItems = this.getTotalItems();
+                this.cartBadge.textContent = totalItems;
+                this.cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+
+            showNotification(message) {
+                const notification = document.createElement('div');
+                notification.textContent = message;
+                notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);';
+                document.body.appendChild(notification);
+
+                // Add animation
+                notification.style.animation = 'slideInRight 0.3s ease';
+                
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            }
+
+            showBuyNowModal(product) {
+                // Create modal overlay
+                const modal = document.createElement('div');
+                modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 10002; animation: fadeIn 0.2s ease;';
+                
+                // Create modal content
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = 'background: linear-gradient(135deg, #1A3D2E, #0D2818); padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3); border: 2px solid #D4AF37; max-width: 450px; animation: scaleIn 0.3s ease;';
+                
+                modalContent.innerHTML = `
+                    <div class="jewel-icon">
+                        <img src="https://i.pinimg.com/originals/2e/8b/30/2e8b30e34db9d62f6b4f936f38ab7723.gif" alt="Gem Stone" style="width: 80px; height: 80px; mix-blend-mode: screen; border-radius: 50%;">
+                    </div>
+                    <h2 style="color: #D4AF37; font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px;">Proceeding to Checkout</h2>
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid rgba(212, 175, 55, 0.3);">
+                        <p style="color: #fff; font-size: 1.1rem; margin-bottom: 8px; font-weight: 600;">${product.name}</p>
+                        <p style="color: #D4AF37; font-size: 1.4rem; font-weight: 700;">${product.getFormattedPrice()}</p>
+                    </div>
+                    <div style="margin-top: 20px; color: #ccc; font-size: 0.9rem;">
+                        <div style="display: inline-block; animation: spin 1s linear infinite;">⏳</div>
+                        Redirecting...
+                    </div>
+                `;
+                
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                return modal;
+            }
+        }
+
+        // Initialize cart with current product
+        const currentProduct = new Product(
+            47,
+            'White Heart Ring',
+            1999,
+            'https://palmonas.com/cdn/shop/files/PM-RING-031.jpg?v=1744528593',
+            'Rings'
+        );
+
+        const cart = new ShoppingCart();
+
+        // Add functionality to buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const buyNowBtn = document.querySelector('.btn-primary');
+            const addToCartBtn = document.querySelector('.btn-secondary');
+
+            // Buy Now button
+            buyNowBtn.addEventListener('click', function() {
+                // Add item to cart silently (no notification)
+                const existingItem = cart.items.find(item => item.product.id === currentProduct.id);
+                if (existingItem) {
+                    existingItem.increaseQuantity();
+                } else {
+                    cart.items.push(new CartItem(currentProduct));
+                }
+                cart.updateCartBadge();
+
+                // Show modal and redirect
+                const modal = cart.showBuyNowModal(currentProduct);
+                setTimeout(() => {
+                    modal.remove();
+                    window.location.href = '../../checkout.html';
+                }, 3000);
+            });
+
+            // Add to Cart button
+            addToCartBtn.addEventListener('click', function() {
+                cart.addItem(currentProduct);
+            });
+
+            
+
+            
+        // Review toggle functionality
+        const reviewsToggle = document.getElementById('reviewsToggle');
+        const showMoreBtn = document.getElementById('showMoreReviews');
+        const showLessBtn = document.getElementById('showLessReviews');
+
+        if (reviewsToggle && showMoreBtn && showLessBtn) {
+            reviewsToggle.addEventListener('toggle', function() {
+                if (reviewsToggle.open) {
+                    // When opened, hide show more and show the show less button
+                    showMoreBtn.style.display = 'none';
+                    showLessBtn.style.display = 'block';
+                }
+            });
+
+            showLessBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                reviewsToggle.open = false;
+                showMoreBtn.style.display = 'block';
+                showLessBtn.style.display = 'none';
+                // Scroll back to reviews section
+                document.querySelector('.customer-reviews').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+
+            // Wishlist button functionality
+            const wishlistBtn = document.getElementById('wishlistBtn');
+            const wishlistIcon = wishlistBtn.querySelector('svg path');
+            let isInWishlist = false;
+
+            wishlistBtn.addEventListener('click', function() {
+                isInWishlist = !isInWishlist;
+                
+                if (isInWishlist) {
+                    // Fill the heart with solid red
+                    wishlistIcon.setAttribute('fill', '#FF0000');
+                    cart.showNotification(`${currentProduct.name} added to wishlist! ❤️`);
+                } else {
+                    // Remove fill, show only outline
+                    wishlistIcon.setAttribute('fill', 'none');
+                    cart.showNotification(`${currentProduct.name} removed from wishlist`);
+                }
+            });
+
+            // Hover effect for wishlist button
+            wishlistBtn.addEventListener('mouseenter', function() {
+                wishlistBtn.style.transform = 'scale(1.15)';
+            });
+
+            wishlistBtn.addEventListener('mouseleave', function() {
+                wishlistBtn.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+
+            @keyframes slideOutRight {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+
+            @keyframes scaleIn {
+                from {
+                    transform: scale(0.8);
+                    opacity: 0;
+                }
+                to {
+                    transform: scale(1);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
 </body>
 </html>
