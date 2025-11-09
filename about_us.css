@@ -40,7 +40,7 @@ main {
 }
 
 /* --- INTERACTIVITY FIXES (NO JS) --- */
-#load-more-toggle,
+/* #load-more-toggle has been removed from this rule */
 #ethos-toggle {
     display: none;
 }
@@ -51,15 +51,7 @@ main {
     pointer-events: all;
 }
 
-#load-more-toggle:checked ~ main .hidden-news {
-    max-height: 5000px;
-    opacity: 1;
-    padding: 10px 0;
-}
-
-#load-more-toggle:checked ~ main .read-more-btn {
-    display: none;
-}
+/* The :checked rules for #load-more-toggle have been removed */
 
 .hidden-news {
     max-height: 0;
@@ -67,6 +59,13 @@ main {
     overflow: hidden;
     transition: all 0.8s ease;
     padding: 0;
+}
+
+/* This new class will be added by JavaScript */
+.hidden-news.is-visible {
+    max-height: 5000px;
+    opacity: 1;
+    padding: 10px 0;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -375,13 +374,21 @@ main {
     gap: 5px;
 }
 
+/* MODIFIED: JUST STICKY */
 .sidebar-column {
     background: var(--color-card-dark-transparent);
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(212, 175, 55, 0.1);
+    
+    /* NEW STYLES: Sticky only */
+    position: sticky;
+    top: 120px; /* Adjusts to stick 120px below the viewport top (clear of the fixed header) */
+    /* max-height and overflow-y removed */
 }
+/* END MODIFIED */
+
 
 /* --- Hero Visual Section --- */
 .hero-visual {
@@ -532,17 +539,40 @@ main {
     border-radius: 35px;
     text-decoration: none;
     font-weight: 700;
-    margin-top: 25px;
+    /* Removed margin-top: 25px; from here, applied to #news-toggle-actions container */
     letter-spacing: 0.8px;
     box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
     transition: all 0.3s ease;
     cursor: pointer;
+    border: none; /* Added to ensure <button> looks like the <label> */
+    font-family: 'Inter', sans-serif; /* Added to ensure <button> looks like the <label> */
+    font-size: 1rem; /* Added to ensure <button> looks like the <label> */
 }
 
 .cta-btn:hover {
     transform: scale(1.05) translateY(-2px);
     box-shadow: 0 10px 30px rgba(212, 175, 55, 0.8);
 }
+
+/* --- NEW STYLES FOR READ MORE/LESS BUTTONS --- */
+#news-toggle-actions {
+    margin-top: 25px; /* Applies the spacing to the container */
+}
+
+.read-less-btn {
+    background: none;
+    color: var(--color-gold-light);
+    border: 2px solid var(--color-gold);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+}
+
+.read-less-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    color: var(--color-gold);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+/* --- END NEW STYLES --- */
 
 /* --- ETHOS OVERLAY STYLES --- */
 #ethos-content {

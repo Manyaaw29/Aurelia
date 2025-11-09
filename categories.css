@@ -554,6 +554,7 @@ a.product-card:focus,
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    font-size: 22px;
 }
 
 .action-icon:hover {
@@ -752,4 +753,43 @@ a.product-card:focus,
     .container {
         padding: 0 20px;
     }
+}
+
+
+
+/* Notification Styles */
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #D4AF37;
+    color: #000;
+    padding: 15px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    z-index: 10001;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
 }
