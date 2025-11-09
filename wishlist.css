@@ -843,3 +843,42 @@ body {
         flex-direction: column;
     }
 }
+
+   /* Inline Notification Styles - Just in case external CSS isn't loaded */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: 30px;
+            background: linear-gradient(135deg, #D4AF37, #F4D03F);
+            color: #000;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(212, 175, 55, 0.4);
+            z-index: 10001;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: slideIn 0.3s ease;
+            max-width: 350px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+        }
