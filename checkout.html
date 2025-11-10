@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,59 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aurelia - Checkout</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-   <link rel="stylesheet" href="checkout.css">
-   </head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="checkout.css">
+</head>
 <body>
 
     <!-- Enhanced Header -->
     <header class="header">
-    <div class="header-container">
-        <a href="homepage.html" class="logo">Aurelia</a>
-        
-        <nav class="nav-links">
-            <a href="product.html" class="nav-link">Latest Collections</a>
-            <div class="dropdown">
-                <button class="dropbtn nav-link">
-                    Categories <span class="dropdown-arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="rings.html">Rings</a>
-                    <a href="bracelets.html">Bracelets</a>
-                    <a href="earrings.html">Earrings</a>
-                    <a href="necklaces.html">Necklaces</a>
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+            
+            <nav class="nav-links">
+                <a href="product.html" class="nav-link">Latest Collections</a>
+                <div class="dropdown">
+                    <button class="dropbtn nav-link">
+                        Categories <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="rings.html">Rings</a>
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="necklaces.html">Necklaces</a>
+                    </div>
                 </div>
+                <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jewelry...">
             </div>
-            <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
-            <a href="about_us.html" class="nav-link">About Us</a>
-        </nav>
 
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search jewelry...">
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon wishlist-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </a>
+                <a href="account.html" class="nav-icon account-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="cart.html" class="nav-icon cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
-
-        <div class="nav-actions">
-            <a href="wishlist.html" class="nav-icon wishlist-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-            </a>
-            <a href="account.html" class="nav-icon account-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
-            <a href="cart.html" class="nav-icon cart-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-            </a>
-        </div>
-    </div>
-</header>
+    </header>
 
     <div class="checkout-container">
         <div class="checkout-header">
@@ -90,10 +91,16 @@
         <div class="checkout-main">
             <div class="checkout-left">
                 <div class="checkout-section">
-                    <h2 class="section-title">
+                    <h2 class="section-title with-actions">
                         <span class="section-icon">📍</span>
                         Shipping Information
+                        <div class="address-actions">
+                            <button type="button" class="edit-address-btn">✏️</button>
+                            <button type="button" class="save-address-btn" style="display: none;">✓</button>
+                            <button type="button" class="cancel-address-btn" style="display: none;">✕</button>
+                        </div>
                     </h2>
+                    <div class="address-notification"></div>
                     <form>
                         <div class="form-row">
                             <div class="form-group">
@@ -177,7 +184,6 @@
                                     </div>
                                     <div class="upi-app">
                                         <img src="images/phonepe.png" alt="PhonePe" style="width:2rem; height:2rem; object-fit:contain;">
-
                                         <div class="upi-app-name">PhonePe</div>
                                     </div>
                                     <div class="upi-app">
@@ -234,8 +240,7 @@
                         </label>
                     </div>
                 </div>
-                
-                </div>
+            </div>
 
             <div class="checkout-right">
                 <div class="order-summary">
@@ -275,26 +280,82 @@
                         <span style="color: #4CAF50;">FREE</span>
                     </div>
                     <div class="summary-row">
-                        <span>Discount (DIWALI)</span>
-                        <span style="color: #4CAF50;">-₹500</span>
-                    </div>
-                    <div class="summary-row">
                         <span>Tax (GST 3%)</span>
-                        <span>₹180</span>
+                        <span>₹195</span>
                     </div>
 
                     <div class="summary-row total">
                         <span>Total</span>
-                        <span>₹6,178</span>
+                        <span>₹6,693</span>
                     </div>
 
-                    <a href="order_confirm.html" class="place-order-btn">Place Order</a>
+                    <button class="place-order-btn">Place Order</button>
 
                     <div class="secure-badge">
                         <span>🔒</span>
                         <span>Secure Checkout - Your data is protected</span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="modal-overlay">
+        <div class="modal-box confirmation-modal">
+            <div class="modal-icon info">❓</div>
+            <h2 class="modal-title">Confirm Your Order</h2>
+            <p class="modal-message">Are you sure you want to place this order?</p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <button class="modal-button confirm-yes" style="background: linear-gradient(135deg, #4CAF50, #66BB6A);">
+                    ✓ Yes, Place Order
+                </button>
+                <button class="modal-button confirm-no" style="background: linear-gradient(135deg, #f44336, #d32f2f);">
+                    ✕ Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-box order-confirmation-modal">
+            <button class="modal-close">×</button>
+            <div class="modal-icon success">✓</div>
+            <h3 class="modal-title">Order Confirmed!</h3>
+            <p class="modal-message">Thank you for your purchase. Your order has been confirmed and is being processed.</p>
+            
+            <div class="modal-order-number">
+                <div class="modal-order-number-label">Order Number</div>
+                <div class="modal-order-number-value" id="orderNumber">AUR-2024-12345</div>
+            </div>
+
+            <h3 class="modal-section-title">Order Items</h3>
+            <div class="modal-order-items" id="modalOrderItems"></div>
+
+            <h3 class="modal-section-title">Order Summary</h3>
+            <div class="modal-totals" id="modalTotals"></div>
+
+            <div class="modal-shipping-info">
+                <div class="modal-shipping-title">📍 Shipping Address</div>
+                <div class="modal-shipping-address">
+                    <div id="shippingDetails" style="color: #CCCCCC;"></div>
+                </div>
+            </div>
+            
+            <div class="modal-delivery-box">
+                <div class="modal-delivery-info">
+                    <div class="modal-delivery-title">🚚 Estimated Delivery</div>
+                    <div class="modal-delivery-date">
+                        Your order will be delivered between<br>
+                        <strong>October 5 - October 8, 2025</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="modal-button" onclick="window.location.href='myorder.html'">View Order Details</button>
+                <button class="modal-button secondary" onclick="window.location.href='homepage.html'">Continue Shopping</button>
             </div>
         </div>
     </div>
@@ -341,21 +402,516 @@
         
         <div class="footer-bottom">
             <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
-              <div class="social-icons">
-          <a href="https://instagram.com" class="social-icon" target="_blank">
-            <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-          </a>
-          <a href="https://facebook.com" class="social-icon" target="_blank">
-            <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-          </a>
-          <a href="https://pinterest.com" class="social-icon" target="_blank">
-            <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-          </a>
-          <a href="https://twitter.com" class="social-icon" target="_blank">
-            <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-          </a>
-        </div>
+            <div class="social-icons">
+                <a href="https://instagram.com" class="social-icon" target="_blank">
+                    <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+                <a href="https://facebook.com" class="social-icon" target="_blank">
+                    <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+                <a href="https://pinterest.com" class="social-icon" target="_blank">
+                    <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+                <a href="https://twitter.com" class="social-icon" target="_blank">
+                    <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                </a>
+            </div>
         </div>
     </footer>
+
+    <script>
+        let orderItems = [
+            { name: 'Golden Elegant', price: 3999, originalQuantity: 1, quantity: 1, image: 'https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748' },
+            { name: 'The Golden Hoop', price: 2499, originalQuantity: 1, quantity: 1, image: 'https://www.goodthing.co.nz/cdn/shop/files/Silk_Steel_Jewellery_-_Halo_Medium_Hoop_Earrings_232bc4b1-7b0c-4a93-a101-15491ce0837e_1600x.webp?v=1748477656' }
+        ];
+        
+        let appliedCoupon = null;
+        const GST_RATE = 0.03;
+
+        function applyDiwaliCoupon() {
+            orderItems.forEach(item => item.quantity = item.originalQuantity * 2);
+        }
+
+        function showAddressMessage(message, type = 'error') {
+            const container = document.querySelector('.address-notification');
+            container.innerHTML = '';
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `address-message ${type}`;
+            messageDiv.textContent = message;
+            
+            container.appendChild(messageDiv);
+            setTimeout(() => messageDiv.classList.add('show'), 10);
+            
+            setTimeout(() => {
+                messageDiv.style.animation = 'fadeOut 0.3s ease';
+                setTimeout(() => {
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        function initializeAddressEditing() {
+            const editBtn = document.querySelector('.edit-address-btn');
+            const saveBtn = document.querySelector('.save-address-btn');
+            const cancelBtn = document.querySelector('.cancel-address-btn');
+            const formInputs = document.querySelectorAll('.checkout-section form input, .checkout-section form select');
+            
+            let originalValues = {};
+            
+            function saveOriginalValues() {
+                formInputs.forEach((input, index) => {
+                    originalValues[index] = input.value;
+                });
+            }
+            
+            saveOriginalValues();
+            formInputs.forEach(input => input.disabled = true);
+            
+            editBtn.addEventListener('click', function() {
+                formInputs.forEach(input => input.disabled = false);
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline-block';
+                cancelBtn.style.display = 'inline-block';
+                
+                formInputs.forEach(input => {
+                    input.style.borderColor = '#D4AF37';
+                    input.style.background = 'rgba(212, 175, 55, 0.08)';
+                });
+            });
+            
+            saveBtn.addEventListener('click', function() {
+                formInputs.forEach(input => input.disabled = true);
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+                
+                saveOriginalValues();
+                
+                formInputs.forEach(input => {
+                    input.style.borderColor = '';
+                    input.style.background = '';
+                });
+                
+                showAddressMessage('✅ ADDRESS UPDATED SUCCESSFULLY!', 'success');
+            });
+            
+            cancelBtn.addEventListener('click', function() {
+                formInputs.forEach((input, index) => {
+                    input.value = originalValues[index];
+                    input.disabled = true;
+                });
+                
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+                editBtn.style.display = 'inline-block';
+                
+                formInputs.forEach(input => {
+                    input.style.borderColor = '';
+                    input.style.background = '';
+                });
+                
+                showAddressMessage('ℹ️ CHANGES CANCELLED', 'info');
+            });
+        }
+
+        function initializeRealTimeValidation() {
+            const emailInput = document.querySelector('input[type="email"]');
+            if (emailInput) {
+                emailInput.addEventListener('blur', function() {
+                    const email = this.value.trim();
+                    if (email && !isValidEmail(email)) {
+                        this.style.borderColor = '#f44336';
+                        this.style.background = 'rgba(244, 67, 54, 0.05)';
+                        showValidationError(this, '❌ Invalid email format');
+                    } else if (email) {
+                        this.style.borderColor = '#4CAF50';
+                        this.style.background = 'rgba(76, 175, 80, 0.05)';
+                        removeValidationError(this);
+                    }
+                });
+                
+                emailInput.addEventListener('input', function() {
+                    if (this.style.borderColor) {
+                        this.style.borderColor = '';
+                        this.style.background = '';
+                        removeValidationError(this);
+                    }
+                });
+            }
+            
+            const phoneInput = document.querySelector('input[type="tel"]');
+            if (phoneInput) {
+                phoneInput.addEventListener('blur', function() {
+                    const phone = this.value.trim();
+                    if (phone && !isValidPhone(phone)) {
+                        this.style.borderColor = '#f44336';
+                        this.style.background = 'rgba(244, 67, 54, 0.05)';
+                        showValidationError(this, '❌ Phone must be 10 digits');
+                    } else if (phone) {
+                        this.style.borderColor = '#4CAF50';
+                        this.style.background = 'rgba(76, 175, 80, 0.05)';
+                        removeValidationError(this);
+                    }
+                });
+                
+                phoneInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/[^\d\s+()-]/g, '');
+                    if (this.style.borderColor) {
+                        this.style.borderColor = '';
+                        this.style.background = '';
+                        removeValidationError(this);
+                    }
+                });
+            }
+            
+            const pinInput = document.querySelector('input[placeholder="400001"]');
+            if (pinInput) {
+                pinInput.addEventListener('blur', function() {
+                    const pin = this.value.trim();
+                    if (pin && !isValidPinCode(pin)) {
+                        this.style.borderColor = '#f44336';
+                        this.style.background = 'rgba(244, 67, 54, 0.05)';
+                        showValidationError(this, '❌ PIN must be 6 digits');
+                    } else if (pin) {
+                        this.style.borderColor = '#4CAF50';
+                        this.style.background = 'rgba(76, 175, 80, 0.05)';
+                        removeValidationError(this);
+                    }
+                });
+                
+                pinInput.addEventListener('input', function() {
+                    this.value = this.value.replace(/\D/g, '').slice(0, 6);
+                    if (this.style.borderColor) {
+                        this.style.borderColor = '';
+                        this.style.background = '';
+                        removeValidationError(this);
+                    }
+                });
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const digitsOnly = phone.replace(/\D/g, '');
+            return digitsOnly.length >= 10;
+        }
+
+        function isValidPinCode(pin) {
+            const digitsOnly = pin.replace(/\D/g, '');
+            return digitsOnly.length === 6;
+        }
+
+        function showValidationError(input, message) {
+            removeValidationError(input);
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error';
+            errorDiv.textContent = message;
+            errorDiv.style.cssText = 'color: #f44336; font-size: 0.85rem; margin-top: 5px; font-weight: 500;';
+            input.parentElement.appendChild(errorDiv);
+        }
+
+        function removeValidationError(input) {
+            const existingError = input.parentElement.querySelector('.validation-error');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+        function calculateTotals() {
+            let subtotal = 0;
+            orderItems.forEach(item => subtotal += item.price * item.originalQuantity);
+            const shipping = 0;
+            let discount = 0;
+            if (appliedCoupon === 'DIWALI') discount = subtotal * 0.5;
+            const taxableAmount = subtotal - discount;
+            const tax = Math.round(taxableAmount * GST_RATE);
+            const total = subtotal - discount + tax + shipping;
+            return {subtotal, shipping, discount, tax, total};
+        }
+
+        function updateOrderSummary() {
+            const totals = calculateTotals();
+            const orderItemsContainer = document.querySelector('.order-summary');
+            let itemsHTML = '<h2 class="summary-title">Order Summary</h2>';
+            
+            orderItems.forEach(item => {
+                itemsHTML += `<div class="order-item"><div class="item-image" style="background-image: url('${item.image}');"></div><div class="item-details"><div class="item-name">${item.name}</div><div class="item-quantity">Quantity: ${item.quantity}${item.quantity > item.originalQuantity ? ' (Buy 1 Get 1 Free! 🎁)' : ''}</div><div class="item-price">₹${item.price.toLocaleString('en-IN')}</div></div></div>`;
+            });
+            
+            itemsHTML += '<div class="summary-divider"></div>';
+            itemsHTML += `<div class="promo-code"><input type="text" class="promo-input" placeholder="Enter promo code" ${appliedCoupon ? 'disabled' : ''} ${appliedCoupon ? `value="${appliedCoupon}"` : ''}><button class="apply-btn" ${appliedCoupon ? 'style="background: #4CAF50; border-color: #4CAF50; color: #fff;"' : ''}>${appliedCoupon ? 'Applied ✓' : 'Apply'}</button></div>`;
+            itemsHTML += `<div class="summary-row"><span>Subtotal</span><span>₹${totals.subtotal.toLocaleString('en-IN')}</span></div><div class="summary-row"><span>Shipping</span><span style="color: #4CAF50;">FREE</span></div>`;
+            
+            if (totals.discount > 0) {
+                itemsHTML += `<div class="summary-row"><span>Discount (DIWALI Buy 1 Get 1)</span><span style="color: #4CAF50;">-₹${totals.discount.toLocaleString('en-IN')}</span></div>`;
+            }
+            
+            itemsHTML += `<div class="summary-row"><span>Tax (GST 3%)</span><span>₹${totals.tax.toLocaleString('en-IN')}</span></div><div class="summary-row total"><span>Total</span><span>₹${totals.total.toLocaleString('en-IN')}</span></div><button class="place-order-btn">Place Order</button><div class="secure-badge"><span>🔒</span><span>Secure Checkout - Your data is protected</span></div>`;
+            
+            orderItemsContainer.innerHTML = itemsHTML;
+            initializePromoCode();
+            initializeFormValidation();
+        }
+
+        function initializeFormValidation() {
+            const placeOrderBtn = document.querySelector('.place-order-btn');
+            
+            placeOrderBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    showConfirmationModal();
+                }
+            });
+        }
+
+        function showConfirmationModal() {
+            const confirmModal = document.getElementById('confirmationModal');
+            confirmModal.classList.add('active');
+            
+            const confirmYes = document.querySelector('.confirm-yes');
+            const confirmNo = document.querySelector('.confirm-no');
+            
+            confirmYes.onclick = function() {
+                confirmModal.classList.remove('active');
+                placeOrder();
+            };
+            
+            confirmNo.onclick = function() {
+                confirmModal.classList.remove('active');
+            };
+        }
+
+        function placeOrder() {
+            const orderData = {
+                items: orderItems,
+                totals: calculateTotals(),
+                coupon: appliedCoupon,
+                customerInfo: getCustomerInfo(),
+                paymentMethod: getSelectedPaymentMethod()
+            };
+            
+            sessionStorage.setItem('orderData', JSON.stringify(orderData));
+            showOrderSuccessModal(orderData);
+        }
+
+        function showOrderSuccessModal(orderData) {
+            const orderNumber = 'AUR-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 100000);
+            
+            document.getElementById('orderNumber').textContent = orderNumber;
+            
+            // Calculate delivery dates
+            const today = new Date();
+            const deliveryStart = new Date(today);
+            deliveryStart.setDate(today.getDate() + 3);
+            const deliveryEnd = new Date(today);
+            deliveryEnd.setDate(today.getDate() + 6);
+            
+            function formatDate(date) {
+                return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+            }
+            
+            // Update delivery date in modal
+            const deliveryDateElement = document.querySelector('.modal-delivery-date');
+            if (deliveryDateElement) {
+                deliveryDateElement.innerHTML = `
+                    Your order will be delivered between<br>
+                    <strong>${formatDate(deliveryStart)} - ${formatDate(deliveryEnd)}</strong>
+                `;
+            }
+            
+            let itemsHTML = '';
+            orderData.items.forEach(item => {
+                itemsHTML += `
+                    <div class="modal-order-item">
+                        <div class="modal-item-image" style="background-image: url('${item.image}');"></div>
+                        <div class="modal-item-info">
+                            <div class="modal-item-name">${item.name}</div>
+                            <div class="modal-item-quantity">Quantity: ${item.quantity}</div>
+                            <div class="modal-item-price">₹${(item.price * item.originalQuantity).toLocaleString('en-IN')}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('modalOrderItems').innerHTML = itemsHTML;
+            
+            const totals = orderData.totals;
+            let totalsHTML = `
+                <div class="modal-total-row">
+                    <span>Subtotal</span>
+                    <span>₹${totals.subtotal.toLocaleString('en-IN')}</span>
+                </div>
+                <div class="modal-total-row">
+                    <span>Shipping</span>
+                    <span style="color: #4CAF50;">FREE</span>
+                </div>
+            `;
+            
+            if (totals.discount > 0) {
+                totalsHTML += `
+                    <div class="modal-total-row">
+                        <span>Discount</span>
+                        <span style="color: #4CAF50;">-₹${totals.discount.toLocaleString('en-IN')}</span>
+                    </div>
+                `;
+            }
+            
+            totalsHTML += `
+                <div class="modal-total-row">
+                    <span>Tax (GST 3%)</span>
+                    <span>₹${totals.tax.toLocaleString('en-IN')}</span>
+                </div>
+                <div class="modal-total-row final">
+                    <span>Total</span>
+                    <span>₹${totals.total.toLocaleString('en-IN')}</span>
+                </div>
+            `;
+            document.getElementById('modalTotals').innerHTML = totalsHTML;
+            
+            const customerInfo = orderData.customerInfo;
+            document.getElementById('shippingDetails').innerHTML = `
+                ${customerInfo.firstName} ${customerInfo.lastName}<br>
+                ${customerInfo.address}<br>
+                ${customerInfo.city}, ${customerInfo.state} ${customerInfo.pincode}<br>
+                ${customerInfo.country}<br>
+                Phone: ${customerInfo.phone}<br>
+                Email: ${customerInfo.email}
+            `;
+            
+            const successModal = document.getElementById('successModal');
+            successModal.classList.add('active');
+            
+            document.querySelector('.modal-close').onclick = function() {
+                successModal.classList.remove('active');
+            };
+        }
+
+        function validateForm() {
+            const requiredFields = [
+                { selector: 'input[placeholder="Enter first name"]', name: 'First Name' },
+                { selector: 'input[placeholder="Enter last name"]', name: 'Last Name' },
+                { selector: 'input[type="email"]', name: 'Email' },
+                { selector: 'input[type="tel"]', name: 'Phone Number' },
+                { selector: 'input[placeholder="House no., Street name"]', name: 'Street Address' },
+                { selector: 'input[placeholder="City"]', name: 'City' },
+                { selector: 'input[placeholder="400001"]', name: 'PIN Code' }
+            ];
+            
+            for (let field of requiredFields) {
+                const input = document.querySelector(field.selector);
+                if (!input || !input.value.trim()) {
+                    alert(`Please fill in the ${field.name} field to continue with your order.`);
+                    input?.focus();
+                    return false;
+                }
+            }
+            
+            const emailInput = document.querySelector('input[type="email"]');
+            if (emailInput && !isValidEmail(emailInput.value)) {
+                alert('Please enter a valid email address (e.g., example@email.com) to receive order confirmation.');
+                emailInput.focus();
+                return false;
+            }
+            
+            const phoneInput = document.querySelector('input[type="tel"]');
+            if (phoneInput && !isValidPhone(phoneInput.value)) {
+                alert('Please enter a valid phone number with at least 10 digits for delivery updates.');
+                phoneInput.focus();
+                return false;
+            }
+            
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (!selectedPayment) {
+                alert('Please select a payment method to complete your purchase.');
+                return false;
+            }
+            
+            return true;
+        }
+
+        function getCustomerInfo() {
+            return {
+                firstName: document.querySelector('input[placeholder="Enter first name"]').value,
+                lastName: document.querySelector('input[placeholder="Enter last name"]').value,
+                email: document.querySelector('input[type="email"]').value,
+                phone: document.querySelector('input[type="tel"]').value,
+                address: document.querySelector('input[placeholder="House no., Street name"]').value,
+                city: document.querySelector('input[placeholder="City"]').value,
+                state: document.querySelector('.form-select').value,
+                pincode: document.querySelector('input[placeholder="400001"]').value,
+                country: document.querySelectorAll('.form-select')[1].value
+            };
+        }
+
+        function getSelectedPaymentMethod() {
+            const selectedPayment = document.querySelector('input[name="payment"]:checked');
+            if (selectedPayment) {
+                const paymentOption = selectedPayment.closest('.payment-option');
+                return paymentOption.querySelector('.payment-header span:last-child').textContent;
+            }
+            return null;
+        }
+
+        function initializeCardFormatting() {
+            const cardNumberInput = document.querySelector('input[placeholder="1234 5678 9012 3456"]');
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\s/g, '');
+                    let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                    e.target.value = formattedValue;
+                });
+            }
+            
+            const expiryInput = document.querySelector('input[placeholder="MM/YY"]');
+            if (expiryInput) {
+                expiryInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length >= 2) {
+                        value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                    }
+                    e.target.value = value;
+                });
+            }
+        }
+
+        function initializePromoCode() {
+            const applyBtn = document.querySelector('.apply-btn');
+            const promoInput = document.querySelector('.promo-input');
+            
+            if (!applyBtn || !promoInput) return;
+            
+            applyBtn.addEventListener('click', function() {
+                const code = promoInput.value.trim().toUpperCase();
+                
+                if (!code) {
+                    alert('Please enter a promo code');
+                    return;
+                }
+                
+                if (code === 'DIWALI') {
+                    appliedCoupon = code;
+                    applyDiwaliCoupon();
+                    updateOrderSummary();
+                    alert('🎉 DIWALI Coupon Applied! Buy 1 Get 1 Free on all items!');
+                } else {
+                    alert('❌ Invalid promo code. Please try again.');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAddressEditing();
+            initializeRealTimeValidation();
+            initializeCardFormatting();
+            updateOrderSummary();
+        });
+    </script>
 </body>
 </html>
