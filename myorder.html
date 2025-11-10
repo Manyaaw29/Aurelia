@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Orders - Aurelia Jewelry</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="myorder.css">
 </head>
+
 <body>
-    
-    <!-- Enhanced Header -->
+
+ <!-- Enhanced Header -->
     <header class="header">
         <div class="header-container">
             <a href="homepage.html" class="logo">Aurelia</a>
@@ -58,175 +62,14 @@
             </div>
         </div>
     </header>
-
     <main>
-       <script>
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".order-actions a").forEach(btn => {
-    btn.addEventListener("click", e => {
-      e.preventDefault();
-      const action = e.target.textContent.trim().toLowerCase();
-
-      if (action.includes("cancel")) showCancelOptions(e.target);
-      else if (action.includes("return")) showReturnStatus(e.target);
-      else if (action.includes("view")) showOrderDetails(e.target);
-      else if (action.includes("track")) trackOrder(e.target);
-    });
-  });
-});
-
-/* ---------- CANCEL ORDER ---------- */
-function showCancelOptions(target) {
-  const card = target.closest(".order-card");
-  const orderId = card.querySelector(".order-id").textContent;
-
-  const html = `
-    <div class="modal-overlay">
-      <div class="modal-box">
-        <span class="close-btn">&times;</span>
-        <h2>${orderId}</h2>
-        <p><strong>Why do you want to cancel this order?</strong></p>
-        <form id="cancelForm" style="margin-top:15px;">
-          <label><input type="radio" name="reason" value="Ordered by mistake"> Ordered by mistake</label><br>
-          <label><input type="radio" name="reason" value="Found a better price elsewhere"> Found a better price elsewhere</label><br>
-          <label><input type="radio" name="reason" value="Delivery taking too long"> Delivery taking too long</label><br>
-          <label><input type="radio" name="reason" value="Change in mind"> Change in mind</label><br>
-          <label><input type="radio" name="reason" value="Other reason"> Other reason</label>
-        </form>
-        <div class="modal-buttons">
-          <button class="btn-secondary close-btn">Close</button>
-          <button class="btn-primary confirm-cancel">Confirm Cancel</button>
-        </div>
-      </div>
-    </div>`;
-  openModal(html);
-
-  document.querySelector(".confirm-cancel").onclick = () => {
-    const selected = document.querySelector("input[name='reason']:checked");
-    if (!selected) {
-      alert("Please select a reason before cancelling.");
-      return;
-    }
-    closeModal();
-    handleCancelConfirm(card, orderId, selected.value, target);
-  };
-}
-
-function handleCancelConfirm(card, orderId, reason, button) {
-  const toast = document.createElement("div");
-  toast.className = "toast-message";
-  toast.textContent = `Refund will be initiated after collection of order. (${reason})`;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
-
-  const statusEl = card.querySelector(".order-status");
-  statusEl.textContent = "Cancellation in Progress";
-  statusEl.className = "order-status status-pending";
-
-  button.textContent = "View Return Status";
-  button.style.background = "#D4AF37";
-  button.style.color = "#000";
-  button.onclick = e => {
-    e.preventDefault();
-    showReturnStatus(button);
-  };
-}
-
-/* ---------- VIEW RETURN STATUS ---------- */
-function showReturnStatus(target) {
-  const card = target.closest(".order-card");
-  const orderId = card.querySelector(".order-id").textContent;
-  const html = `
-    <div class="modal-overlay">
-      <div class="modal-box">
-        <span class="close-btn">&times;</span>
-        <h2>${orderId} - Return Status</h2>
-        <ul class="progress-list">
-          <li class="done">Return Requested</li>
-          <li class="done">Pickup Scheduled</li>
-          <li>Item Collected</li>
-          <li>Refund Initiated</li>
-          <li>Refund Completed</li>
-        </ul>
-      </div>
-    </div>`;
-  openModal(html);
-}
-
-/* ---------- VIEW ORDER DETAILS ---------- */
-function showOrderDetails(target) {
-  const card = target.closest(".order-card");
-  const orderId = card.querySelector(".order-id").textContent;
-  const productName = card.querySelector(".item-names")?.textContent || "Unknown item";
-  const total = card.querySelector(".order-total-price")?.textContent || "₹—";
-
-  const html = `
-    <div class="modal-overlay">
-      <div class="modal-box">
-        <span class="close-btn">&times;</span>
-        <h2>${orderId} - Order Details</h2>
-        <div class="order-summary">
-          <p><strong>Product:</strong> ${productName}</p>
-          <p><strong>Order Date:</strong> 28 October 2025</p>
-          <p><strong>Payment Method:</strong> UPI (Paid)</p>
-          <p><strong>Delivery Address:</strong><br> Mehak Kumar<br> B-45 Rosewood Apartments<br> Gurugram, Haryana - 122018</p>
-          <p><strong>Total Amount:</strong> ${total}</p>
-          <p><strong>Status:</strong>Delivered</p>
-        </div>
-      </div>
-    </div>`;
-  openModal(html);
-}
-
-/* ---------- TRACK ORDER ---------- */
-function trackOrder(target) {
-  const card = target.closest(".order-card");
-  const orderId = card.querySelector(".order-id").textContent;
-
-  const html = `
-    <div class="modal-overlay">
-      <div class="modal-box track-box">
-        <span class="close-btn">&times;</span>
-        <h2>${orderId} - Tracking</h2>
-        <div class="shipment-info">
-          <p><strong>From:</strong> Mumbai, Maharashtra</p>
-          <p><strong>To:</strong> Gurugram, Haryana</p>
-          <p><strong>Current Status:</strong> Out for Delivery 🚚</p>
-          <p><strong>Estimated Delivery:</strong> 6 November 2025</p>
-        </div>
-        <div class="timeline">
-          <div class="step done"><i class="fa fa-check-circle"></i><p>Order Placed</p><span>Oct 28</span></div>
-          <div class="step done"><i class="fa fa-box"></i><p>Packed</p><span>Oct 29</span></div>
-          <div class="step done"><i class="fa fa-truck"></i><p>Shipped</p><span>Oct 31</span></div>
-          <div class="step current"><i class="fa fa-route"></i><p>Out for Delivery</p><span>Nov 5</span></div>
-          <div class="step"><i class="fa fa-home"></i><p>Delivered</p><span>Pending</span></div>
-        </div>
-      </div>
-    </div>`;
-  openModal(html);
-}
-
-/* ---------- Modal helpers ---------- */
-function openModal(html) {
-  document.body.insertAdjacentHTML("beforeend", html);
-  document.querySelectorAll(".close-btn").forEach(btn => btn.onclick = closeModal);
-  document.querySelector(".modal-overlay").onclick = e => {
-    if (e.target.classList.contains("modal-overlay")) closeModal();
-  };
-}
-function closeModal() {
-  const modal = document.querySelector(".modal-overlay");
-  if (modal) modal.remove();
-}
-</script>
-
-
         <div class="container order-page-wrapper">
-            
+
             <div class="order-history-list">
                 <h1 class="page-title">Order History</h1>
-                
-                <div class="order-card">
+
+                <!-- Order 1 - Delivered -->
+                <div class="order-card" data-order-id="AU-100293">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100293</div>
@@ -236,24 +79,26 @@ function closeModal() {
                     </div>
 
                     <div class="order-items-preview">
-                        <img src="https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748" alt="Ring Image" class="item-thumbnail">
-                        
+                        <img src="https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748"
+                            alt="Ring Image" class="item-thumbnail">
+
                         <div class="item-details">
                             <div class="item-names">
                                 Aurelia Golden Elegant (x1)
                             </div>
                         </div>
                     </div>
-                    
+
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="order-total-price">₹3,999</div>
                         <div class="order-actions">
-                            <a href="#">View Details</a>
+                            <a href="#" class="view-details-btn">View Details</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="order-card">
+                <!-- Order 2 - Shipped -->
+                <div class="order-card" data-order-id="AU-100451">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100451</div>
@@ -263,8 +108,9 @@ function closeModal() {
                     </div>
 
                     <div class="order-items-preview">
-                        <img src="https://www.goodthing.co.nz/cdn/shop/files/Silk_Steel_Jewellery_-_Halo_Medium_Hoop_Earrings_232bc4b1-7b0c-4a93-a101-15491ce0837e_1600x.webp?v=1748477656" alt="Necklace Image" class="item-thumbnail">
-                        
+                        <img src="https://www.goodthing.co.nz/cdn/shop/files/Silk_Steel_Jewellery_-_Halo_Medium_Hoop_Earrings_232bc4b1-7b0c-4a93-a101-15491ce0837e_1600x.webp?v=1748477656"
+                            alt="Necklace Image" class="item-thumbnail">
+
                         <div class="item-details">
                             <div class="item-names">
                                 The Golden Hoop (x1)
@@ -274,16 +120,17 @@ function closeModal() {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="order-total-price">₹7,999</div>
                         <div class="order-actions">
-                            <a href="track_order.html">Track Order</a>
+                            <a href="#" class="track-order-btn">Track Order</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="order-card">
+                <!-- Order 3 - Processing -->
+                <div class="order-card" data-order-id="AU-100522">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100522</div>
@@ -293,19 +140,20 @@ function closeModal() {
                     </div>
 
                     <div class="order-items-preview">
-                        <img src="https://robinsonsjewelers.com/cdn/shop/articles/How_many_rings_is_it_OK_to_wear_at_one_time_20241122.jpg?v=1732479977" alt="Earring Image" class="item-thumbnail">
-                        
+                        <img src="https://robinsonsjewelers.com/cdn/shop/articles/How_many_rings_is_it_OK_to_wear_at_one_time_20241122.jpg?v=1732479977"
+                            alt="Earring Image" class="item-thumbnail">
+
                         <div class="item-details">
                             <div class="item-names">
                                 Elegant Ring (x2)
                             </div>
                         </div>
                     </div>
-                    
+
                     <div style="display: flex; justify-content: space-between; align-items: center;">
                         <div class="order-total-price">₹9,998</div>
                         <div class="order-actions">
-                            <a href="#">Cancel Order</a>
+                            <a href="#" class="cancel-order-btn">Cancel Order</a>
                         </div>
                     </div>
                 </div>
@@ -314,7 +162,7 @@ function closeModal() {
 
             <div class="order-metrics-sidebar">
                 <h3 class="metrics-title">Your Order Metrics</h3>
-                
+
                 <div class="metric-row">
                     <span><i class="fas fa-box-open metric-icon"></i> Total Orders</span>
                     <span class="metric-value">5</span>
@@ -344,13 +192,14 @@ function closeModal() {
             <div class="footer-content">
                 <div class="newsletter">
                     <h3>Stay Connected</h3>
-                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for
+                        exclusive offers and new arrivals</p>
                     <form class="newsletter-form">
                         <input type="email" class="newsletter-input" placeholder="Enter your email">
                         <button type="submit" class="newsletter-button">Subscribe</button>
                     </form>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4>About</h4>
                     <ul>
@@ -359,7 +208,7 @@ function closeModal() {
                         <li><a href="#">Press</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4>Support</h4>
                     <ul>
@@ -369,7 +218,7 @@ function closeModal() {
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="footer-links">
                     <h4>Legal</h4>
                     <ul>
@@ -379,25 +228,363 @@ function closeModal() {
                     </ul>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
-                <p style="color: var(--color-text-grey); font-size: 0.9rem;">&copy; 2025 Aurelia Jewelry. All rights reserved.</p>
-                  <div class="social-icons">
-      <a href="https://instagram.com" class="social-icon" target="_blank">
-        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-      </a>
-      <a href="https://facebook.com" class="social-icon" target="_blank">
-        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-      </a>
-      <a href="https://pinterest.com" class="social-icon" target="_blank">
-        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-      </a>
-      <a href="https://twitter.com" class="social-icon" target="_blank">
-        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
-      </a>
-    </div>
+                <p style="color: var(--color-text-grey); font-size: 0.9rem;">&copy; 2025 Aurelia Jewelry. All rights
+                    reserved.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://facebook.com" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://pinterest.com" class="social-icon" target="_blank">
+                        <i class="fab fa-pinterest-p"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
             </div>
         </div>
     </footer>
+
+    <script>
+        // ========================================
+        // ENHANCED ORDER MANAGEMENT SYSTEM
+        // ========================================
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initializeOrderActions();
+        });
+
+        // Initialize all order action buttons
+        function initializeOrderActions() {
+            // View Details buttons
+            document.querySelectorAll(".view-details-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const card = e.target.closest(".order-card");
+                    showOrderDetails(card);
+                });
+            });
+
+            // Track Order buttons
+            document.querySelectorAll(".track-order-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const card = e.target.closest(".order-card");
+                    trackOrder(card);
+                });
+            });
+
+            // Cancel Order buttons
+            document.querySelectorAll(".cancel-order-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const card = e.target.closest(".order-card");
+                    showCancelOptions(card);
+                });
+            });
+        }
+
+        // ========================================
+        // VIEW ORDER DETAILS MODAL
+        // ========================================
+        function showOrderDetails(card) {
+            const orderId = card.querySelector(".order-id").textContent;
+            const productName = card.querySelector(".item-names")?.textContent.trim() || "Unknown item";
+            const total = card.querySelector(".order-total-price")?.textContent || "₹—";
+            const status = card.querySelector(".order-status")?.textContent || "Unknown";
+            const orderDate = card.querySelector(".order-date")?.textContent || "Unknown date";
+
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <button class="close-btn">&times;</button>
+                <h2>📦 ${orderId}</h2>
+                <div class="order-summary">
+                    <p><strong>🛍️ Product:</strong> <span>${productName}</span></p>
+                    <p><strong>📅 Order Date:</strong> <span>${orderDate.split(': ')[1] || orderDate}</span></p>
+                    <p><strong>📊 Status:</strong> <span style="color: var(--color-gold-light);">${status}</span></p>
+                    <p><strong>💳 Payment Method:</strong> <span>UPI (Paid)</span></p>
+                    <p><strong>📍 Delivery Address:</strong> <span>Mehak Kumar<br>B-45 Rosewood Apartments<br>Gurugram, Haryana - 122018</span></p>
+                    <p><strong>💰 Total Amount:</strong> <span style="color: var(--color-gold-light); font-size: 1.2rem;">${total}</span></p>
+                </div>
+                <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                    <h3 style="color: var(--color-gold); margin-bottom: 15px;">📋 Order Timeline</h3>
+                    <div class="progress-list">
+                        <li class="done">✅ Order Placed - Sep 28, 2025</li>
+                        <li class="done">📦 Processing & Packed - Sep 29, 2025</li>
+                        <li class="done">🚚 Shipped - Sep 30, 2025</li>
+                        <li class="done">🛵 Out for Delivery - Oct 1, 2025</li>
+                        <li class="done">🏠 Delivered - Oct 2, 2025</li>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(112, 224, 135, 0.1); border-radius: 10px; border-left: 4px solid var(--color-status-success);">
+                    <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
+                        <strong>✓ Delivered Successfully:</strong> Your order was delivered on Oct 2, 2025. Hope you love your purchase!
+                    </p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-primary" onclick="window.print()">🖨️ Print Invoice</button>
+                    <button class="btn-secondary close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+        }
+
+        // ========================================
+        // TRACK ORDER MODAL
+        // ========================================
+        function trackOrder(card) {
+            const orderId = card.querySelector(".order-id").textContent;
+
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box track-box">
+                <button class="close-btn">&times;</button>
+                <h2>🚚 ${orderId} - Tracking</h2>
+                <div class="shipment-info">
+                    <p><strong>From:</strong> <span>Mumbai, Maharashtra</span></p>
+                    <p><strong>To:</strong> <span>Gurugram, Haryana</span></p>
+                    <p><strong>Current Status:</strong> <span style="color: var(--color-gold-light);">Out for Delivery 🛵</span></p>
+                    <p><strong>Estimated Delivery:</strong> <span style="color: var(--color-status-success);">October 6, 2025</span></p>
+                    <p><strong>Tracking ID:</strong> <span style="font-family: monospace; color: var(--color-gold);">TRK-AUR-2025-451</span></p>
+                </div>
+                <div class="timeline">
+  <div class="step done">
+    <i>🧾</i>
+    <p>Order Placed</p>
+    <span>Sep 29</span>
+  </div>
+  <div class="step done">
+    <i>📦</i>
+    <p>Packed</p>
+    <span>Sep 30</span>
+  </div>
+  <div class="step done">
+    <i>🚚</i>
+    <p>Shipped</p>
+    <span>Oct 1</span>
+  </div>
+  <div class="step current">
+    <i>🛵</i>
+    <p>Out for Delivery</p>
+    <span>Oct 5</span>
+  </div>
+  <div class="step">
+    <i>🏠</i>
+    <p>Delivered</p>
+    <span>Pending</span>
+  </div>
+</div>
+
+
+                <div class="modal-buttons">
+                    <button class="btn-primary" onclick="showToast('📲 SMS notification sent!')">Get SMS Updates</button>
+                    <button class="btn-secondary close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+        }
+
+        // ========================================
+        // CANCEL ORDER MODAL
+        // ========================================
+        function showCancelOptions(card) {
+            const orderId = card.querySelector(".order-id").textContent;
+
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <button class="close-btn">&times;</button>
+                <h2>❌ Cancel ${orderId}</h2>
+                <p style="margin: 15px 0; color: var(--color-text-grey);">
+                    <strong>Why do you want to cancel this order?</strong>
+                </p>
+                <form id="cancelForm">
+                    <label><input type="radio" name="reason" value="Ordered by mistake"> Ordered by mistake</label>
+                    <label><input type="radio" name="reason" value="Found a better price elsewhere"> Found a better price elsewhere</label>
+                    <label><input type="radio" name="reason" value="Delivery taking too long"> Delivery taking too long</label>
+                    <label><input type="radio" name="reason" value="Change in mind"> Change in mind</label>
+                    <label><input type="radio" name="reason" value="Other reason"> Other reason</label>
+                </form>
+                <div style="background: rgba(255, 120, 120, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 4px solid #ff6b6b;">
+                    <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
+                        <strong>⚠️ Note:</strong> Cancellation will initiate a refund process. Amount will be credited within 5-7 business days.
+                    </p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-secondary close-modal-btn">Keep Order</button>
+                    <button class="btn-primary confirm-cancel-btn">Confirm Cancellation</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+
+            document.querySelector(".confirm-cancel-btn").onclick = () => {
+                const selected = document.querySelector("input[name='reason']:checked");
+                if (!selected) {
+                    showToast("⚠️ Please select a reason before cancelling", "warning");
+                    return;
+                }
+                closeModal();
+                handleCancelConfirm(card, orderId, selected.value);
+            };
+        }
+
+        // ========================================
+        // HANDLE CANCEL CONFIRMATION
+        // ========================================
+        function handleCancelConfirm(card, orderId, reason) {
+            showToast(`✅ Cancellation request submitted! Reason: ${reason}`);
+
+            const statusEl = card.querySelector(".order-status");
+            statusEl.textContent = "Cancellation Requested";
+            statusEl.className = "order-status status-pending";
+
+            const actionBtn = card.querySelector(".order-actions a");
+            actionBtn.textContent = "View Return Status";
+            actionBtn.className = "view-return-btn";
+            actionBtn.onclick = (e) => {
+                e.preventDefault();
+                showReturnStatus(card);
+            };
+        }
+
+        // ========================================
+        // VIEW RETURN STATUS MODAL
+        // ========================================
+        function showReturnStatus(card) {
+            const orderId = card.querySelector(".order-id").textContent;
+
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <button class="close-btn">&times;</button>
+                <h2>🔄 ${orderId} - Return Status</h2>
+                <div style="margin: 20px 0;">
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">
+                        Your cancellation request is being processed. Here's the current status:
+                    </p>
+                    <ul class="progress-list">
+                        <li class="done">Return Requested - Oct 2, 2025</li>
+                        <li class="done">Request Approved - Oct 2, 2025</li>
+                        <li class="done">Pickup Scheduled - Oct 3, 2025</li>
+                        <li>Item Collected - Pending</li>
+                        <li>Refund Initiated - Pending</li>
+                        <li>Refund Completed - Pending</li>
+                    </ul>
+                </div>
+                <div style="background: rgba(112, 224, 135, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid var(--color-status-success);">
+                    <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
+                        <strong>✓ Next Step:</strong> Our delivery partner will collect the item from your address on Oct 3, 2025. Please keep the package ready.
+                    </p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-secondary close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+        }
+
+        // ========================================
+        // MODAL UTILITIES
+        // ========================================
+        function openModal(html) {
+            document.body.insertAdjacentHTML("beforeend", html);
+
+            // Close button handlers
+            document.querySelectorAll(".close-btn, .close-modal-btn").forEach(btn => {
+                btn.onclick = closeModal;
+            });
+
+            // Click outside to close
+            document.querySelector(".modal-overlay").onclick = (e) => {
+                if (e.target.classList.contains("modal-overlay")) {
+                    closeModal();
+                }
+            };
+
+            // ESC key to close
+            document.addEventListener("keydown", handleEscKey);
+        }
+
+        function closeModal() {
+            const modal = document.querySelector(".modal-overlay");
+            if (modal) {
+                modal.style.animation = "fadeOut 0.3s ease";
+                setTimeout(() => modal.remove(), 300);
+            }
+            document.removeEventListener("keydown", handleEscKey);
+        }
+
+        function handleEscKey(e) {
+            if (e.key === "Escape") {
+                closeModal();
+            }
+        }
+
+        // ========================================
+        // TOAST NOTIFICATION
+        // ========================================
+        function showToast(message, type = "success") {
+            const existingToast = document.querySelector(".toast-message");
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement("div");
+            toast.className = "toast-message";
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = "slideOut 0.5s ease";
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        }
+
+        // ========================================
+        // NEWSLETTER FORM
+        // ========================================
+        document.querySelector('.newsletter-form')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const input = this.querySelector('.newsletter-input');
+            const email = input.value.trim();
+
+            if (!email || !email.includes('@') || !email.includes('.')) {
+                showToast('⚠️ Please enter a valid email address', 'warning');
+                return;
+            }
+
+            showToast('🎉 Thank you for subscribing to Aurelia!');
+            input.value = '';
+        });
+
+        // ========================================
+        // ADD FADE OUT ANIMATION
+        // ========================================
+        const style = document.createElement('style');
+        style.textContent = `
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    @keyframes slideOut {
+        from { opacity: 1; transform: translateX(0); }
+        to { opacity: 0; transform: translateX(100px); }
+    }
+`;
+        document.head.appendChild(style);
+    </script>
 </body>
+
 </html>
