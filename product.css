@@ -339,9 +339,8 @@
 }
 
 .cart-icon:hover svg {
-    stroke: #D4AF37;
+    stroke: #ffffff;
 }
-
 .nav-icon:hover {
     background: rgba(212, 175, 55, 0.15);
     transform: translateY(-3px) scale(1.1);
