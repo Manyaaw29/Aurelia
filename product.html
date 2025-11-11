@@ -38,7 +38,7 @@
             </nav>
 
             <div class="search-box">
-                <input type="text" class="search-input" placeholder="Search jewelry...">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search jewelry...">
             </div>
 
             <div class="nav-actions">
@@ -207,8 +207,14 @@
                             <div class="product-actions">
                                 <div class="product-price">${this.getFormattedPrice()}</div>
                                 <div class="action-icons">
-                                    <div class="action-icon wishlist-icon" data-id="${this.id}" title="Add to Wishlist">♡</div>
-                                    <div class="action-icon compare-icon" data-id="${this.id}" title="Compare">⚖</div>
+                                    <div class="action-icon wishlist-icon" data-id="${this.id}" data-name="${this.name}" title="Add to Wishlist">♡</div>
+                                    <div class="action-icon cart-icon" data-id="${this.id}" data-name="${this.name}" title="Add to Cart">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="9" cy="21" r="1"></circle>
+                                            <circle cx="20" cy="21" r="1"></circle>
+                                            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                        </svg>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -247,26 +253,18 @@
                     icon.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        icon.classList.toggle('active');
-                        const productId = icon.getAttribute('data-id');
-                        const product = this.products.find(p => p.id == productId);
-                        if (product) {
-                            wishlistManager.toggle(product);
-                        }
+                        const productName = icon.getAttribute('data-name');
+                        showNotification(`${productName} added to wishlist!`);
                     });
                 });
 
-                // Compare functionality
-                container.querySelectorAll('.compare-icon').forEach(icon => {
+                // Cart functionality
+                container.querySelectorAll('.cart-icon').forEach(icon => {
                     icon.addEventListener('click', (e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        icon.classList.toggle('active');
-                        const productId = icon.getAttribute('data-id');
-                        const product = this.products.find(p => p.id == productId);
-                        if (product) {
-                            compareManager.toggle(product);
-                        }
+                        const productName = icon.getAttribute('data-name');
+                        showNotification(`${productName} added to cart!`);
                     });
                 });
             }
@@ -282,70 +280,6 @@
                     p.name.toLowerCase().includes(lowerQuery) ||
                     p.category.toLowerCase().includes(lowerQuery)
                 );
-            }
-        }
-
-        // WishlistManager Class - Manages wishlist functionality
-        class WishlistManager {
-            constructor() {
-                this.items = [];
-            }
-
-            toggle(product) {
-                const index = this.items.findIndex(item => item.id === product.id);
-                if (index > -1) {
-                    this.items.splice(index, 1);
-                    this.showNotification(`${product.name} removed from wishlist`);
-                } else {
-                    this.items.push(product);
-                    this.showNotification(`${product.name} added to wishlist`);
-                }
-                console.log('Wishlist:', this.items);
-            }
-
-            showNotification(message) {
-                const notification = document.createElement('div');
-                notification.textContent = message;
-                notification.style.cssText = 'position: fixed; top: 80px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001; animation: slideIn 0.3s ease;';
-                document.body.appendChild(notification);
-
-                setTimeout(() => {
-                    notification.style.animation = 'slideOut 0.3s ease';
-                    setTimeout(() => notification.remove(), 300);
-                }, 2000);
-            }
-        }
-
-        // CompareManager Class - Manages product comparison
-        class CompareManager {
-            constructor() {
-                this.items = [];
-                this.maxItems = 4;
-            }
-
-            toggle(product) {
-                const index = this.items.findIndex(item => item.id === product.id);
-                if (index > -1) {
-                    this.items.splice(index, 1);
-                    this.showNotification(`${product.name} removed from comparison`);
-                } else {
-                    if (this.items.length >= this.maxItems) {
-                        this.showNotification(`Maximum ${this.maxItems} items can be compared`);
-                        return;
-                    }
-                    this.items.push(product);
-                    this.showNotification(`${product.name} added to comparison`);
-                }
-                console.log('Compare:', this.items);
-            }
-
-            showNotification(message) {
-                const notification = document.createElement('div');
-                notification.textContent = message;
-                notification.style.cssText = 'position: fixed; top: 80px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001;';
-                document.body.appendChild(notification);
-
-                setTimeout(() => notification.remove(), 2000);
             }
         }
 
@@ -394,8 +328,6 @@
         // ========== INITIALIZE APPLICATION ==========
         
         // Global instances
-        const wishlistManager = new WishlistManager();
-        const compareManager = new CompareManager();
         const newsletter = new Newsletter();
 
         // Collections
@@ -408,8 +340,6 @@
         async function initializeProducts() {
             try {
                 // IMPORTANT: Replace 'products.json' with the actual path to your JSON file
-                // If the JSON file is in the same directory as the HTML file, use: './products.json'
-                // If it's in a different location, provide the correct path
                 const data = await DataFetcher.fetchProducts('./products.json');
                 
                 // Create collections
@@ -551,6 +481,19 @@
             });
         }
 
+        // Show notification function
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
         // Add animation styles
         const style = document.createElement('style');
         style.textContent = `
@@ -561,6 +504,18 @@
             @keyframes slideOut {
                 from { transform: translateX(0); opacity: 1; }
                 to { transform: translateX(100%); opacity: 0; }
+            }
+            .notification {
+                position: fixed;
+                top: 80px;
+                right: 20px;
+                background: #D4AF37;
+                color: #000;
+                padding: 15px 25px;
+                border-radius: 10px;
+                font-weight: 600;
+                z-index: 10001;
+                animation: slideIn 0.3s ease;
             }
         `;
         document.head.appendChild(style);
@@ -582,8 +537,6 @@
 
         // Export for debugging (optional)
         window.AureliaApp = {
-            wishlistManager,
-            compareManager,
             newsletter,
             newArrivalsCollection,
             mostGiftedCollection,
