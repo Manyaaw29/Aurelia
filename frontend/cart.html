@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Aurelia Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="cart.css"> 
+
+</head>
+<body>
+    <!-- Enhanced Offer Bar -->
+    <div class="offer-bar">
+        <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code:</span>
+        <span class="offer-code">DIWALI</span>
+    </div>
+
+    <!-- Enhanced Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+            
+            <nav class="nav-links">
+                <a href="product.html" class="nav-link">Latest Collections</a>
+                <div class="dropdown">
+                    <button class="dropbtn nav-link">
+                        Categories <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="rings.html">Rings</a>
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="necklaces.html">Necklaces</a>
+                    </div>
+                </div>
+                <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jewelry...">
+            </div>
+
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon wishlist-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </a>
+                <a href="account.html" class="nav-icon account-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="cart.html" class="nav-icon cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="main-container">
+        
+        <div class="cart-content-column">
+            <div class="cart-main-content">
+                <h1 class="cart-title">Shopping Cart</h1>
+                <div class="cart-subtotal-header" id="cartHeaderPrice"></div>
+                
+                <div id="emptyCartMessage" class="empty-message">
+                    <i class="fas fa-shopping-cart"></i>
+                    Your Shopping Cart is empty. Fill it with beautiful jewelry!
+                </div>
+
+                <div class="cart-item" data-price="4999">
+                    <img src="https://palmonas.com/cdn/shop/files/01_e869a853-ae2b-4543-8f22-61455b80f6a6.webp?v=1744528231&width=900" alt="Anklet" class="product-image">
+                    
+                    <div class="product-details">
+                        <div class="product-name">Hearts All Over Gold Bracelet</div>
+                        <div class="product-description">The ultimate symbol of affection, featuring delicate hearts linked in 18k gold (Adjustable length).</div>
+                        
+                        <div class="item-price-quantity">
+                            <div class="quantity-selector">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <div class="price">₹4,999</div>
+                        </div>
+
+                        <div class="item-actions">
+                            <a href="#" class="action-link">Delete</a> | 
+                            <a href="#" class="action-link">Save for later</a> |
+                            <a href="#" class="action-link">Share</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-item" data-price="3999">
+                    <img src="https://palmonas.com/cdn/shop/files/1_9a56f84f-6674-49f6-8b20-14df1bd9ea56.jpg?v=1744524208&width=900" alt="Ring" class="product-image">
+                    
+                    <div class="product-details">
+                        <div class="product-name">Aurelia Greenstone Enigma Ring (Size 8)</div>
+                        <div class="product-description">A statement piece crafted with a striking greenstone set in a band of enigmatic gold.</div>
+
+                        <div class="item-price-quantity">
+                               <div class="quantity-selector">
+                                   <button class="qty-btn">-</button>
+                                   <span class="qty-display">1</span>
+                                   <button class="qty-btn">+</button>
+                               </div>
+                            <div class="price">₹3,999</div>
+                        </div>
+                        
+                        <div class="item-actions">
+                            <a href="#" class="action-link">Delete</a> | 
+                            <a href="#" class="action-link">Save for later</a> |
+                            <a href="#" class="action-link">Share</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cart-item" data-price="7999">
+                    <img src="https://palmonas.com/cdn/shop/files/DSC00320.jpg?v=1744524271&width=900" alt="Pendants" class="product-image">
+                    
+                    <div class="product-details">
+                        <div class="product-name">Aurelia Golden Boomerang Necklace</div>
+                        <div class="product-description">A modern, striking necklace featuring a sleek, golden boomerang pendant symbolizing return and good fortune. </div>
+
+                        <div class="item-price-quantity">
+                               <div class="quantity-selector">
+                                   <button class="qty-btn">-</button>
+                                   <span class="qty-display">1</span>
+                                   <button class="qty-btn">+</button>
+                               </div>
+                            <div class="price">₹7,999</div>
+                        </div>
+                        
+                        <div class="item-actions">
+                            <a href="#" class="action-link">Delete</a> | 
+                            <a href="#" class="action-link">Save for later</a> |
+                            <a href="#" class="action-link">Share</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: right; padding-top: 15px;" id="cartSubtotalBottom">
+                    <span class="summary-subtotal" style="font-size: 16px;">
+                        Subtotal (<span id="items-count-bottom">3</span> items): <span style="color: var(--color-gold);" id="subtotal-bottom">₹16,997</span>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="saved-for-later-section" id="savedForLaterSection" style="display: none;">
+                <div class="saved-main-content">
+                    <h2 class="saved-title">Saved for Later</h2>
+                    
+                    <div id="emptySavedMessage" class="empty-message">
+                           <i class="fas fa-bookmark"></i>
+                           You have no items saved for later.
+                    </div>
+
+                    <div id="savedItemsContainer">
+                        </div>
+                </div>
+            </div>
+        </div>
+        <div class="cart-summary-sidebar" id="cartSummarySidebar">
+            <div class="summary-subtotal">
+                Subtotal (<span id="items-count-sidebar">3</span> items): <span style="float: right;" id="subtotal-sidebar">₹16,997</span>
+            </div>
+            
+            <label class="flex-row" style="gap: 10px; font-size: 14px; margin-bottom: 15px;">
+                <input type="checkbox" checked style="accent-color: var(--color-gold);">
+                This order contains a gift
+            </label>
+
+            <a href="#" class="checkout-btn">Proceed to Buy</a>
+        </div>
+    </div>
+    
+    
+    <div class="recommendation-section">
+        <h2>Recommended For You</h2>
+        <div class="recommendation-grid">
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/products/04_c9beb17b-9c96-433c-b50e-7c5f9e6d800a.jpg?v=1744528078&width=900" alt="Rec 1" class="recommended-image"><div class="recommended-name">Love Hug Ring</div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/PM-NECKLACE-215_1_0fa33ea7-3e18-4ece-8e27-d684164d5a40.jpg?v=1744527906&width=900" class="recommended-image"><div class="recommended-name">Heart Rays Necklace</div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/PM-NECKLACE-102-011_a91b6cdd-0813-447d-aeae-aef2ef5a5c4b.jpg?v=1744528810&width=900" alt="Rec 3" class="recommended-image"><div class="recommended-name">Ekansha Diamond Mangalsutra</div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/look_2_sq1_b88a5567-9f8a-40ab-aa36-e6301c8bc8d8.webp?v=1744527051&width=900" alt="Rec 4" class="recommended-image"><div class="recommended-name">Solitaire Ring</div></a>
+            <a href="#" class="recommended-item"><img src="https://i.pinimg.com/originals/bb/41/08/bb41087c41d52f0637c131b844ccd037.jpg" alt="Rec 5" class="recommended-image"><div class="recommended-name">Waist Chain</div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/BR090G-4.jpg?v=1744526375&width=900" alt="Rec 6" class="recommended-image"><div class="recommended-name">Bangle Bracelet</div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/PM-EARRINGS-032_1_ca866188-eb2f-491f-ae6d-e42e9501725b.jpg?v=1744528692&width=900" alt="Rec 7" class="recommended-image"><div class="recommended-name">Solitaire Hoop Earrings </div></a>
+            <a href="#" class="recommended-item"><img src="https://palmonas.com/cdn/shop/files/PM-NECKLACE-027-07.jpg?v=1749546317&width=900" alt="Rec 8" class="recommended-image"><div class="recommended-name">Diamond Mangalsutra</div></a>
+        </div>
+    </div>
+    
+    <div class="footer-info-container">
+        <p class="promo-footer-link">
+            The price and availability of items at Aurelia are subject to change. The shopping cart is a temporary place to store a list of your items and reflects each item's most recent price. Do you have a promotional code? <a href="#">We'll ask you to enter your claim code when it's time to pay.</a>
+        </p>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                    <p id="subscriptionMessage" style="color: #D4AF37; font-weight: 500; margin-top: 10px; display: none;">Thank you for subscribing!</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: var(--color-text-grey); font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                    <div class="social-icons">
+                        <a href="https://instagram.com" class="social-icon" target="_blank">
+                            <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                        </a>
+                        <a href="https://facebook.com" class="social-icon" target="_blank">
+                            <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                        </a>
+                        <a href="https://pinterest.com" class="social-icon" target="_blank">
+                            <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                        </a>
+                        <a href="https://twitter.com" class="social-icon" target="_blank">
+                            <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                        </a>
+                    </div>
+            </div>
+        </div>
+    </footer>
+
+<div id="customModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-icon">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+                <circle cx="30" cy="30" r="30" fill="#D4AF37"/>
+                <path d="M25 30L28 33L35 26" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <h2 id="modalTitle" class="modal-title">Changes Saved!</h2>
+        <p id="modalMessage" class="modal-message">Your personal information has been updated successfully.</p>
+        <button id="modalOkBtn" class="modal-ok-btn">OK</button>
+    </div>
+</div>
+
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+        <h2 id="confirmModalTitle" class="modal-title">Confirm Deletion</h2>
+        <p id="confirmModalMessage" class="modal-message">Are you sure you want to remove this item from your cart?</p>
+        <div class="modal-buttons">
+            <button id="confirmCancelBtn" class="modal-btn modal-btn-cancel">Cancel</button>
+            <button id="confirmOkBtn" class="modal-btn modal-btn-ok">OK</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+// Array to store saved items
+let savedItems = [];
+
+// Variable to store the item to be removed
+let itemToRemove = null; 
+const notificationModal = document.getElementById('customModal');
+const confirmModal = document.getElementById('confirmDeleteModal');
+
+// --- Notification Modal Functions ---
+function showModal(title, message) {
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMessage').textContent = message;
+    notificationModal.style.display = 'block';
+}
+
+function closeModal() {
+    notificationModal.style.display = 'none';
+}
+document.getElementById('modalOkBtn').addEventListener('click', closeModal);
+
+
+// --- Confirmation Modal Functions ---
+function showConfirmModal(title, message) {
+    document.getElementById('confirmModalTitle').textContent = title;
+    document.getElementById('confirmModalMessage').textContent = message;
+    confirmModal.style.display = 'block';
+}
+
+function closeConfirmModal() {
+    confirmModal.style.display = 'none';
+    itemToRemove = null; // Clear the item
+}
+
+// Add listeners for the new confirm modal buttons
+document.getElementById('confirmOkBtn').addEventListener('click', function() {
+    if (itemToRemove) {
+        
+        // 1. Add the CSS class to start the animation
+        itemToRemove.classList.add('collapsing'); 
+        
+        // 2. Set a timeout to remove the element *after* the animation (300ms) is complete.
+        setTimeout(() => {
+            if (itemToRemove) { // Check if it still exists
+                itemToRemove.remove();
+            }
+            updateCartTotals();
+            updateSavedForLaterDisplay();
+            // Show notification *after* item is gone
+            showModal('Item Removed', 'The item has been removed from your cart.');
+        }, 300); // Must match the transition duration in your CSS
+    }
+    closeConfirmModal(); // Close the confirmation modal
+});
+
+document.getElementById('confirmCancelBtn').addEventListener('click', closeConfirmModal);
+
+
+// --- Global Click Listener (closes modals) ---
+window.addEventListener('click', function(e) {
+    if (e.target === notificationModal) {
+        closeModal();
+    }
+    if (e.target === confirmModal) {
+        closeConfirmModal();
+    }
+});
+
+// --- Saved for Later Functions ---
+function createSavedItem(itemData) {
+    const savedItemDiv = document.createElement('div');
+    savedItemDiv.className = 'cart-item saved-item';
+    savedItemDiv.dataset.price = itemData.price;
+    
+    savedItemDiv.innerHTML = `
+        <img src="${itemData.image}" alt="${itemData.name}" class="product-image">
+        <div class="product-details">
+            <div class="product-name">${itemData.name}</div>
+            <div class="product-description">${itemData.description}</div>
+            <div class="item-price-quantity">
+                <div class="price">₹${parseInt(itemData.price).toLocaleString('en-IN')}</div>
+            </div>
+            <div class="item-actions">
+                <a href="#" class="action-link saved-move-to-cart">Move to Cart</a> | 
+                <a href="#" class="action-link saved-delete">Delete</a>
+            </div>
+        </div>
+    `;
+    
+    return savedItemDiv;
+}
+
+function updateSavedForLaterDisplay() {
+    const savedSection = document.getElementById('savedForLaterSection');
+    const savedContainer = document.getElementById('savedItemsContainer');
+    const emptySavedMessage = document.getElementById('emptySavedMessage');
+    
+    // Clear items first
+    savedContainer.innerHTML = ''; 
+
+    if (savedItems.length > 0) {
+        savedSection.style.display = 'block'; 
+        savedItems.forEach(item => {
+            savedContainer.appendChild(createSavedItem(item));
+        });
+        emptySavedMessage.style.display = 'none'; // Hide message
+        attachSavedItemListeners();
+    } else {
+        // Show empty state for Saved for Later
+        savedSection.style.display = 'block'; // Keep the section box visible
+        emptySavedMessage.style.display = 'flex'; // Show message
+    }
+}
+
+function attachSavedItemListeners() {
+    // Move to Cart listeners
+    document.querySelectorAll('.saved-move-to-cart').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const savedItem = this.closest('.saved-item');
+            const productName = savedItem.querySelector('.product-name').textContent;
+            const index = Array.from(savedItem.parentNode.children).indexOf(savedItem);
+            
+            const itemData = savedItems[index];
+            savedItems.splice(index, 1);
+            
+            savedItem.classList.add('collapsing');
+            setTimeout(() => {
+                savedItem.remove();
+                updateSavedForLaterDisplay();
+                
+                // Add back to cart
+                const cartContainer = document.querySelector('.cart-main-content');
+                const subtotalDiv = document.getElementById('cartSubtotalBottom');
+                
+                const newCartItem = document.createElement('div');
+                newCartItem.className = 'cart-item';
+                newCartItem.dataset.price = itemData.price;
+                
+                newCartItem.innerHTML = `
+                    <img src="${itemData.image}" alt="${itemData.name}" class="product-image">
+                    <div class="product-details">
+                        <div class="product-name">${itemData.name}</div>
+                        <div class="product-description">${itemData.description}</div>
+                        <div class="item-price-quantity">
+                            <div class="quantity-selector">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-display">1</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                            <div class="price">₹${parseInt(itemData.price).toLocaleString('en-IN')}</div>
+                        </div>
+                        <div class="item-actions">
+                            <a href="#" class="action-link">Delete</a> | 
+                            <a href="#" class="action-link">Save for later</a> |
+                            <a href="#" class="action-link">Share</a>
+                        </div>
+                    </div>
+                `;
+                
+                cartContainer.insertBefore(newCartItem, subtotalDiv);
+                
+                attachCartItemListeners();
+                updateCartTotals();
+                
+                showModal('Moved to Cart', '"' + productName + '" has been moved back to your cart!');
+            }, 300);
+        });
+    });
+    
+    // Delete listeners
+    document.querySelectorAll('.saved-delete').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const savedItem = this.closest('.saved-item');
+            const productName = savedItem.querySelector('.product-name').textContent;
+            const index = Array.from(savedItem.parentNode.children).indexOf(savedItem);
+            
+            savedItems.splice(index, 1);
+            
+            savedItem.classList.add('collapsing');
+            setTimeout(() => {
+                savedItem.remove();
+                updateSavedForLaterDisplay();
+                showModal('Item Deleted', '"' + productName + '" has been permanently removed.');
+            }, 300);
+        });
+    });
+}
+
+// --- Cart Logic Functions ---
+
+function updateCartTotals() {
+    let totalItems = 0;
+    let totalPrice = 0;
+    const cartItems = document.querySelectorAll('.cart-item:not(.collapsing):not(.saved-item)');
+    const emptyCartMessage = document.getElementById('emptyCartMessage');
+    const cartHeaderPrice = document.getElementById('cartHeaderPrice');
+    const cartSubtotalBottom = document.getElementById('cartSubtotalBottom');
+    const cartSummarySidebar = document.getElementById('cartSummarySidebar');
+    
+    cartItems.forEach(item => {
+        const quantity = parseInt(item.querySelector('.qty-display').textContent);
+        const pricePerItem = parseInt(item.dataset.price);
+        totalItems += quantity;
+        totalPrice += quantity * pricePerItem;
+    });
+    
+    // Show/Hide Empty Cart Message and other elements
+    if (totalItems === 0) {
+        emptyCartMessage.style.display = 'flex';
+        cartHeaderPrice.style.display = 'none';
+        cartSubtotalBottom.style.display = 'none';
+        cartSummarySidebar.style.display = 'none'; // Hide sidebar when cart is totally empty
+    } else {
+        emptyCartMessage.style.display = 'none';
+        cartHeaderPrice.style.display = 'flex';
+        cartSubtotalBottom.style.display = 'block';
+        cartSummarySidebar.style.display = 'block'; // Show sidebar
+    }
+
+    document.getElementById('items-count-bottom').textContent = totalItems;
+    document.getElementById('items-count-sidebar').textContent = totalItems;
+    document.getElementById('subtotal-bottom').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+    document.getElementById('subtotal-sidebar').textContent = '₹' + totalPrice.toLocaleString('en-IN');
+}
+
+function attachCartItemListeners() {
+    // Quantity button listeners
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const cartItem = this.closest('.cart-item');
+            if (cartItem.classList.contains('saved-item')) return; // Skip saved items
+            
+            const qtyDisplay = cartItem.querySelector('.qty-display');
+            const priceDisplay = cartItem.querySelector('.price');
+            const pricePerItem = parseInt(cartItem.dataset.price);
+            let currentQty = parseInt(qtyDisplay.textContent);
+            
+            if (this.textContent === '+') {
+                currentQty++;
+            } else if (this.textContent === '-' && currentQty > 1) {
+                currentQty--;
+            }
+            
+            qtyDisplay.textContent = currentQty;
+            priceDisplay.textContent = '₹' + (pricePerItem * currentQty).toLocaleString('en-IN');
+            updateCartTotals();
+        });
+    });
+    
+    // Action link listeners (Delete, Save for later, Share)
+    document.querySelectorAll('.cart-item:not(.saved-item) .action-link').forEach(link => {
+        // Remove old listeners by cloning
+        const newLink = link.cloneNode(true);
+        link.parentNode.replaceChild(newLink, link);
+        
+        newLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            const linkText = this.textContent.trim();
+            const cartItem = this.closest('.cart-item');
+            const productName = cartItem.querySelector('.product-name').textContent;
+            
+            if (linkText === 'Delete') {
+                itemToRemove = cartItem;
+                showConfirmModal('Confirm Deletion', 'Are you sure you want to remove this item from your cart?');
+                
+            } else if (linkText === 'Save for later') {
+                // Save item data
+                const itemData = {
+                    name: productName,
+                    description: cartItem.querySelector('.product-description').textContent,
+                    price: cartItem.dataset.price,
+                    image: cartItem.querySelector('.product-image').src
+                };
+                
+                savedItems.push(itemData);
+                
+                // Remove from cart with animation
+                cartItem.classList.add('collapsing');
+                setTimeout(() => {
+                    cartItem.remove();
+                    updateCartTotals();
+                    updateSavedForLaterDisplay();
+                    showModal('Saved for Later', '"' + productName + '" has been saved for later!');
+                }, 300);
+
+            } else if (linkText === 'Share') {
+                if (navigator.share) {
+                    navigator.share({
+                        title: productName,
+                        text: 'Check out this amazing product: ' + productName,
+                        url: window.location.href
+                    }).catch(err => console.log('Share failed:', err));
+                } else {
+                    showModal('Share Product', 'Share: ' + productName);
+                }
+            }
+        });
+    });
+}
+
+// Initialize cart listeners and totals on page load
+attachCartItemListeners();
+updateCartTotals(); // Initial check for empty state
+updateSavedForLaterDisplay();
+
+// *** MODIFIED NEWSLETTER SUBSCRIPTION LOGIC ***
+document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const emailInput = this.querySelector('.newsletter-input');
+    const messageElement = document.getElementById('subscriptionMessage'); // Get the new P tag
+
+    if (emailInput.value) {
+        // 1. Show the success message (Yellow/Gold inline text)
+        messageElement.style.display = 'block';
+
+        // 2. Clear the form input
+        emailInput.value = '';
+
+        // 3. Hide the message again after 5 seconds
+        setTimeout(() => {
+            messageElement.style.display = 'none';
+        }, 5000); // Message disappears after 5 seconds
+    }
+});
+// *** END MODIFIED NEWSLETTER SUBSCRIPTION LOGIC ***
+
+
+// *** UPDATED CHECKOUT LOGIC ***
+document.querySelector('.checkout-btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Stop the default link action immediately
+    
+    // Check if the cart is empty
+    const totalItems = parseInt(document.getElementById('items-count-sidebar').textContent);
+    
+    if (totalItems === 0) {
+        showModal('Cart Empty', 'Please add items to your cart before proceeding to checkout.');
+        return; // Stop execution if cart is empty
+    }
+
+    // 1. Show the modal notification (Retained as per original code, which is usually fine for a temporary redirect notice)
+    showModal('Proceeding to Checkout', 'You will be redirected in 3 seconds...');
+
+    // 2. Set a timer (3000 milliseconds = 3 seconds)
+    setTimeout(() => {
+        // 3. After the timer expires, close the modal and redirect
+        closeModal();
+        window.location.href = 'checkout.html'; 
+    }, 3000); // 3000ms delay
+});
+
+</script>
+</body> 
+</html>

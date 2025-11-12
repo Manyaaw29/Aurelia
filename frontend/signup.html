@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Aurelia Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+
+    <div class="jewelry-bg">
+        <div class="jewel-item">💎</div>
+        <div class="jewel-item">👑</div>
+        <div class="jewel-item">💍</div>
+        <div class="jewel-item">✨</div>
+        <div class="jewel-item">💎</div>
+        <div class="jewel-item">🔮</div>
+        <div class="jewel-item">💍</div>
+        <div class="jewel-item">👑</div>
+        <div class="jewel-item">✨</div>
+        <div class="jewel-item">💎</div>
+    </div>    
+    <main>
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1 class="auth-title">Create Your Account</h1>
+                <p class="auth-subtitle">Join Aurelia to discover exclusive collections and offers.</p>
+            </div>
+            
+            <form class="auth-form" id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="form-input" placeholder="Enter your first name">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="form-input" placeholder="Enter your last name">
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input type="email" id="email" class="form-input" placeholder="Enter your email">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" id="password" class="form-input" placeholder="Create a password">
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Create Account</button>
+
+                <p class="auth-link">
+                    Already have an account? <a href="signin.html">Sign In</a>
+                </p>
+            </form>
+        </div>
+    </main>
+
+   <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: var(--color-text-grey); margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: var(--color-text-grey); font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://facebook.com" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://pinterest.com" class="social-icon" target="_blank">
+                        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.auth-form');
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Clear previous error messages
+                clearErrors();
+                
+                // Validate form
+                let isValid = true;
+                
+                // First name validation
+                if (firstName.value.trim() === '') {
+                    showError(firstName, 'First name is required');
+                    isValid = false;
+                }
+                
+                // Last name validation
+                if (lastName.value.trim() === '') {
+                    showError(lastName, 'Last name is required');
+                    isValid = false;
+                }
+                
+                // Email validation
+                if (email.value.trim() === '') {
+                    showError(email, 'Email is required');
+                    isValid = false;
+                } else if (!isValidEmail(email.value)) {
+                    showError(email, 'Please enter a valid email address');
+                    isValid = false;
+                }
+                
+                // Password validation
+                if (password.value.trim() === '') {
+                    showError(password, 'Password is required');
+                    isValid = false;
+                } else if (password.value.length < 6) {
+                    showError(password, 'Password must be at least 6 characters');
+                    isValid = false;
+                }
+                
+                // Confirm password validation
+                if (confirmPassword.value.trim() === '') {
+                    showError(confirmPassword, 'Please confirm your password');
+                    isValid = false;
+                } else if (password.value !== confirmPassword.value) {
+                    showError(confirmPassword, 'Passwords do not match');
+                    isValid = false;
+                }
+                
+                // If form is valid, create account
+                if (isValid) {
+                    createAccount();
+                }
+            });
+            
+            // Function to validate email format
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+            
+            // Function to show error message
+            function showError(input, message) {
+                const formGroup = input.closest('.form-group');
+                const error = document.createElement('div');
+                error.className = 'error-message';
+                error.textContent = message;
+                error.style.color = '#ff6b6b';
+                error.style.fontSize = '0.85rem';
+                error.style.marginTop = '5px';
+                formGroup.appendChild(error);
+                input.style.borderColor = '#ff6b6b';
+            }
+            
+            // Function to clear all error messages
+            function clearErrors() {
+                const errorMessages = document.querySelectorAll('.error-message');
+                errorMessages.forEach(error => error.remove());
+                
+                const inputs = document.querySelectorAll('.form-input');
+                inputs.forEach(input => {
+                    input.style.borderColor = '';
+                });
+            }
+            
+            // Function to create account and redirect
+            function createAccount() {
+                // Store user data (in a real app, this would be sent to a server)
+                const userData = {
+                    firstName: firstName.value.trim(),
+                    lastName: lastName.value.trim(),
+                    email: email.value.trim(),
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Store in memory (simulating account creation)
+                const accounts = JSON.parse(sessionStorage.getItem('accounts') || '[]');
+                accounts.push(userData);
+                sessionStorage.setItem('accounts', JSON.stringify(accounts));
+                
+                // Set success flag
+                sessionStorage.setItem('accountCreated', 'true');
+                sessionStorage.setItem('userEmail', userData.email);
+                
+                // Show success message briefly before redirect
+                showSuccessMessage();
+                
+                // Redirect to sign in page after 1.5 seconds
+                setTimeout(function() {
+                    window.location.href = 'signin.html';
+                }, 1500);
+            }
+            
+            // Function to show success message
+            function showSuccessMessage() {
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-modal';
+                successDiv.innerHTML = `
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <div class="success-icon">✓</div>
+                        <h2 class="success-title">Account Created!</h2>
+                        <p class="success-text">Redirecting to sign in...</p>
+                    </div>
+                `;
+                document.body.appendChild(successDiv);
+            }
+            
+            // Real-time validation on input
+            const inputs = [firstName, lastName, email, password, confirmPassword];
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Remove error styling when user starts typing
+                    const errorMessage = this.closest('.form-group').querySelector('.error-message');
+                    if (errorMessage) {
+                        errorMessage.remove();
+                        this.style.borderColor = '';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
