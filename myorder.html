@@ -68,8 +68,30 @@
             <div class="order-history-list">
                 <h1 class="page-title">Order History</h1>
 
+                <!-- Filter and Sort Options -->
+                <div class="order-filters">
+                    <div class="filter-group">
+                        <label for="statusFilter">📊 Filter by Status:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Orders</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="processing">Processing</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortOrder">🔄 Sort by:</label>
+                        <select id="sortOrder" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="price-low">Price: Low to High</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Order 1 - Delivered -->
-                <div class="order-card" data-order-id="AU-100293">
+                <div class="order-card" data-order-id="AU-100293" data-status="delivered" data-price="3999" data-date="2025-09-02">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100293</div>
@@ -98,7 +120,7 @@
                 </div>
 
                 <!-- Order 2 - Shipped -->
-                <div class="order-card" data-order-id="AU-100451">
+                <div class="order-card" data-order-id="AU-100451" data-status="shipped" data-price="7999" data-date="2025-09-17">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100451</div>
@@ -130,7 +152,7 @@
                 </div>
 
                 <!-- Order 3 - Processing -->
-                <div class="order-card" data-order-id="AU-100522">
+                <div class="order-card" data-order-id="AU-100522" data-status="processing" data-price="9998" data-date="2025-09-29">
                     <div class="order-header">
                         <div class="order-id-date">
                             <div class="order-id">Order #AU-100522</div>
@@ -181,6 +203,17 @@
                 <div class="metric-row">
                     <span><i class="fas fa-check-circle metric-icon"></i> Delivered Orders</span>
                     <span class="metric-value status-delivered">4</span>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h4 class="quick-actions-title">⚡ Quick Actions</h4>
+                    <button class="quick-action-btn" onclick="downloadAllInvoices()">
+                        <i class="fas fa-download"></i> Download All Invoices
+                    </button>
+                    <button class="quick-action-btn" onclick="showHelpCenter()">
+                        <i class="fas fa-question-circle"></i> Help Center
+                    </button>
                 </div>
             </div>
 
@@ -257,6 +290,14 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             initializeOrderActions();
+            initializeFilters();
+            // Reorder buttons
+            document.querySelectorAll(".reorder-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    handleReorder();
+                });
+            });
         });
 
         // Initialize all order action buttons
@@ -287,10 +328,66 @@
                     showCancelOptions(card);
                 });
             });
+
+            // Reorder buttons
+            document.querySelectorAll(".reorder-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    handleReorder();
+                });
+            });
         }
 
         // ========================================
-        // VIEW ORDER DETAILS MODAL
+        // FILTER AND SORT FUNCTIONALITY
+        // ========================================
+        function initializeFilters() {
+            const statusFilter = document.getElementById('statusFilter');
+            const sortOrder = document.getElementById('sortOrder');
+
+            statusFilter?.addEventListener('change', filterOrders);
+            sortOrder?.addEventListener('change', sortOrders);
+        }
+
+        function filterOrders() {
+            const filterValue = document.getElementById('statusFilter').value;
+            const orderCards = document.querySelectorAll('.order-card');
+
+            orderCards.forEach(card => {
+                const status = card.dataset.status;
+                if (filterValue === 'all' || status === filterValue) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function sortOrders() {
+            const sortValue = document.getElementById('sortOrder').value;
+            const container = document.querySelector('.order-history-list');
+            const orderCards = Array.from(document.querySelectorAll('.order-card'));
+
+            orderCards.sort((a, b) => {
+                switch(sortValue) {
+                    case 'newest':
+                        return new Date(b.dataset.date) - new Date(a.dataset.date);
+                    case 'oldest':
+                        return new Date(a.dataset.date) - new Date(b.dataset.date);
+                    case 'price-high':
+                        return parseInt(b.dataset.price) - parseInt(a.dataset.price);
+                    case 'price-low':
+                        return parseInt(a.dataset.price) - parseInt(b.dataset.price);
+                    default:
+                        return 0;
+                }
+            });
+
+            orderCards.forEach(card => container.appendChild(card));
+        }
+
+        // ========================================
+        // VIEW ORDER DETAILS MODAL (WITH RETURN/REFUND OPTION)
         // ========================================
         function showOrderDetails(card) {
             const orderId = card.querySelector(".order-id").textContent;
@@ -329,16 +426,106 @@
                 </div>
                 <div class="modal-buttons">
                     <button class="btn-primary" onclick="window.print()">🖨️ Print Invoice</button>
+                    <button class="btn-primary return-refund-btn">🔄 Return / Refund</button>
                     <button class="btn-secondary close-modal-btn">Close</button>
                 </div>
             </div>
         </div>`;
 
             openModal(html);
+
+            // Add event listener for return/refund button
+            document.querySelector('.return-refund-btn').onclick = () => {
+                closeModal();
+                showReturnRefundOptions(card);
+            };
         }
 
         // ========================================
-        // TRACK ORDER MODAL
+        // RETURN/REFUND MODAL
+        // ========================================
+        function showReturnRefundOptions(card) {
+            const orderId = card.querySelector(".order-id").textContent;
+            const productName = card.querySelector(".item-names")?.textContent.trim() || "Unknown item";
+            const total = card.querySelector(".order-total-price")?.textContent || "₹—";
+
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <button class="close-btn">&times;</button>
+                <h2>🔄 Return/Refund Request</h2>
+                <div class="order-summary">
+                    <p><strong>Order ID:</strong> <span>${orderId}</span></p>
+                    <p><strong>Product:</strong> <span>${productName}</span></p>
+                    <p><strong>Amount:</strong> <span style="color: var(--color-gold-light);">${total}</span></p>
+                </div>
+                <form id="returnForm" style="margin-top: 20px;">
+                    <div class="form-section">
+                        <h4 style="color: var(--color-gold); margin-bottom: 15px;">Select Return Reason:</h4>
+                        <label><input type="radio" name="returnReason" value="Defective product" required> Defective or damaged product</label>
+                        <label><input type="radio" name="returnReason" value="Wrong item received"> Wrong item received</label>
+                        <label><input type="radio" name="returnReason" value="Not as described"> Product not as described</label>
+                        <label><input type="radio" name="returnReason" value="Size/fit issue"> Size or fit issue</label>
+                        <label><input type="radio" name="returnReason" value="Quality concerns"> Quality not satisfactory</label>
+                        <label><input type="radio" name="returnReason" value="Changed mind"> Changed my mind</label>
+                    </div>
+                    <div class="form-section" style="margin-top: 20px;">
+                        <h4 style="color: var(--color-gold); margin-bottom: 10px;">Preferred Resolution:</h4>
+                        <label><input type="radio" name="resolution" value="refund" checked> Full Refund to original payment method</label>
+                        <label><input type="radio" name="resolution" value="exchange"> Exchange for same product</label>
+                        <label><input type="radio" name="resolution" value="credit"> Store credit for future purchase</label>
+                    </div>
+                    <div class="form-section" style="margin-top: 20px;">
+                        <label for="returnComments" style="display: block; margin-bottom: 10px; color: var(--color-gold);">Additional Comments (Optional):</label>
+                        <textarea id="returnComments" rows="4" placeholder="Please describe the issue in detail..." style="width: 100%; padding: 12px; border-radius: 8px; background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(212,175,55,0.3);"></textarea>
+                    </div>
+                </form>
+                <div style="background: rgba(244, 208, 63, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--color-gold);">
+                    <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
+                        <strong>ℹ️ Return Policy:</strong> Items must be returned within 7 days of delivery in original condition with tags attached. Refunds will be processed within 5-7 business days after inspection.
+                    </p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-secondary close-modal-btn">Cancel</button>
+                    <button class="btn-primary confirm-return-btn">Submit Return Request</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+
+            document.querySelector('.confirm-return-btn').onclick = () => {
+                const selectedReason = document.querySelector('input[name="returnReason"]:checked');
+                const selectedResolution = document.querySelector('input[name="resolution"]:checked');
+                
+                if (!selectedReason) {
+                    showToast("⚠️ Please select a return reason", "warning");
+                    return;
+                }
+                
+                closeModal();
+                handleReturnConfirm(card, orderId, selectedReason.value, selectedResolution.value);
+            };
+        }
+
+        function handleReturnConfirm(card, orderId, reason, resolution) {
+            showToast(`✅ Return request submitted! Resolution: ${resolution}. Reason: ${reason}`);
+            
+            const statusEl = card.querySelector(".order-status");
+            statusEl.textContent = "Return Requested";
+            statusEl.className = "order-status status-pending";
+
+            const actionBtn = card.querySelector(".order-actions a");
+            actionBtn.textContent = "View Return Status";
+            actionBtn.className = "view-return-btn";
+            actionBtn.onclick = (e) => {
+                e.preventDefault();
+                showReturnStatus(card, resolution);
+            };
+        }
+
+        // ========================================
+        // TRACK ORDER MODAL (WITH CANCEL OPTION)
         // ========================================
         function trackOrder(card) {
             const orderId = card.querySelector(".order-id").textContent;
@@ -354,44 +541,55 @@
                     <p><strong>Current Status:</strong> <span style="color: var(--color-gold-light);">Out for Delivery 🛵</span></p>
                     <p><strong>Estimated Delivery:</strong> <span style="color: var(--color-status-success);">October 6, 2025</span></p>
                     <p><strong>Tracking ID:</strong> <span style="font-family: monospace; color: var(--color-gold);">TRK-AUR-2025-451</span></p>
+                    <p><strong>Carrier:</strong> <span>BlueDart Express</span></p>
                 </div>
                 <div class="timeline">
-  <div class="step done">
-    <i>🧾</i>
-    <p>Order Placed</p>
-    <span>Sep 29</span>
-  </div>
-  <div class="step done">
-    <i>📦</i>
-    <p>Packed</p>
-    <span>Sep 30</span>
-  </div>
-  <div class="step done">
-    <i>🚚</i>
-    <p>Shipped</p>
-    <span>Oct 1</span>
-  </div>
-  <div class="step current">
-    <i>🛵</i>
-    <p>Out for Delivery</p>
-    <span>Oct 5</span>
-  </div>
-  <div class="step">
-    <i>🏠</i>
-    <p>Delivered</p>
-    <span>Pending</span>
-  </div>
-</div>
-
-
+                    <div class="step done">
+                        <i>🧾</i>
+                        <p>Order Placed</p>
+                        <span>Sep 29</span>
+                    </div>
+                    <div class="step done">
+                        <i>📦</i>
+                        <p>Packed</p>
+                        <span>Sep 30</span>
+                    </div>
+                    <div class="step done">
+                        <i>🚚</i>
+                        <p>Shipped</p>
+                        <span>Oct 1</span>
+                    </div>
+                    <div class="step current">
+                        <i>🛵</i>
+                        <p>Out for Delivery</p>
+                        <span>Oct 5</span>
+                    </div>
+                    <div class="step">
+                        <i>🏠</i>
+                        <p>Delivered</p>
+                        <span>Pending</span>
+                    </div>
+                </div>
+                <div style="background: rgba(244, 208, 63, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; border-left: 4px solid var(--color-gold);">
+                    <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
+                        <strong>📍 Live Update:</strong> Your package is currently with the delivery agent and will arrive today between 2 PM - 6 PM.
+                    </p>
+                </div>
                 <div class="modal-buttons">
                     <button class="btn-primary" onclick="showToast('📲 SMS notification sent!')">Get SMS Updates</button>
+                    <button class="btn-warning cancel-from-track-btn">❌ Cancel Order</button>
                     <button class="btn-secondary close-modal-btn">Close</button>
                 </div>
             </div>
         </div>`;
 
             openModal(html);
+
+            // Add cancel order functionality from tracking modal
+            document.querySelector('.cancel-from-track-btn').onclick = () => {
+                closeModal();
+                showCancelOptions(card);
+            };
         }
 
         // ========================================
@@ -455,15 +653,16 @@
             actionBtn.className = "view-return-btn";
             actionBtn.onclick = (e) => {
                 e.preventDefault();
-                showReturnStatus(card);
+                showReturnStatus(card, 'refund');
             };
         }
 
         // ========================================
         // VIEW RETURN STATUS MODAL
         // ========================================
-        function showReturnStatus(card) {
+        function showReturnStatus(card, resolution = 'refund') {
             const orderId = card.querySelector(".order-id").textContent;
+            const resolutionText = resolution === 'refund' ? 'Refund' : resolution === 'exchange' ? 'Exchange' : 'Store Credit';
 
             const html = `
         <div class="modal-overlay">
@@ -472,21 +671,81 @@
                 <h2>🔄 ${orderId} - Return Status</h2>
                 <div style="margin: 20px 0;">
                     <p style="color: var(--color-text-grey); margin-bottom: 20px;">
-                        Your cancellation request is being processed. Here's the current status:
+                        Your ${resolutionText.toLowerCase()} request is being processed. Here's the current status:
                     </p>
                     <ul class="progress-list">
                         <li class="done">Return Requested - Oct 2, 2025</li>
                         <li class="done">Request Approved - Oct 2, 2025</li>
                         <li class="done">Pickup Scheduled - Oct 3, 2025</li>
                         <li>Item Collected - Pending</li>
-                        <li>Refund Initiated - Pending</li>
-                        <li>Refund Completed - Pending</li>
+                        <li>${resolutionText} Initiated - Pending</li>
+                        <li>${resolutionText} Completed - Pending</li>
                     </ul>
                 </div>
                 <div style="background: rgba(112, 224, 135, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid var(--color-status-success);">
                     <p style="font-size: 0.9rem; color: var(--color-text-grey); margin: 0;">
-                        <strong>✓ Next Step:</strong> Our delivery partner will collect the item from your address on Oct 3, 2025. Please keep the package ready.
+                        <strong>✓ Next Step:</strong> Our delivery partner will collect the item from your address on Oct 3, 2025. Please keep the package ready with all original tags and packaging.
                     </p>
+                </div>
+                <div class="modal-buttons">
+                    <button class="btn-primary" onclick="showToast('📧 Return details emailed!')">Email Details</button>
+                    <button class="btn-secondary close-modal-btn">Close</button>
+                </div>
+            </div>
+        </div>`;
+
+            openModal(html);
+        }
+
+        // ========================================
+        // QUICK ACTIONS
+        // ========================================
+        function downloadAllInvoices() {
+            showToast('📥 Downloading all invoices... Please wait.');
+            setTimeout(() => {
+                showToast('✅ All invoices downloaded successfully!');
+            }, 2000);
+        }
+
+        function showHelpCenter() {
+            const html = `
+        <div class="modal-overlay">
+            <div class="modal-box">
+                <button class="close-btn">&times;</button>
+                <h2>💬 Help Center</h2>
+                <div style="margin: 20px 0;">
+                    <div class="help-option">
+                        <h4 style="color: var(--color-gold); margin-bottom: 10px;">📞 Call Us</h4>
+                        <p style="color: var(--color-text-grey);">Customer Support: <strong style="color: #fff;">1800-123-4567</strong></p>
+                        <p style="color: var(--color-text-grey); font-size: 0.85rem;">Available 24/7</p>
+                    </div>
+                    <div class="help-option" style="margin-top: 20px;">
+                        <h4 style="color: var(--color-gold); margin-bottom: 10px;">💬 Live Chat</h4>
+                        <p style="color: var(--color-text-grey);">Chat with our support team in real-time</p>
+                        <button class="btn-primary" style="margin-top: 10px;" onclick="showToast('💬 Opening chat window...')">Start Chat</button>
+                    </div>
+                    <div class="help-option" style="margin-top: 20px;">
+                        <h4 style="color: var(--color-gold); margin-bottom: 10px;">📧 Email Support</h4>
+                        <p style="color: var(--color-text-grey);">support@aurelia.com</p>
+                        <p style="color: var(--color-text-grey); font-size: 0.85rem;">Response within 24 hours</p>
+                    </div>
+                    <div class="help-option" style="margin-top: 20px;">
+                        <h4 style="color: var(--color-gold); margin-bottom: 10px;">❓ FAQs</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                                <a href="#" style="color: var(--color-text-grey); text-decoration: none;" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-text-grey)'">How do I track my order?</a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                                <a href="#" style="color: var(--color-text-grey); text-decoration: none;" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-text-grey)'">What is your return policy?</a>
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                                <a href="#" style="color: var(--color-text-grey); text-decoration: none;" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-text-grey)'">How long does shipping take?</a>
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <a href="#" style="color: var(--color-text-grey); text-decoration: none;" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-text-grey)'">How do I cancel an order?</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="modal-buttons">
                     <button class="btn-secondary close-modal-btn">Close</button>
