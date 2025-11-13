@@ -10,60 +10,58 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="address.css">
+    
 </head>
 
 <body>
-    
-
-
-<!-- Enhanced Header -->
-<header class="header">
-    <div class="header-container">
-        <a href="homepage.html" class="logo">Aurelia</a>
-        
-        <nav class="nav-links">
-            <a href="product.html" class="nav-link">Latest Collections</a>
-            <div class="dropdown">
-                <button class="dropbtn nav-link">
-                    Categories <span class="dropdown-arrow">▼</span>
-                </button>
-                <div class="dropdown-content">
-                    <a href="rings.html">Rings</a>
-                    <a href="bracelets.html">Bracelets</a>
-                    <a href="earrings.html">Earrings</a>
-                    <a href="necklaces.html">Necklaces</a>
+    <!-- Enhanced Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+            
+            <nav class="nav-links">
+                <a href="product.html" class="nav-link">Latest Collections</a>
+                <div class="dropdown">
+                    <button class="dropbtn nav-link">
+                        Categories<span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="rings.html">Rings</a>
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="necklaces.html">Necklaces</a>
+                    </div>
                 </div>
+                <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jewelry...">
             </div>
-            <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
-            <a href="about_us.html" class="nav-link">About Us</a>
-        </nav>
 
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Search jewelry...">
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon wishlist-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </a>
+                <a href="account.html" class="nav-icon account-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="cart.html" class="nav-icon cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
-
-        <div class="nav-actions">
-            <a href="wishlist.html" class="nav-icon wishlist-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-            </a>
-            <a href="account.html" class="nav-icon account-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                </svg>
-            </a>
-            <a href="cart.html" class="nav-icon cart-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="9" cy="21" r="1"></circle>
-                    <circle cx="20" cy="21" r="1"></circle>
-                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                </svg>
-            </a>
-        </div>
-    </div>
-</header>
+    </header>
 
     <div class="account-container">
         <div class="account-header">
@@ -199,8 +197,7 @@
         <div class="footer-content">
             <div class="newsletter">
                 <h3>Stay Connected</h3>
-                <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new
-                    arrivals</p>
+                <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
                 <form class="newsletter-form">
                     <input type="email" class="newsletter-input" placeholder="Enter your email">
                     <button type="submit" class="newsletter-button">Subscribe</button>
@@ -240,16 +237,13 @@
             <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
             <div class="social-icons">
                 <a href="https://instagram.com" class="social-icon" target="_blank">
-                    <i class="fab fa-instagram"
-                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
                 </a>
                 <a href="https://facebook.com" class="social-icon" target="_blank">
-                    <i class="fab fa-facebook-f"
-                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
                 </a>
                 <a href="https://twitter.com" class="social-icon" target="_blank">
-                    <i class="fab fa-twitter"
-                        style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
                 </a>
             </div>
         </div>
@@ -609,34 +603,26 @@
         }
 
         // --- Sign Out Modal Functionality ---
-        // Open modal when sign out link is clicked
         signOutLink.addEventListener('click', function (e) {
             e.preventDefault();
             signOutModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
 
-        // Close modal when cancel is clicked
         cancelSignOut.addEventListener('click', function () {
             signOutModal.classList.remove('active');
             document.body.style.overflow = 'auto';
         });
 
-        // Show success message and redirect when confirm is clicked
         confirmSignOut.addEventListener('click', function () {
-            // Close the confirmation modal
             signOutModal.classList.remove('active');
-            
-            // Show success modal
             successSignOutModal.classList.add('active');
             
-            // Redirect to signin.html after 3 seconds
             setTimeout(function() {
                 window.location.href = 'signin.html';
             }, 3000);
         });
 
-        // Close modal when clicking outside of it
         signOutModal.addEventListener('click', function (e) {
             if (e.target === signOutModal) {
                 signOutModal.classList.remove('active');
@@ -644,7 +630,6 @@
             }
         });
 
-        // Close modal with Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && signOutModal.classList.contains('active')) {
                 signOutModal.classList.remove('active');
@@ -654,7 +639,6 @@
 
         // --- Initialization & Main Event Listeners ---
 
-        // Address Modal Listeners
         openAddModalBtn.onclick = () => openModal();
         closeBtn.onclick = closeModal;
         addressModal.addEventListener('click', (event) => {
@@ -664,7 +648,6 @@
         });
         form.onsubmit = handleSaveAddress;
 
-        // Confirmation Modal Listeners
         confirmCancel.onclick = closeConfirmModal;
         confirmDelete.onclick = () => {
             if (addressToDeleteId !== null) {
