@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurelia - Wishlist</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="wishlist.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+
+</head>
+
+<body>
+
+    <!-- Enhanced Offer Bar -->
+    <div class="offer-bar">
+        <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code:</span>
+        <span class="offer-code">DIWALI</span>
+    </div>
+
+    <!-- Enhanced Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+            
+            <nav class="nav-links">
+                <a href="collections.html" class="nav-link">Latest Collections</a>
+                <div class="dropdown">
+                    <button class="dropbtn nav-link">
+                        Categories <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="rings.html">Rings</a>
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="necklaces.html">Necklaces</a>
+                    </div>
+                </div>
+                <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jewelry...">
+            </div>
+
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon wishlist-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                </a>
+                <a href="account.html" class="nav-icon account-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="cart.html" class="nav-icon cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="wishlist-container">
+        <div class="wishlist-header">
+            <h1 class="wishlist-title">Your Personal Wishlist</h1>
+            <p class="wishlist-subtitle">Save your favorite pieces here before they're gone.</p>
+            <span class="wishlist-count" id="wishlistCount"></span>
+        </div>
+
+        <div id="wishlistContent">
+            <div class="loading">Loading your exquisite collection...</div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and new arrivals</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter your email" required>
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                    <p id="newsletterMessage" style="color: #D4AF37; margin-top: 10px; font-size: 0.9rem;"></p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://facebook.com" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://pinterest.com" class="social-icon" target="_blank">
+                        <i class="fab fa-pinterest-p" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter" style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Confirmation Modal (ONLY for confirmations) -->
+    <div id="appModal" class="app-modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modalIcon"></div>
+            <h3 class="modal-title" id="modalTitle"></h3>
+            <p class="modal-message" id="modalMessage"></p>
+            <div class="modal-buttons" id="modalButtons"></div>
+        </div>
+    </div>
+
+    <script>
+        // ========== NOTIFICATION FUNCTION (FIRST THING) ==========
+        function showNotification(message) {
+            console.log('Notification triggered:', message); // Debug log
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Modal function (ONLY for confirmations with buttons)
+        function showCustomModal(title, message, icon, buttonsConfig) {
+            const modal = document.getElementById('appModal');
+            const buttonsContainer = document.getElementById('modalButtons');
+
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalMessage').textContent = message;
+            document.getElementById('modalIcon').textContent = icon;
+            buttonsContainer.innerHTML = '';
+
+            buttonsConfig.forEach(config => {
+                const btn = document.createElement('button');
+                btn.className = config.className || 'modal-btn modal-btn-ok';
+                btn.textContent = config.text;
+                btn.onclick = () => {
+                    modal.style.display = 'none';
+                    if (config.callback) {
+                        config.callback();
+                    }
+                };
+                buttonsContainer.appendChild(btn);
+            });
+
+            modal.style.display = 'block';
+        }
+
+        // Redirect to homepage
+        function redirectToHomepage() {
+            const modal = document.getElementById('appModal');
+            const buttonsContainer = document.getElementById('modalButtons');
+
+            document.getElementById('modalTitle').textContent = 'Redirecting...';
+            document.getElementById('modalMessage').textContent = 'Taking you to our main shop page in 3 seconds...';
+            document.getElementById('modalIcon').textContent = '🛍️';
+            buttonsContainer.innerHTML = '';
+
+            modal.style.display = 'block';
+
+            setTimeout(() => {
+                window.location.href = 'homepage.html';
+            }, 3000);
+        }
+
+        // Close modal on outside click
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('appModal')) {
+                document.getElementById('appModal').style.display = 'none';
+            }
+        }
+
+        // ========== WISHLIST ITEM CLASS ==========
+        class WishlistItem {
+            constructor(data) {
+                this.id = data.id;
+                this.name = data.name;
+                this.description = data.description;
+                this.price = data.price;
+                this.image = data.image;
+                this.category = data.category;
+                this.inStock = data.inStock;
+                this.addedDate = data.addedDate;
+            }
+
+            getFormattedPrice() {
+                return `₹${this.price.toLocaleString('en-IN')}`;
+            }
+
+            getStockBadge() {
+                if (this.inStock) {
+                    return '<span class="stock-badge">In Stock</span>';
+                } else {
+                    return '<span class="stock-badge out-of-stock">Out of Stock</span>';
+                }
+            }
+
+            renderHTML() {
+                const cartButtonHTML = this.inStock
+                    ? `<button class="add-to-cart-btn" data-id="${this.id}">Add to Cart</button>`
+                    : `<button class="add-to-cart-btn" disabled>Out of Stock</button>`;
+
+                return `
+            <div class="wishlist-item" data-id="${this.id}">
+                <div class="item-image" style="background-image: url('${this.image}');">
+                    <button class="remove-btn" data-id="${this.id}">×</button>
+                    ${this.getStockBadge()}
+                </div>
+                <div class="item-details">
+                    <div class="item-name">${this.name}</div>
+                    <p class="item-description">${this.description}</p>
+                    <div class="item-price">${this.getFormattedPrice()}</div>
+                    <div class="item-actions">
+                        ${cartButtonHTML}
+                        <button class="view-details-btn" data-id="${this.id}">View</button>
+                    </div>
+                </div>
+            </div>
+        `;
+            }
+        }
+
+        // ========== WISHLIST CLASS ==========
+        class Wishlist {
+            constructor() {
+                this.items = [];
+            }
+
+            addItems(itemsData) {
+                this.items = itemsData.map(data => new WishlistItem(data));
+            }
+
+            getItemCount() {
+                return this.items.length;
+            }
+
+            getInStockItems() {
+                return this.items.filter(item => item.inStock);
+            }
+
+            getTotalValue() {
+                return this.items.reduce((total, item) => total + item.price, 0);
+            }
+
+            getFormattedTotalValue() {
+                return `₹${this.getTotalValue().toLocaleString('en-IN')}`;
+            }
+
+            getTotalInStockValue() {
+                return this.getInStockItems().reduce((total, item) => total + item.price, 0);
+            }
+
+            getFormattedTotalInStockValue() {
+                return `₹${this.getTotalInStockValue().toLocaleString('en-IN')}`;
+            }
+
+            removeItem(itemId) {
+                const index = this.items.findIndex(item => item.id === itemId);
+                if (index > -1) {
+                    const removedItem = this.items.splice(index, 1)[0];
+                    return removedItem;
+                }
+                return null;
+            }
+
+            clearAll() {
+                this.items = [];
+            }
+
+            render(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                if (this.items.length === 0) {
+                    container.innerHTML = this.renderEmptyState();
+                    return;
+                }
+
+                const gridHTML = `
+            <div class="wishlist-grid">
+                ${this.items.map(item => item.renderHTML()).join('')}
+            </div>
+            <div class="wishlist-actions">
+                <button class="action-button" id="addAllToCartBtn">Add All to Cart</button>
+                <button class="action-button" id="clearWishlistBtn">Clear Wishlist</button>
+            </div>
+        `;
+                container.innerHTML = gridHTML;
+
+                this.attachEventListeners();
+            }
+
+            renderEmptyState() {
+                return `
+            <div class="empty-wishlist">
+                <div class="empty-icon">💎</div>
+                <div class="empty-text">Your Wishlist is Empty</div>
+                <p class="empty-subtext">Start adding your favorite jewelry pieces to your wishlist</p>
+                <button class="shop-button" onclick="redirectToHomepage()">Continue Shopping</button>
+            </div>
+        `;
+            }
+
+            attachEventListeners() {
+                // Remove item - CONFIRMATION MODAL, then NOTIFICATION
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = parseInt(e.target.closest('.remove-btn').dataset.id);
+                        const item = this.items.find(i => i.id === itemId);
+
+                        if (item) {
+                            showCustomModal(
+                                'Confirm Removal',
+                                `Do you want to remove "${item.name}" from your wishlist?`,
+                                '🤔',
+                                [
+                                    {
+                                        text: 'Cancel',
+                                        className: 'modal-btn modal-btn-cancel'
+                                    },
+                                    {
+                                        text: 'Remove',
+                                        className: 'modal-btn modal-btn-ok',
+                                        callback: () => {
+                                            this.removeItem(itemId);
+                                            showNotification(`${item.name} removed from wishlist!`);
+                                            this.updateUI();
+                                        }
+                                    }
+                                ]
+                            );
+                        }
+                    });
+                });
+
+                // Add to cart - NOTIFICATION ONLY
+                document.querySelectorAll('.add-to-cart-btn:not(:disabled)').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = parseInt(e.target.dataset.id);
+                        const item = this.items.find(i => i.id === itemId);
+                        if (item) {
+                            console.log('Add to cart clicked for:', item.name); // Debug
+                            showNotification(`${item.name} added to cart!`);
+                        }
+                    });
+                });
+
+                // View details - MODAL (to show info)
+                document.querySelectorAll('.view-details-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const itemId = parseInt(e.target.dataset.id);
+                        const item = this.items.find(i => i.id === itemId);
+                        if (item) {
+                            const detailsMessage =
+                                `Price: ${item.getFormattedPrice()}\n` +
+                                `Category: ${item.category}\n` +
+                                `In Stock: ${item.inStock ? 'Yes' : 'No'}\n`;
+                            
+                            showCustomModal(
+                                `Details: ${item.name}`,
+                                detailsMessage,
+                                '✨',
+                                [{
+                                    text: 'OK',
+                                    className: 'modal-btn modal-btn-ok'
+                                }]
+                            );
+                        }
+                    });
+                });
+
+                // Add all to cart - NOTIFICATION ONLY
+                const addAllBtn = document.getElementById('addAllToCartBtn');
+                if (addAllBtn) {
+                    addAllBtn.addEventListener('click', () => {
+                        const inStockCount = this.getInStockItems().length;
+                        if (inStockCount > 0) {
+                            console.log('Add all to cart clicked'); // Debug
+                            showNotification(`${inStockCount} items added to cart! Total: ${this.getFormattedTotalInStockValue()}`);
+                        } else {
+                            showNotification('No items currently in stock');
+                        }
+                    });
+                }
+
+                // Clear wishlist - CONFIRMATION MODAL, then NOTIFICATION
+                const clearBtn = document.getElementById('clearWishlistBtn');
+                if (clearBtn) {
+                    clearBtn.addEventListener('click', () => {
+                        showCustomModal(
+                            'Confirm Clear Wishlist',
+                            'Are you sure you want to clear your entire wishlist?',
+                            '⚠️',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    className: 'modal-btn modal-btn-cancel'
+                                },
+                                {
+                                    text: 'Clear All',
+                                    className: 'modal-btn modal-btn-ok',
+                                    callback: () => {
+                                        this.clearAll();
+                                        this.updateUI();
+                                        showNotification('Your wishlist has been cleared!');
+                                    }
+                                }
+                            ]
+                        );
+                    });
+                }
+            }
+
+            updateUI() {
+                this.render('wishlistContent');
+                this.updateCount();
+            }
+
+            updateCount() {
+                const countEl = document.getElementById('wishlistCount');
+                if (countEl) {
+                    const count = this.getItemCount();
+                    const total = this.getFormattedTotalValue();
+                    countEl.textContent = `${count} items • Total: ${total}`;
+                }
+            }
+        }
+
+        // ========== INITIALIZATION ==========
+        const userWishlist = new Wishlist();
+
+        async function fetchWishlistData() {
+            try {
+                const response = await fetch('wishlist.json');
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data.wishlistItems || [];
+            } catch (error) {
+                console.error("Error fetching wishlist data:", error);
+
+                const container = document.getElementById('wishlistContent');
+                container.innerHTML = `<div class="error-message">
+            <p>⚠️ Error loading your wishlist data.</p>
+            <p>Please ensure wishlist.json is in the same folder.</p>
+        </div>`;
+
+                return [];
+            }
+        }
+
+        async function initWishlist() {
+            const wishlistItems = await fetchWishlistData();
+
+            userWishlist.addItems(wishlistItems);
+            userWishlist.render('wishlistContent');
+            userWishlist.updateCount();
+
+            // Newsletter
+            const form = document.getElementById('newsletterForm');
+            if (form) {
+                form.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    document.getElementById('newsletterMessage').textContent = 'Thank you for subscribing!';
+                    document.getElementById('newsletterEmail').value = '';
+                    setTimeout(() => {
+                        document.getElementById('newsletterMessage').textContent = '';
+                    }, 3000);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initWishlist);
+    </script>
+</body>
+
+</html>

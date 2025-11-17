@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Stories - Luxury Jewelry</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="customerstories.css">
+</head>
+
+<body>
+    <!-- Floating Gold Particles -->
+    <canvas id="goldParticles"></canvas>
+
+    <!-- Enhanced Offer Bar -->
+    <div class="offer-bar">
+        <span>DIWALI SALE | BUY 1 GET 1 FREE | Use Code:</span>
+        <span class="offer-code">DIWALI</span>
+    </div>
+
+    <!-- Enhanced Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+
+            <nav class="nav-links">
+                <a href="collections.html" class="nav-link">Latest Collections</a>
+                <div class="dropdown">
+                    <button class="dropbtn nav-link">
+                        Categories <span class="dropdown-arrow">▼</span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="rings.html">Rings</a>
+                        <a href="bracelets.html">Bracelets</a>
+                        <a href="earrings.html">Earrings</a>
+                        <a href="necklaces.html">Necklaces</a>
+                    </div>
+                </div>
+                <a href="customerstories.html" class="nav-link" target="_blank">Customer Stories</a>
+                <a href="about_us.html" class="nav-link">About Us</a>
+            </nav>
+
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="Search jewelry...">
+            </div>
+
+            <div class="nav-actions">
+                <a href="wishlist.html" class="nav-icon wishlist-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="account.html" class="nav-icon account-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                <a href="cart.html" class="nav-icon cart-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="container">
+            <!-- Main Heading -->
+            <div class="main-heading reveal">
+                <div class="decorative-line"></div>
+                <h1>Our Customer Stories</h1>
+                <div class="subtitle-container">
+                    <p class="fade-up-text">Discover the moments of joy and elegance our pieces have brought to the
+                        lives of our cherished
+                        customers.</p>
+                </div>
+
+                <div class="decorative-line"></div>
+            </div>
+
+            <!-- Testimonials -->
+            <div class="testimonials-wrapper reveal">
+                <div class="testimonials">
+                    <div class="testimonial-card hover-glow">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"I was nervous about ordering jewelry online, but this exceeded
+                                my expectations. The detailing is so delicate and classy."</p>
+                            <div class="testimonial-footer">
+                                <h3 class="testimonial-name">Virda</h3>
+                                <span class="testimonial-verified"><i class="fas fa-check-circle"></i> Verified
+                                    Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card hover-glow">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"The perfect balance of modern and traditional design. I can
+                                wear it daily, but it also works beautifully for special occasions."</p>
+                            <div class="testimonial-footer">
+                                <h3 class="testimonial-name">Reia</h3>
+                                <span class="testimonial-verified"><i class="fas fa-check-circle"></i> Verified
+                                    Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card hover-glow">
+                        <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                            <p class="testimonial-text">"Bought this as a surprise for my wife and she absolutely loved
+                                it. The quality is exceptional, and the packaging made it special."</p>
+                            <div class="testimonial-footer">
+                                <h3 class="testimonial-name">Ansh</h3>
+                                <span class="testimonial-verified"><i class="fas fa-check-circle"></i> Verified
+                                    Purchase</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Showcase -->
+            <div class="product-showcase reveal">
+                <div class="section-header">
+                    <h2 class="section-title">Featured in Our Stories</h2>
+                    <p class="section-subtitle">Pieces loved by our customers</p>
+                </div>
+                <div class="showcase-grid">
+                    <a href="products/necklaces/product11.html" class="product-card hover-glow">
+                        <div class="product-image-wrapper">
+                            <img src="https://palmonas.com/cdn/shop/files/NK288-MD2_fc6e865f-6191-4c46-91b6-42fcbacdf993.jpg?v=1745910664"
+                                alt="Necklace" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h4>Tree Of Life Necklace</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <span>(128 reviews)</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="products/earrings/product1.html" class="product-card hover-glow">
+                        <div class="product-image-wrapper">
+                            <img src="https://palmonas.com/cdn/shop/files/er1545_3a7c6634-c49b-415c-b565-682e4ff15861.jpg?v=1744526497"
+                                alt="Earrings" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h4>Diamond Studded Hoop Earrings</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <span>(96 reviews)</span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <a href="products/rings/product3.html" class="product-card hover-glow">
+                        <div class="product-image-wrapper">
+                            <img src="https://palmonas.com/cdn/shop/files/RG226_1_15335201-6e30-4f4a-9df7-fe92c4d55280.jpg?v=1744525211&width=900"
+                                alt="Ring" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h4>Droplet Blush Ring</h4>
+                            <div class="product-rating">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                    class="fas fa-star"></i><i class="fas fa-star"></i>
+                                <span>(203 reviews)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gifting Section -->
+        <div class="gifting-section-wrapper reveal">
+            <div class="container">
+                <div class="gifting-section">
+                    <div class="gifting-image-container">
+                        <div class="image-frame">
+                            <img src="https://nfjs.odoo.com/unsplash/FgTgTAyCgwQ/gold%20pendant.jpg?unique=4d608b08"
+                                alt="Gifting a gold pendant" class="gifting-image">
+                        </div>
+                    </div>
+                    <div class="gifting-content">
+                        <div class="gifting-badge"><i class="fas fa-gift"></i> Special Offer</div>
+                        <h2 class="gifting-heading">A Gift of Timeless Beauty</h2>
+                        <p class="gifting-description">
+                            Mark a special occasion with a gift that will be treasured forever. Use code <span
+                                class="promo-code">GIFT15</span> for 15% off our timeless pieces.
+                        </p>
+                        <div class="gifting-features">
+                            <div class="feature-item"><i class="fas fa-box-open"></i><span>Luxury Gift Packaging</span>
+                            </div>
+                            <div class="feature-item"><i class="fas fa-certificate"></i><span>Authenticity
+                                    Certificate</span></div>
+                            <div class="feature-item"><i class="fas fa-truck"></i><span>Free Express Shipping</span>
+                            </div>
+                        </div>
+                        <a href="collections.html" class="cta-button">Explore The Collection <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="newsletter">
+                    <h3>Stay Connected</h3>
+                    <p style="color: #CCCCCC; margin-bottom: 20px;">Subscribe to our newsletter for exclusive offers and
+                        new arrivals</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Enter your email">
+                        <button type="submit" class="newsletter-button">Subscribe</button>
+                    </form>
+                </div>
+                <div class="footer-links">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p style="color: #CCCCCC; font-size: 0.9rem;">© 2024 Aurelia Jewelry. All rights reserved.</p>
+                <div class="social-icons">
+                    <a href="https://instagram.com" class="social-icon" target="_blank">
+                        <i class="fab fa-instagram"
+                            style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://facebook.com" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook-f"
+                            style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://pinterest.com" class="social-icon" target="_blank">
+                        <i class="fab fa-pinterest-p"
+                            style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                    <a href="https://twitter.com" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter"
+                            style="color: #D4AF37; font-size: 16px; line-height: 35px; text-align: center; width: 100%;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Elegant Glow Animations -->
+    <script>
+        // --- Elegant Glow Edition JS --- //
+
+        // Scroll reveal effect
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        reveals.forEach(r => observer.observe(r));
+
+        // Hover glow effect
+        document.querySelectorAll('.hover-glow').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // Floating gold particles background
+        const canvas = document.getElementById('goldParticles');
+        const ctx = canvas.getContext('2d');
+        let w, h, particles = [];
+
+        function resizeCanvas() {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * w;
+                this.y = Math.random() * h;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * 0.4 + 0.1;
+                this.alpha = Math.random() * 0.8 + 0.2;
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > h) this.reset();
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(212,175,55,${this.alpha})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, w, h);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+
+        // --- Word-by-Word Reveal for Subtitle ---
+        const subtitle = document.querySelector('.subtitle-container p');
+        if (subtitle) {
+            const words = subtitle.textContent.trim().split(/\s+/);
+            subtitle.innerHTML = words.map(w => `<span class="word">${w}</span>`).join(" ");
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const wordEls = subtitle.querySelectorAll('.word');
+                        wordEls.forEach((w, i) => {
+                            setTimeout(() => w.classList.add('visible'), i * 80);
+                        });
+                        observer.unobserve(subtitle);
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observer.observe(subtitle);
+        }
+
+
+    </script>
+</body>
+
+</html>
