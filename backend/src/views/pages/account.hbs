@@ -1,0 +1,115 @@
+{{! views/account.hbs - RENDER with { layout: 'main', title: 'My Account', cssFile: 'account.css' } }}
+
+<main class="account-dashboard container">
+    <h1>My Account Dashboard</h1>
+    <div class="account-grid">
+
+        <aside class="sidebar">
+            <div class="user-info">
+                <div class="avatar">J</div>
+                <h2>Hello, John Doe</h2>
+                <p>john.doe@example.com</p>
+            </div>
+            <nav class="account-menu">
+                <a href="#profile" class="menu-link active">Profile & Security</a>
+                <a href="/address" class="menu-link">My Addresses</a>
+                <a href="/myorder" class="menu-link">My Orders</a>
+                <a href="/wishlist" class="menu-link">Wishlist</a>
+                <a href="#signout" id="signOutLink" class="menu-link sign-out">Sign Out</a>
+            </nav>
+        </aside>
+
+        <section class="content-area">
+            
+            <div id="profile" class="profile-section section-box active-section">
+                <h2>Profile & Security</h2>
+                <form class="profile-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" class="form-input" value="John">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" class="form-input" value="Doe">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-input" value="john.doe@example.com" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-input" value="555-123-4567">
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-btn">Update Profile</button>
+                </form>
+
+                <h3 style="margin-top: 40px;">Change Password</h3>
+                <form class="password-form">
+                    <div class="form-group">
+                        <label for="currentPassword">Current Password</label>
+                        <input type="password" id="currentPassword" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmNewPassword">Confirm New Password</label>
+                        <input type="password" id="confirmNewPassword" class="form-input">
+                    </div>
+                    <button type="submit" class="cta-btn secondary-btn">Change Password</button>
+                </form>
+            </div>
+            
+            {{! Other sections (Addresses, Orders) will be separate views linked from the sidebar }}
+
+        </section>
+    </div>
+</main>
+
+<script>
+    // Sidebar link active state
+    const menuLinks = document.querySelectorAll('.account-menu .menu-link');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', function (e) {
+            menuLinks.forEach(l => l.classList.remove('active'));
+            if (this.id !== 'signOutLink') {
+                this.classList.add('active');
+            }
+        });
+    });
+
+    // Form Input Focus Animation
+    const formInputs = document.querySelectorAll('.form-input, .form-select');
+    formInputs.forEach(input => {
+        input.addEventListener('focus', function () {
+            this.style.transform = 'scale(1.01)';
+        });
+
+        input.addEventListener('blur', function () {
+            this.style.transform = 'scale(1)';
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            // Exclude the sign out link from smooth scroll logic
+            if (href !== '#' && this.id !== 'signOutLink') { 
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+</script>

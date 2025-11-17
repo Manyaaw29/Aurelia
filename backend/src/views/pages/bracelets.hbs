@@ -1,0 +1,148 @@
+{{! views/bracelets.hbs - RENDER with { layout: 'main', title: 'Bracelets', cssFile: 'categories.css' } }}
+
+<main class="collection-page container">
+    <div class="category-banner banner-bracelets">
+        <div class="banner-content">
+            <h1>Bracelets Collection</h1>
+            <p>Define your wrist with our timeless bands and cuffs, ethically sourced and crafted for everyday elegance.</p>
+        </div>
+    </div>
+
+    <div class="sort-filter-bar">
+        <div class="filter-dropdown">
+            <button class="filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-content">
+                <h4>Metal</h4>
+                <label><input type="checkbox"> Gold</label>
+                <label><input type="checkbox"> Silver</label>
+                <label><input type="checkbox"> Rose Gold</label>
+
+                <h4>Stone</h4>
+                <label><input type="checkbox"> Diamond</label>
+                <label><input type="checkbox"> Sapphire</label>
+                <label><input type="checkbox"> None</label>
+            </div>
+        </div>
+
+        <div class="sort-dropdown">
+            <label for="sort-by">Sort By:</label>
+            <select id="sort-by">
+                <option value="featured">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="newest">Newest Arrivals</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <a href="/product/solstice-cuff" class="product-link">
+                <div class="product-image">
+                    <img src="bracelet-1.jpg" alt="Solstice Diamond Cuff">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Solstice Diamond Cuff</h3>
+                    <p class="product-price">₹ 45,000</p>
+                    <p class="product-meta">14k Gold | Lab Diamond</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Solstice Cuff"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Solstice Cuff">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/minimalist-chain" class="product-link">
+                <div class="product-image">
+                    <img src="bracelet-2.jpg" alt="Minimalist Chain Bracelet">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Minimalist Chain Bracelet</h3>
+                    <p class="product-price">₹ 18,500</p>
+                    <p class="product-meta">Sterling Silver | Adjustable</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Minimalist Chain"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Minimalist Chain">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/celestial-bangle" class="product-link">
+                <div class="product-image">
+                    <img src="bracelet-3.jpg" alt="Celestial Sapphire Bangle">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Celestial Sapphire Bangle</h3>
+                    <p class="product-price">₹ 62,000</p>
+                    <p class="product-meta">18k Rose Gold | Blue Sapphire</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Celestial Bangle"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Celestial Bangle">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/eternity-band" class="product-link">
+                <div class="product-image">
+                    <img src="bracelet-4.jpg" alt="Eternity Diamond Band">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Eternity Diamond Band</h3>
+                    <p class="product-price">₹ 88,000</p>
+                    <p class="product-meta">Platinum | Full Diamond Band</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Eternity Band"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Eternity Band">Add to Cart</button>
+            </div>
+        </div>
+
+        </div>
+</main>
+
+<script>
+    // Note: showNotification is in footer.hbs
+
+    // Add to Wishlist functionality
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productName = btn.getAttribute('data-name');
+            // Uses global showNotification from footer.hbs
+            showNotification(`${productName} added to wishlist!`); 
+        });
+    });
+
+    // Add to Cart functionality
+    document.querySelectorAll('.cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productName = btn.getAttribute('data-name');
+            // Uses global showNotification from footer.hbs
+            showNotification(`${productName} added to cart!`);
+        });
+    });
+
+    // Filter/Sort Toggle Logic (Minimal implementation)
+    document.querySelector('.filter-btn').addEventListener('click', () => {
+        document.querySelector('.filter-content').classList.toggle('active');
+    });
+
+    // Close filters if clicked outside
+    document.addEventListener('click', (e) => {
+        const filterDropdown = document.querySelector('.filter-dropdown');
+        const filterContent = document.querySelector('.filter-content');
+        if (!filterDropdown.contains(e.target) && filterContent.classList.contains('active')) {
+            filterContent.classList.remove('active');
+        }
+    });
+</script>

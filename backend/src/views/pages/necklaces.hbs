@@ -1,0 +1,146 @@
+{{! views/necklaces.hbs - RENDER with { layout: 'main', title: 'Necklaces', cssFile: 'categories.css' } }}
+
+<main class="collection-page container">
+    <div class="category-banner banner-necklaces">
+        <div class="banner-content">
+            <h1>Necklaces Collection</h1>
+            <p>From simple pendants to statement chains, find the perfect piece to rest on your décolletage.</p>
+        </div>
+    </div>
+
+    <div class="sort-filter-bar">
+        <div class="filter-dropdown">
+            <button class="filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-content">
+                <h4>Style</h4>
+                <label><input type="checkbox"> Pendants</label>
+                <label><input type="checkbox"> Chokers</label>
+                <label><input type="checkbox"> Lariats</label>
+
+                <h4>Stone</h4>
+                <label><input type="checkbox"> Pearl</label>
+                <label><input type="checkbox"> Topaz</label>
+                <label><input type="checkbox"> None</label>
+            </div>
+        </div>
+
+        <div class="sort-dropdown">
+            <label for="sort-by">Sort By:</label>
+            <select id="sort-by">
+                <option value="featured">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="newest">Newest Arrivals</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <a href="/product/celestial-pendant" class="product-link">
+                <div class="product-image">
+                    <img src="necklace-1.jpg" alt="Celestial Star Pendant">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Celestial Star Pendant</h3>
+                    <p class="product-price">₹ 28,000</p>
+                    <p class="product-meta">14k Gold | Diamond Accents</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Star Pendant"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Star Pendant">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/herringbone-chain" class="product-link">
+                <div class="product-image">
+                    <img src="necklace-2.jpg" alt="Herringbone Gold Chain">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Herringbone Gold Chain</h3>
+                    <p class="product-price">₹ 42,000</p>
+                    <p class="product-meta">18k Gold | Flat Design</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Herringbone Chain"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Herringbone Chain">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/pearl-lariat" class="product-link">
+                <div class="product-image">
+                    <img src="necklace-3.jpg" alt="Tahitian Pearl Lariat">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Tahitian Pearl Lariat</h3>
+                    <p class="product-price">₹ 55,000</p>
+                    <p class="product-meta">Platinum | Tahitian Pearl</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Pearl Lariat"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Pearl Lariat">Add to Cart</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <a href="/product/initial-pendant" class="product-link">
+                <div class="product-image">
+                    <img src="necklace-4.jpg" alt="Initial Custom Pendant">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Initial Custom Pendant</h3>
+                    <p class="product-price">₹ 12,000</p>
+                    <p class="product-meta">Sterling Silver | Customizable</p>
+                </div>
+            </a>
+            <div class="product-actions">
+                <button class="wishlist-btn" data-name="Initial Pendant"><i class="far fa-heart"></i></button>
+                <button class="cart-btn" data-name="Initial Pendant">Add to Cart</button>
+            </div>
+        </div>
+
+        </div>
+</main>
+
+<script>
+    // Note: showNotification is in footer.hbs
+
+    // Add to Wishlist functionality
+    document.querySelectorAll('.wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productName = btn.getAttribute('data-name');
+            showNotification(`${productName} added to wishlist!`);
+        });
+    });
+
+    // Add to Cart functionality
+    document.querySelectorAll('.cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const productName = btn.getAttribute('data-name');
+            showNotification(`${productName} added to cart!`);
+        });
+    });
+
+    // Filter/Sort Toggle Logic (Minimal implementation)
+    document.querySelector('.filter-btn').addEventListener('click', () => {
+        document.querySelector('.filter-content').classList.toggle('active');
+    });
+
+    // Close filters if clicked outside
+    document.addEventListener('click', (e) => {
+        const filterDropdown = document.querySelector('.filter-dropdown');
+        const filterContent = document.querySelector('.filter-content');
+        if (!filterDropdown.contains(e.target) && filterContent.classList.contains('active')) {
+            filterContent.classList.remove('active');
+        }
+    });
+</script>

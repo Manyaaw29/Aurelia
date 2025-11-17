@@ -1,0 +1,147 @@
+{{! views/wishlist.hbs - RENDER with { layout: 'main', title: 'My Wishlist', cssFile: 'wishlist.css' } }}
+
+<main class="wishlist-page container">
+    <div class="wishlist-header">
+        <h1>My Wishlist</h1>
+        <p class="item-count-text">You have <span id="wishlistCount">0</span> items saved.</p>
+    </div>
+
+    <section class="wishlist-content" id="wishlistContent">
+        <div class="loading-state">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading your saved items...</p>
+        </div>
+    </section>
+
+    <section class="suggestions-section">
+        <h2>Recommended For You</h2>
+        <div class="suggestions-grid">
+            <div class="product-card">
+                <a href="/product/suggestion-1" class="product-link">
+                    <img src="suggestion-1.jpg" alt="Diamond Tennis Necklace">
+                    <h3 class="product-title">Tennis Necklace</h3>
+                    <p class="product-price">₹ 1,50,000</p>
+                </a>
+                <button class="cart-btn" data-name="Tennis Necklace">Add to Cart</button>
+            </div>
+            <div class="product-card">
+                <a href="/product/suggestion-2" class="product-link">
+                    <img src="suggestion-2.jpg" alt="Emerald Cocktail Ring">
+                    <h3 class="product-title">Emerald Cocktail Ring</h3>
+                    <p class="product-price">₹ 90,000</p>
+                </a>
+                <button class="cart-btn" data-name="Emerald Ring">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    // --- Wishlist Management Class (In-Page State) ---
+    class WishlistManager {
+        constructor() {
+            this.items = [];
+        }
+
+        addItems(newItems) {
+            this.items = [...this.items, ...newItems];
+        }
+
+        removeItem(itemId) {
+            this.items = this.items.filter(item => item.id !== itemId);
+            // Uses global showNotification from footer.hbs
+            showNotification('Item removed from Wishlist.');
+            this.render();
+            this.updateCount();
+        }
+
+        moveToCart(itemId) {
+            const item = this.items.find(i => i.id === itemId);
+            if (item) {
+                // Logic to add to cart (not implemented here)
+                showNotification(`${item.name} moved to Cart!`);
+                this.removeItem(itemId); // Remove from wishlist after moving
+            }
+        }
+
+        updateCount() {
+            document.getElementById('wishlistCount').textContent = this.items.length;
+        }
+
+        render(targetId = 'wishlistContent') {
+            const container = document.getElementById(targetId);
+            container.innerHTML = ''; // Clear existing content
+
+            if (this.items.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-heart-broken"></i>
+                        <h2>Your Wishlist is Empty</h2>
+                        <p>Save your favorite pieces here to easily find them later!</p>
+                        <a href="/product" class="cta-btn">Start Shopping</a>
+                    </div>
+                `;
+                return;
+            }
+
+            this.items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'wishlist-card';
+                card.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="item-details">
+                        <a href="/product/${item.id}" class="item-name">${item.name}</a>
+                        <p class="item-meta">${item.metal} | ${item.stone || 'No Stone'}</p>
+                        <p class="item-price">₹ ${item.price.toLocaleString('en-IN')}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="cta-btn secondary-btn move-to-cart-btn" data-id="${item.id}">Move to Cart</button>
+                        <button class="remove-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i> Remove</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            // Re-attach event listeners after rendering
+            container.querySelectorAll('.remove-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => userWishlist.removeItem(parseInt(e.currentTarget.dataset.id)));
+            });
+            container.querySelectorAll('.move-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => userWishlist.moveToCart(parseInt(e.currentTarget.dataset.id)));
+            });
+        }
+    }
+
+    const userWishlist = new WishlistManager();
+
+    // --- Mock Fetch Function ---
+    async function fetchWishlistData() {
+        // In a real app, this would be an API call
+        const mockData = [
+            { id: 101, name: "Minimalist Dome Ring", price: 25000, metal: "Rose Gold", image: "ring-4.jpg" },
+            { id: 202, name: "Celestial Star Pendant", price: 28000, metal: "Gold", stone: "Diamond", image: "necklace-1.jpg" },
+            { id: 303, name: "Emerald Cut Studs", price: 95000, metal: "Platinum", stone: "Diamond", image: "earring-4.jpg" }
+        ];
+        return new Promise(resolve => setTimeout(() => resolve(mockData), 500));
+    }
+
+    // --- Initialization ---
+    async function initWishlist() {
+        // Mock data fetch
+        const wishlistItems = await fetchWishlistData(); 
+
+        userWishlist.addItems(wishlistItems);
+        userWishlist.render('wishlistContent');
+        userWishlist.updateCount();
+    }
+
+    // Add to cart buttons on suggestions (uses global notification)
+    document.querySelectorAll('.suggestions-section .cart-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const productName = btn.getAttribute('data-name');
+            showNotification(`${productName} added to cart!`);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', initWishlist);
+</script>

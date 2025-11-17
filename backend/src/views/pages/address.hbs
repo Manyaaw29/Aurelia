@@ -1,0 +1,255 @@
+{{! views/address.hbs - RENDER with { layout: 'main', title: 'My Addresses', cssFile: 'address.css' } }}
+
+<main class="address-container container">
+    <h1>My Addresses</h1>
+    <div class="address-grid">
+        <div id="addressList" class="address-list">
+            </div>
+
+        <button id="addNewAddressBtn" class="add-address-btn">
+            <i class="fas fa-plus-circle"></i> Add New Address
+        </button>
+    </div>
+
+    <div id="addressModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeAddressModal()">&times;</button>
+            <h2 id="modalTitle">Add New Address</h2>
+            <form id="addressForm">
+                <input type="hidden" id="addressId" value="">
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="line1">Address Line 1</label>
+                    <input type="text" id="line1" required>
+                </div>
+                <div class="form-group">
+                    <label for="line2">Address Line 2 (Optional)</label>
+                    <input type="text" id="line2">
+                </div>
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label for="city">City</label>
+                        <input type="text" id="city" required>
+                    </div>
+                    <div class="form-group half-width">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text" id="zipCode" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" required>
+                        <option value="USA">United States</option>
+                        <option value="CAN">Canada</option>
+                        <option value="GBR">United Kingdom</option>
+                        <option value="IND">India</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="isDefault">
+                    <label for="isDefault">Set as Default Address</label>
+                </div>
+                <button type="submit" class="cta-btn" id="saveAddressBtn">Save Address</button>
+            </form>
+            <p id="addressFormMessage" class="message-area"></p>
+        </div>
+    </div>
+
+    <div id="confirmModal" class="modal-overlay">
+        <div class="modal-content small-modal">
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this address? This cannot be undone.</p>
+            <div class="modal-actions">
+                <button id="cancelDelete" class="cta-btn secondary-btn">Cancel</button>
+                <button id="confirmDelete" class="cta-btn danger-btn">Delete</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    // Sample Data
+    let addresses = [
+        { id: 1, fullName: "John Doe", line1: "123 Main St", line2: "Apt 4B", city: "New York", zipCode: "10001", country: "USA", isDefault: true },
+        { id: 2, fullName: "John Doe", line1: "45 Oak Ave", line2: "", city: "Los Angeles", zipCode: "90001", country: "USA", isDefault: false }
+    ];
+
+    let nextId = 3;
+    let addressToDeleteId = null;
+
+    // Elements
+    const addressModal = document.getElementById('addressModal');
+    const addressForm = document.getElementById('addressForm');
+    const addressList = document.getElementById('addressList');
+    const addNewAddressBtn = document.getElementById('addNewAddressBtn');
+    const confirmModal = document.getElementById('confirmModal');
+    const cancelDelete = document.getElementById('cancelDelete');
+    const confirmDelete = document.getElementById('confirmDelete');
+    const modalTitle = document.getElementById('modalTitle');
+    const addressIdInput = document.getElementById('addressId');
+    const formMessage = document.getElementById('addressFormMessage');
+
+    // Utility for showing form message
+    function showAddressMessage(message, type = 'info') {
+        formMessage.textContent = message;
+        formMessage.className = `message-area message-${type}`;
+        setTimeout(() => formMessage.textContent = '', 3000);
+    }
+
+    // Modal Functions
+    function openAddressModal(address = null) {
+        addressForm.reset();
+        addressIdInput.value = '';
+        modalTitle.textContent = 'Add New Address';
+        formMessage.textContent = '';
+
+        if (address) {
+            modalTitle.textContent = 'Edit Address';
+            addressIdInput.value = address.id;
+            document.getElementById('fullName').value = address.fullName;
+            document.getElementById('line1').value = address.line1;
+            document.getElementById('line2').value = address.line2;
+            document.getElementById('city').value = address.city;
+            document.getElementById('zipCode').value = address.zipCode;
+            document.getElementById('country').value = address.country;
+            document.getElementById('isDefault').checked = address.isDefault;
+        }
+
+        addressModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeAddressModal() {
+        addressModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Address Rendering
+    function renderAddresses() {
+        addressList.innerHTML = '';
+        if (addresses.length === 0) {
+            addressList.innerHTML = '<p class="empty-state">You have no saved addresses.</p>';
+            return;
+        }
+
+        addresses.forEach(address => {
+            const addressCard = document.createElement('div');
+            addressCard.className = `address-card ${address.isDefault ? 'default' : ''}`;
+            addressCard.innerHTML = `
+                <div class="address-header">
+                    <h3>${address.fullName}</h3>
+                    ${address.isDefault ? '<span class="default-tag">DEFAULT</span>' : ''}
+                </div>
+                <p>${address.line1}</p>
+                <p>${address.line2 ? address.line2 + ', ' : ''}${address.city}, ${address.zipCode}</p>
+                <p>${address.country}</p>
+                <div class="address-actions">
+                    <button class="edit-btn" data-id="${address.id}">Edit</button>
+                    <button class="delete-btn" data-id="${address.id}">Delete</button>
+                    ${!address.isDefault ? `<button class="default-btn" data-id="${address.id}">Set as Default</button>` : ''}
+                </div>
+            `;
+            addressList.appendChild(addressCard);
+        });
+
+        // Attach event listeners for actions on the new cards
+        document.querySelectorAll('.edit-btn').forEach(btn => btn.addEventListener('click', (e) => {
+            const id = parseInt(e.target.dataset.id);
+            const address = addresses.find(a => a.id === id);
+            if (address) openAddressModal(address);
+        }));
+
+        document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', (e) => {
+            addressToDeleteId = parseInt(e.target.dataset.id);
+            confirmModal.classList.add('active');
+        }));
+
+        document.querySelectorAll('.default-btn').forEach(btn => btn.addEventListener('click', (e) => {
+            const id = parseInt(e.target.dataset.id);
+            setDefaultAddress(id);
+        }));
+    }
+
+    // Address Submission
+    addressForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const id = addressIdInput.value ? parseInt(addressIdInput.value) : null;
+        const isDefaultChecked = document.getElementById('isDefault').checked;
+
+        const newAddress = {
+            id: id || nextId,
+            fullName: document.getElementById('fullName').value,
+            line1: document.getElementById('line1').value,
+            line2: document.getElementById('line2').value,
+            city: document.getElementById('city').value,
+            zipCode: document.getElementById('zipCode').value,
+            country: document.getElementById('country').value,
+            isDefault: isDefaultChecked
+        };
+
+        if (id) {
+            // Edit existing
+            const index = addresses.findIndex(a => a.id === id);
+            addresses[index] = newAddress;
+            showAddressMessage('Address updated successfully!', 'success');
+        } else {
+            // Add new
+            addresses.push(newAddress);
+            nextId++;
+            showAddressMessage('Address added successfully!', 'success');
+        }
+
+        // Handle default status update logic
+        if (newAddress.isDefault) {
+            setDefaultAddress(newAddress.id, true);
+        }
+
+        renderAddresses();
+        closeAddressModal();
+    });
+
+    // Default Address Logic
+    function setDefaultAddress(id, suppressRender = false) {
+        addresses = addresses.map(a => ({
+            ...a,
+            isDefault: a.id === id
+        }));
+        if (!suppressRender) renderAddresses();
+    }
+
+    // Delete Logic
+    function executeDeleteAddress(id) {
+        addresses = addresses.filter(a => a.id !== id);
+        renderAddresses();
+        // showNotification is in footer.hbs
+        showNotification('Address deleted.'); 
+    }
+
+    // Event Listeners
+    addNewAddressBtn.addEventListener('click', () => openAddressModal());
+
+    function closeConfirmModal() {
+        confirmModal.classList.remove('active');
+        addressToDeleteId = null;
+    }
+
+    cancelDelete.onclick = closeConfirmModal;
+    confirmDelete.onclick = () => {
+        if (addressToDeleteId !== null) {
+            executeDeleteAddress(addressToDeleteId);
+        }
+        closeConfirmModal();
+    };
+    confirmModal.addEventListener('click', (event) => {
+        if (event.target == confirmModal) {
+            closeConfirmModal();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', renderAddresses);
+</script>

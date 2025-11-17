@@ -1,0 +1,31 @@
+{{! views/rings.hbs - RENDER with { layout: 'main', title: 'Rings', cssFile: 'categories.css' } }}
+
+<main class="collection-page container">
+    <div class="category-banner banner-rings">
+        <div class="banner-content">
+            <h1>Rings Collection</h1>
+            <p>Handcrafted rings for every occasion—from classic solitaires to modern stacking bands.</p>
+        </div>
+    </div>
+
+    <div class="sort-filter-bar">
+        <div class="filter-dropdown">
+            <button class="filter-btn">Filter <i class="fas fa-chevron-down"></i></button>
+            <div class="filter-content">
+                <h4>Style</h4>
+                <label><input type="checkbox"> Solitaire</label>
+                <label><input type="checkbox"> Band</label>
+                <label><input type="checkbox"> Halo</label>
+
+                <h4>Metal</h4>
+                <label><input type="checkbox"> Platinum</label>
+                <label><input type="checkbox"> Gold</label>
+                <label><input type="checkbox"> Rose Gold</label>
+            </div>
+        </div>
+
+        <div class="sort-dropdown">
+            <label for="sort-by">Sort By:</label>
+            <select id="sort-by">
+                <option value="featured">Featured</option>
+                <option value="price

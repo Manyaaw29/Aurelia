@@ -1,0 +1,191 @@
+{{! views/myorder.hbs - RENDER with { layout: 'main', title: 'My Orders', cssFile: 'myorder.css' } }}
+
+<main class="orders-page container">
+    <div class="orders-header">
+        <h1>My Orders</h1>
+        <div class="filter-controls">
+            <select id="orderFilter">
+                <option value="all">All Orders</option>
+                <option value="processing">Processing</option>
+                <option value="shipped">Shipped</option>
+                <option>Delivered</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="order-list">
+        
+        <div class="order-card" data-status="delivered">
+            <div class="order-summary">
+                <div class="summary-detail">
+                    <p class="label">Order #</p>
+                    <p class="value">AURELIA-98765</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Order Date</p>
+                    <p class="value">Nov 15, 2025</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Total</p>
+                    <p class="value">₹ 1,99,000</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Status</p>
+                    <p class="value status-delivered">Delivered</p>
+                </div>
+                <div class="order-actions">
+                    <button class="cta-btn view-details" data-order="98765">View Details</button>
+                </div>
+            </div>
+            
+            <div class="order-items-preview">
+                <img src="ring-solitaire.jpg" alt="Classic Solitaire Ring">
+                <img src="bracelet-sapphire.jpg" alt="Celestial Sapphire Bangle">
+                <span class="more-items">+1 Item</span>
+            </div>
+        </div>
+
+        <div class="order-card" data-status="shipped">
+            <div class="order-summary">
+                <div class="summary-detail">
+                    <p class="label">Order #</p>
+                    <p class="value">AURELIA-98700</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Order Date</p>
+                    <p class="value">Nov 10, 2025</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Total</p>
+                    <p class="value">₹ 45,000</p>
+                </div>
+                <div class="summary-detail">
+                    <p class="label">Status</p>
+                    <p class="value status-shipped">Shipped</p>
+                </div>
+                <div class="order-actions">
+                    <button class="cta-btn view-details" data-order="98700">Track Order</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyOrderMessage" class="empty-state" style="display: none;">
+            <i class="fas fa-box-open"></i>
+            <h2>No Orders Found</h2>
+            <p>Looks like you haven't placed an order yet. Start browsing our collections!</p>
+            <a href="/product" class="cta-btn">Shop Now</a>
+        </div>
+    </div>
+</main>
+
+<div id="orderDetailsModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <h2>Order Details #<span id="modalOrderNum"></span></h2>
+        <div id="modalContent">
+            <p>Loading order details...</p>
+        </div>
+        <button class="cta-btn secondary-btn" onclick="closeModal()">Close</button>
+    </div>
+</div>
+
+<script>
+    // --- Custom Toast Function (Included here as it differs from the one in footer.hbs) ---
+    function showToast(message, type = 'info') {
+        const toast = document.createElement('div');
+        toast.className = `toast toast-${type}`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.animation = "slideOut 0.5s ease";
+            setTimeout(() => toast.remove(), 500);
+        }, 4000);
+    }
+
+    // --- Modal Functions ---
+    const orderDetailsModal = document.getElementById('orderDetailsModal');
+    const modalOrderNum = document.getElementById('modalOrderNum');
+    const modalContent = document.getElementById('modalContent');
+
+    function openModal(orderNumber) {
+        modalOrderNum.textContent = orderNumber;
+        // Simulate fetching details
+        modalContent.innerHTML = `
+            <p><strong>Order ID:</strong> AURELIA-${orderNumber}</p>
+            <p><strong>Status:</strong> Shipped via FedEx</p>
+            <p><strong>Estimated Delivery:</strong> Dec 1, 2025</p>
+            <h3 style="margin-top: 15px;">Items:</h3>
+            <ul>
+                <li>Classic Solitaire Ring (x1) - ₹ 75,000</li>
+                <li>Celestial Sapphire Bangle (x2) - ₹ 1,24,000</li>
+            </ul>
+        `;
+        orderDetailsModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        orderDetailsModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Close modal if clicked outside
+    orderDetailsModal.addEventListener('click', (e) => {
+        if (e.target === orderDetailsModal) {
+            closeModal();
+        }
+    });
+
+    // --- Order List Filtering ---
+    function filterOrders() {
+        const filterValue = document.getElementById('orderFilter').value;
+        const orderCards = document.querySelectorAll('.order-card');
+        let visibleCount = 0;
+
+        orderCards.forEach(card => {
+            const status = card.getAttribute('data-status');
+            if (filterValue === 'all' || status === filterValue) {
+                card.style.display = 'flex';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        // Show empty message if no orders match filter
+        document.getElementById('emptyOrderMessage').style.display = (visibleCount === 0 && orderCards.length > 0) ? 'block' : 'none';
+        
+        // Show actual empty state if there are no orders at all
+        if (orderCards.length === 0 && filterValue === 'all') {
+             document.getElementById('emptyOrderMessage').style.display = 'block';
+        }
+    }
+
+    // --- Event Listeners ---
+    document.getElementById('orderFilter').addEventListener('change', filterOrders);
+    
+    document.querySelectorAll('.view-details').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const orderNum = e.target.dataset.order;
+            openModal(orderNum);
+        });
+    });
+
+    // --- Add custom animations styles to head ---
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes slideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100px); }
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.addEventListener('DOMContentLoaded', filterOrders);
+</script>

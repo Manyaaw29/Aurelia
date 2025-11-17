@@ -1,0 +1,167 @@
+{{! views/signup.hbs - RENDER with { layout: false } }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Aurelia Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+
+    <div class="jewelry-bg">
+        <div class="jewel-item">💎</div>
+        <div class="jewel-item">👑</div>
+        <div class="jewel-item">💍</div>
+        <div class="jewel-item">✨</div>
+        <div class="jewel-item">💎</div>
+        <div class="jewel-item">🔮</div>
+        <div class="jewel-item">💍</div>
+        <div class="jewel-item">👑</div>
+        <div class="jewel-item">✨</div>
+        <div class="jewel-item">💎</div>
+    </div>    
+    <main>
+        <div class="auth-container">
+            <a href="homepage.html" class="logo">Aurelia</a>
+            <h2>Create Your Account</h2>
+            <p class="subtitle">Join our community and discover luxury that is ethical and timeless.</p>
+
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <p class="password-hint">Must be at least 8 characters.</p>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="cta-btn">Sign Up</button>
+            </form>
+
+            <p class="switch-auth">
+                Already have an account? <a href="/signin">Sign In</a>
+            </p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('signupForm');
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            // Function to display an inline error message
+            function displayError(inputElement, message) {
+                const formGroup = inputElement.closest('.form-group');
+                let errorMessage = formGroup.querySelector('.error-message');
+                if (!errorMessage) {
+                    errorMessage = document.createElement('p');
+                    errorMessage.className = 'error-message';
+                    formGroup.appendChild(errorMessage);
+                }
+                errorMessage.textContent = message;
+                inputElement.style.borderColor = '#e74c3c'; // Red border
+            }
+
+            // Function to clear an error
+            function clearError(inputElement) {
+                const formGroup = inputElement.closest('.form-group');
+                const errorMessage = formGroup.querySelector('.error-message');
+                if (errorMessage) {
+                    errorMessage.remove();
+                }
+                inputElement.style.borderColor = ''; // Default border
+            }
+            
+            // Main Form Validation Logic
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let isValid = true;
+                
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(el => el.remove());
+                document.querySelectorAll('input').forEach(input => input.style.borderColor = '');
+
+                // 1. Name validation
+                if (firstName.value.trim() === '' || lastName.value.trim() === '') {
+                    displayError(firstName.value.trim() === '' ? firstName : lastName, 'First and Last name are required.');
+                    isValid = false;
+                }
+
+                // 2. Email validation
+                const emailPattern = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+                if (!emailPattern.test(email.value)) {
+                    displayError(email, 'Please enter a valid email address.');
+                    isValid = false;
+                }
+
+                // 3. Password length
+                if (password.value.length < 8) {
+                    displayError(password, 'Password must be at least 8 characters.');
+                    isValid = false;
+                }
+
+                // 4. Password match
+                if (password.value !== confirmPassword.value) {
+                    displayError(confirmPassword, 'Passwords do not match.');
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    // Successful sign-up logic
+                    showSuccessMessage();
+                    
+                    // Simulate successful account creation and redirect
+                    setTimeout(function() {
+                        window.location.href = '/signin';
+                    }, 1500);
+                }
+            });
+            
+            // Function to show success message
+            function showSuccessMessage() {
+                const successDiv = document.createElement('div');
+                successDiv.className = 'success-modal';
+                successDiv.innerHTML = `
+                    <div class="modal-overlay"></div>
+                    <div class="modal-content">
+                        <div class="success-icon">✓</div>
+                        <h2 class="success-title">Account Created!</h2>
+                        <p class="success-text">Redirecting to sign in...</p>
+                    </div>
+                `;
+                document.body.appendChild(successDiv);
+            }
+            
+            // Real-time validation on input
+            const inputs = [firstName, lastName, email, password, confirmPassword];
+            inputs.forEach(input => {
+                input.addEventListener('input', function() {
+                    // Remove error styling when user starts typing
+                    clearError(this);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

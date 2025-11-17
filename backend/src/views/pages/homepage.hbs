@@ -1,0 +1,112 @@
+{{! views/homepage.hbs - RENDER with { layout: 'main', title: 'Luxury Jewelry', cssFile: 'homepage.css' } }}
+
+<section class="hero-section" id="hero">
+    <div class="hero-content">
+        <h1 class="tagline-text">Elegance That Lasts Forever.</h1>
+        <p class="hero-subtitle">Discover handcrafted jewelry where ethical sourcing meets timeless design.</p>
+        <a href="/product" class="cta-btn">Shop The New Collection</a>
+    </div>
+    <div class="video-overlay"></div>
+    <video autoplay muted loop playsinline class="hero-video">
+        <source src="video-loop.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</section>
+
+<section class="collection-grid container">
+    <h2>Shop By Category</h2>
+    <div class="category-grid">
+        <a href="/rings" class="category-card card-ring">
+            <div class="card-content">Rings</div>
+        </a>
+        <a href="/necklaces" class="category-card card-necklace">
+            <div class="card-content">Necklaces</div>
+        </a>
+        <a href="/bracelets" class="category-card card-bracelet">
+            <div class="card-content">Bracelets</div>
+        </a>
+        <a href="/earrings" class="category-card card-earring">
+            <div class="card-content">Earrings</div>
+        </a>
+    </div>
+</section>
+
+<section class="our-story" id="our-story">
+    <div class="story-image">
+        <img src="story-image.jpg" alt="Aurelia Craftsmanship">
+    </div>
+    <div class="story-content">
+        <h2>Our Ethos</h2>
+        <p>Jewelry is more than adornment; it is a legacy. We are committed to using 100% recycled gold and ethically-sourced diamonds to create pieces of enduring beauty and purpose. Our master artisans hand-finish every detail, ensuring the jewelry you wear today becomes the heirloom of tomorrow.</p>
+        <a href="/about-us" class="cta-btn secondary">Learn Our Story</a>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const heroVideo = document.querySelector('.hero-video');
+        const taglineText = document.querySelector('.tagline-text');
+        const storyContent = document.querySelector('.story-content');
+        const storyImage = document.querySelector('.story-image');
+        const contentOffset = document.querySelector('.content-offset'); // The element below the fixed header
+
+        // --- Parallax Effect on Hero Video ---
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            heroVideo.style.transform = `translateY(${scrollY * 0.4}px)`;
+        });
+
+        // --- Dynamic CSS for Animations ---
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideInLeft {
+                from { opacity: 0; transform: translateX(-50px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // --- Intersection Observer for Animations ---
+        const observerOptions = { threshold: 0.3 };
+        
+        const taglineObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    taglineObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const storyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.querySelector('.story-content').style.animation = 'slideInRight 0.8s ease forwards';
+                    entry.target.querySelector('.story-image').style.animation = 'slideInLeft 0.8s ease forwards';
+                    storyObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        if (taglineText) {
+            taglineText.style.opacity = '0';
+            taglineObserver.observe(taglineText);
+        }
+
+        if (document.querySelector('.our-story')) {
+            storyContent.style.opacity = '0';
+            storyImage.style.opacity = '0';
+            storyObserver.observe(document.querySelector('.our-story'));
+        }
+
+        console.log('🎨 Aurelia Homepage Enhanced - All features loaded!');
+    });
+</script>
