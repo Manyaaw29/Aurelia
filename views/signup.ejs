@@ -17,7 +17,7 @@
                 <p class="auth-subtitle">Join Aurelia to discover exclusive collections and offers.</p>
             </div>
             
-            <form class="auth-form" id="signupForm">
+            <form class="auth-form" id="signupForm" method="POST" action="/signup">
                 <div class="form-row">
                     <div class="form-group">
                         <label class="form-label" for="firstName">First Name</label>
@@ -49,9 +49,45 @@
                 <button type="submit" class="btn-primary">Create Account</button>
 
                 <p class="auth-link">
-                    Already have an account? <a href="signin.html">Sign In</a>
+                    Already have an account? <a href="signin.ejs">Sign In</a>
                 </p>
             </form>
+
+            <% if (typeof error !== 'undefined' && error) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const err = <%- JSON.stringify(error) %>;
+                    const container = document.querySelector('.auth-container');
+                    if (err && container) {
+                        const div = document.createElement('div');
+                        div.className = 'server-error-message';
+                        div.textContent = err;
+                        div.style.color = '#ff6b6b';
+                        div.style.margin = '12px 0';
+                        container.insertBefore(div, container.firstChild);
+                        setTimeout(() => div.remove(), 5000);
+                    }
+                });
+            </script>
+            <% } %>
+
+            <% if (typeof success !== 'undefined' && success) { %>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const msg = <%- JSON.stringify(success) %>;
+                    const container = document.querySelector('.auth-container');
+                    if (msg && container) {
+                        const div = document.createElement('div');
+                        div.className = 'server-success-message';
+                        div.textContent = msg;
+                        div.style.color = '#4caf50';
+                        div.style.margin = '12px 0';
+                        container.insertBefore(div, container.firstChild);
+                        setTimeout(() => div.remove(), 4000);
+                    }
+                });
+            </script>
+            <% } %>
         </div>
     </main>
 

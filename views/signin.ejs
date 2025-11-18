@@ -19,6 +19,21 @@
             <div class="error-message" id="errorMessage">
                 &nbsp; </div>
 
+            <% if (typeof error !== 'undefined' && error) { %>
+            <script>
+                // Server-provided error (rendered on first load)
+                document.addEventListener('DOMContentLoaded', function() {
+                    const err = <%- JSON.stringify(error) %>;
+                    const errorEl = document.getElementById('errorMessage');
+                    if (err && errorEl) {
+                        errorEl.textContent = err;
+                        errorEl.classList.add('active');
+                        setTimeout(() => { errorEl.classList.remove('active'); }, 5000);
+                    }
+                });
+            </script>
+            <% } %>
+
             <form id="signinForm">
                 <div class="form-group">
                     <label for="email">Email Address</label>

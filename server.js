@@ -19,6 +19,13 @@ const reviewRoutes = require('./routes/reviewRoutes');
 
 const app = express();
 
+// Fallback in-memory accounts for frontend-only/dev mode
+const fallbackAccounts = [
+    { email: 'user@example.com', password: 'password123' },
+    { email: 'demo@aurelia.com', password: 'demo' },
+    { email: 'test@test.com', password: 'test' }
+];
+
 // View engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -328,21 +335,129 @@ app.get('/myorder', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    res.render('layout', {
-        title: 'Sign In | Aurelia',
-        body: require('fs').readFileSync(path.join(__dirname, 'views', 'signin.ejs'), 'utf-8'),
-        styles: ['signin.css'],
-        scripts: ['signin.js']
-    });
+    try {
+        const ejs = require('ejs');
+        const signinTemplate = require('fs').readFileSync(path.join(__dirname, 'views', 'signin.ejs'), 'utf-8');
+        const rendered = ejs.render(signinTemplate, {
+            error: req.query.error || null,
+            success: req.query.success || null,
+            user: req.session && req.session.user ? req.session.user : null
+        });
+
+        res.render('layout', {
+            title: 'Sign In | Aurelia',
+            body: rendered,
+            styles: ['signin.css'],
+            scripts: ['signin.js']
+        });
+    } catch (error) {
+        console.error('Error loading signin page:', error);
+        res.status(500).send('Error loading signin page');
+    }
+});
+
+// Handle signin form POST
+app.post('/signin', async (req, res) => {
+    const { email, password } = req.body || {};
+    if (!email || !password) {
+        return res.redirect('/signin?error=' + encodeURIComponent('Please provide email and password'));
+    }
+
+    // Try DB-backed authentication if Mongo URI present
+    if (process.env.MONGODB_URI) {
+        try {
+            const User = require('./models/User');
+            const user = await User.findOne({ email: email.toLowerCase() }).select('+password');
+            if (user && await user.comparePassword(password)) {
+                // store minimal user info in session
+                req.session.user = { id: user._id.toString(), name: user.name, email: user.email };
+                return res.redirect('/');
+            } else {
+                return res.redirect('/signin?error=' + encodeURIComponent('Invalid email or password'));
+            }
+        } catch (err) {
+            console.error('Signin error (DB):', err);
+            return res.redirect('/signin?error=' + encodeURIComponent('Signin failed'));
+        }
+    }
+
+    // Fallback: in-memory test accounts (for frontend-only mode)
+    const sessionAccounts = req.session.accounts || [];
+    const combinedAccounts = fallbackAccounts.concat(sessionAccounts);
+
+    const user = combinedAccounts.find(a => a.email === email.toLowerCase());
+    if (user && user.password === password) {
+        req.session.user = { email: user.email };
+        return res.redirect('/');
+    }
+
+    return res.redirect('/signin?error=' + encodeURIComponent('Invalid email or password'));
 });
 
 app.get('/signup', (req, res) => {
-    res.render('layout', {
-        title: 'Create Account | Aurelia',
-        body: require('fs').readFileSync(path.join(__dirname, 'views', 'signup.ejs'), 'utf-8'),
-        styles: ['signup.css'],
-        scripts: ['signup.js']
-    });
+    try {
+        const ejs = require('ejs');
+        const signupTemplate = require('fs').readFileSync(path.join(__dirname, 'views', 'signup.ejs'), 'utf-8');
+        const rendered = ejs.render(signupTemplate, {
+            error: req.query.error || null,
+            success: req.query.success || null
+        });
+
+        res.render('layout', {
+            title: 'Create Account | Aurelia',
+            body: rendered,
+            styles: ['signup.css'],
+            scripts: ['signup.js']
+        });
+    } catch (error) {
+        console.error('Error loading signup page:', error);
+        res.status(500).send('Error loading signup page');
+    }
+});
+
+// Handle signup POST
+app.post('/signup', async (req, res) => {
+    try {
+        const { firstName, lastName, email, password, confirmPassword } = req.body || {};
+        if (!firstName || !lastName || !email || !password || !confirmPassword) {
+            return res.redirect('/signup?error=' + encodeURIComponent('Please fill all required fields'));
+        }
+        if (password !== confirmPassword) {
+            return res.redirect('/signup?error=' + encodeURIComponent('Passwords do not match'));
+        }
+
+        // If DB configured, create user in MongoDB
+        if (process.env.MONGODB_URI) {
+            const User = require('./models/User');
+            const existing = await User.findOne({ email: email.toLowerCase() });
+            if (existing) {
+                return res.redirect('/signup?error=' + encodeURIComponent('Email already in use'));
+            }
+
+            const user = await User.create({
+                name: `${firstName.trim()} ${lastName.trim()}`,
+                email: email.toLowerCase(),
+                password
+            });
+
+            // Redirect to signin with success
+            return res.redirect('/signin?success=' + encodeURIComponent('Account created successfully. Please sign in.'));
+        }
+
+        // Frontend-only fallback: store account in session so signin can use it
+        req.session.accounts = req.session.accounts || [];
+        // prevent duplicate
+        const exists = (req.session.accounts.concat(fallbackAccounts)).some(a => a.email === email.toLowerCase());
+        if (exists) {
+            return res.redirect('/signup?error=' + encodeURIComponent('Email already in use'));
+        }
+
+        req.session.accounts.push({ email: email.toLowerCase(), password });
+        return res.redirect('/signin?success=' + encodeURIComponent('Account created successfully. Please sign in.'));
+    } catch (err) {
+        console.error('Signup error:', err);
+        return res.redirect('/signup?error=' + encodeURIComponent('Signup failed'));
+    }
 });
 
 app.get('/about_us', (req, res) => {
