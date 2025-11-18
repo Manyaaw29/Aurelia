@@ -45,6 +45,28 @@ exports.createReview = async (req, res) => {
     try {
         const { product, rating, title, comment, images } = req.body;
 
+        // Validate required fields
+        if (!product) {
+            return res.status(400).json({
+                success: false,
+                message: 'Product ID is required'
+            });
+        }
+
+        if (!rating || rating < 1 || rating > 5) {
+            return res.status(400).json({
+                success: false,
+                message: 'Rating must be between 1 and 5'
+            });
+        }
+
+        if (!comment || comment.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Review comment is required'
+            });
+        }
+
         // Check if product exists
         const productExists = await Product.findById(product);
         if (!productExists) {
@@ -54,36 +76,35 @@ exports.createReview = async (req, res) => {
             });
         }
 
-        // Check if user already reviewed this product
-        const existingReview = await Review.findOne({
-            product,
-            user: req.user.id
-        });
+        // Get user ID (support both _id and id)
+        const userId = req.user._id || req.user.id;
 
-        if (existingReview) {
-            return res.status(400).json({
+        if (!userId) {
+            return res.status(401).json({
                 success: false,
-                message: 'You have already reviewed this product'
+                message: 'User authentication failed. Please login again.'
             });
         }
 
+        // Create the review (multiple reviews allowed per user per product)
         const review = await Review.create({
-            product,
-            user: req.user.id,
-            rating,
-            title,
-            comment,
-            images
+            product: product,
+            user: userId,
+            rating: Number(rating),
+            title: title || 'Product Review',
+            comment: comment.trim(),
+            images: images || []
         });
 
         // Update product rating
         await updateProductRating(product);
 
-        // Add review to product
+        // Add review to product's reviews array
         await Product.findByIdAndUpdate(product, {
             $push: { reviews: review._id }
         });
 
+        // Populate user details before sending response
         await review.populate('user', 'name avatar');
 
         res.status(201).json({
@@ -92,6 +113,8 @@ exports.createReview = async (req, res) => {
             data: review
         });
     } catch (error) {
+        console.error('Error creating review:', error);
+        
         res.status(400).json({
             success: false,
             message: 'Error creating review',
@@ -114,17 +137,30 @@ exports.updateReview = async (req, res) => {
             });
         }
 
+        // Get user ID (support both _id and id)
+        const userId = (req.user._id || req.user.id).toString();
+
         // Check ownership
-        if (review.user.toString() !== req.user.id) {
+        if (review.user.toString() !== userId) {
             return res.status(403).json({
                 success: false,
                 message: 'Not authorized to update this review'
             });
         }
 
+        // Update only allowed fields
+        const allowedUpdates = ['rating', 'title', 'comment', 'images'];
+        const updates = {};
+        
+        Object.keys(req.body).forEach(key => {
+            if (allowedUpdates.includes(key)) {
+                updates[key] = req.body[key];
+            }
+        });
+
         review = await Review.findByIdAndUpdate(
             req.params.id,
-            req.body,
+            updates,
             { new: true, runValidators: true }
         ).populate('user', 'name avatar');
 
@@ -159,8 +195,11 @@ exports.deleteReview = async (req, res) => {
             });
         }
 
+        // Get user ID (support both _id and id)
+        const userId = (req.user._id || req.user.id).toString();
+
         // Check ownership or admin
-        if (review.user.toString() !== req.user.id && req.user.role !== 'admin') {
+        if (review.user.toString() !== userId && req.user.role !== 'admin') {
             return res.status(403).json({
                 success: false,
                 message: 'Not authorized to delete this review'
@@ -258,19 +297,23 @@ exports.approveReview = async (req, res) => {
 
 // Helper function to update product rating
 async function updateProductRating(productId) {
-    const reviews = await Review.find({ product: productId, isApproved: true });
-    
-    if (reviews.length > 0) {
-        const avgRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+    try {
+        const reviews = await Review.find({ product: productId, isApproved: true });
         
-        await Product.findByIdAndUpdate(productId, {
-            'rating.average': avgRating.toFixed(1),
-            'rating.count': reviews.length
-        });
-    } else {
-        await Product.findByIdAndUpdate(productId, {
-            'rating.average': 0,
-            'rating.count': 0
-        });
+        if (reviews.length > 0) {
+            const avgRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+            
+            await Product.findByIdAndUpdate(productId, {
+                'rating.average': Number(avgRating.toFixed(1)),
+                'rating.count': reviews.length
+            });
+        } else {
+            await Product.findByIdAndUpdate(productId, {
+                'rating.average': 0,
+                'rating.count': 0
+            });
+        }
+    } catch (error) {
+        console.error('Error updating product rating:', error);
     }
 }

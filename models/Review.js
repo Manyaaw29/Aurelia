@@ -47,11 +47,9 @@ const reviewSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Index for faster queries
-reviewSchema.index({ product: 1, user: 1 });
-reviewSchema.index({ product: 1, isApproved: 1 });
-
-// Prevent duplicate reviews from same user for same product
-reviewSchema.index({ product: 1, user: 1 }, { unique: true });
+// Indexes for faster queries (removed unique constraint)
+reviewSchema.index({ product: 1, user: 1 }); // Allow multiple reviews per user per product
+reviewSchema.index({ product: 1, isApproved: 1 }); // For fetching approved reviews
+reviewSchema.index({ user: 1 }); // For fetching user's reviews
 
 module.exports = mongoose.model('Review', reviewSchema);

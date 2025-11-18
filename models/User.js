@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required'],
-        unique: true,
         lowercase: true,
         trim: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
+        // Removed unique: true - defined in index below instead
     },
     password: {
         type: String,
@@ -118,8 +118,8 @@ const userSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Index for faster email lookups
-userSchema.index({ email: 1 });
+// Index for faster email lookups (only define here, not in schema field)
+userSchema.index({ email: 1 }, { unique: true });
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {

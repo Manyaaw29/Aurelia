@@ -1,0 +1,157 @@
+<main>
+        <div class="container order-page-wrapper">
+
+            <div class="order-history-list">
+                <h1 class="page-title">Order History</h1>
+
+                <!-- Filter and Sort Options -->
+                <div class="order-filters">
+                    <div class="filter-group">
+                        <label for="statusFilter">📊 Filter by Status:</label>
+                        <select id="statusFilter" class="filter-select">
+                            <option value="all">All Orders</option>
+                            <option value="delivered">Delivered</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="processing">Processing</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="sortOrder">🔄 Sort by:</label>
+                        <select id="sortOrder" class="filter-select">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="price-low">Price: Low to High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Order 1 - Delivered -->
+                <div class="order-card" data-order-id="AU-100293" data-status="delivered" data-price="3999" data-date="2025-09-02">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100293</div>
+                            <div class="order-date">Delivered: September 02, 2025</div>
+                        </div>
+                        <span class="order-status status-delivered">Delivered</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://artizanjoyeria.com/cdn/shop/files/preview_images/5e9d29b3369246a5b1679c40ba2bf5e2.thumbnail.0000000000_1024x.jpg?v=1744835748"
+                            alt="Ring Image" class="item-thumbnail">
+
+                        <div class="item-details">
+                            <div class="item-names">
+                                Aurelia Golden Elegant (x1)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹3,999</div>
+                        <div class="order-actions">
+                            <a href="#" class="view-details-btn">View Details</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order 2 - Shipped -->
+                <div class="order-card" data-order-id="AU-100451" data-status="shipped" data-price="7999" data-date="2025-09-17">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100451</div>
+                            <div class="order-date">Shipped: September 17, 2025</div>
+                        </div>
+                        <span class="order-status status-shipped">Shipped</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://www.goodthing.co.nz/cdn/shop/files/Silk_Steel_Jewellery_-_Halo_Medium_Hoop_Earrings_232bc4b1-7b0c-4a93-a101-15491ce0837e_1600x.webp?v=1748477656"
+                            alt="Necklace Image" class="item-thumbnail">
+
+                        <div class="item-details">
+                            <div class="item-names">
+                                The Golden Hoop (x1)
+                            </div>
+                            <div class="item-names" style="color: var(--color-text-muted); font-size: 0.9em;">
+                                And 1 other item...
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹7,999</div>
+                        <div class="order-actions">
+                            <a href="#" class="track-order-btn">Track Order</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order 3 - Processing -->
+                <div class="order-card" data-order-id="AU-100522" data-status="processing" data-price="9998" data-date="2025-09-29">
+                    <div class="order-header">
+                        <div class="order-id-date">
+                            <div class="order-id">Order #AU-100522</div>
+                            <div class="order-date">Placed: September 29, 2025</div>
+                        </div>
+                        <span class="order-status status-pending">Processing</span>
+                    </div>
+
+                    <div class="order-items-preview">
+                        <img src="https://robinsonsjewelers.com/cdn/shop/articles/How_many_rings_is_it_OK_to_wear_at_one_time_20241122.jpg?v=1732479977"
+                            alt="Earring Image" class="item-thumbnail">
+
+                        <div class="item-details">
+                            <div class="item-names">
+                                Elegant Ring (x2)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="order-total-price">₹9,998</div>
+                        <div class="order-actions">
+                            <a href="#" class="cancel-order-btn">Cancel Order</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="order-metrics-sidebar">
+                <h3 class="metrics-title">Your Order Metrics</h3>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-box-open metric-icon"></i> Total Orders</span>
+                    <span class="metric-value">5</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-gem metric-icon"></i> Total Items Purchased</span>
+                    <span class="metric-value">12</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-infinity metric-icon"></i> Lifetime Value</span>
+                    <span class="metric-value">₹85,350</span>
+                </div>
+
+                <div class="metric-row">
+                    <span><i class="fas fa-check-circle metric-icon"></i> Delivered Orders</span>
+                    <span class="metric-value status-delivered">4</span>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <h4 class="quick-actions-title">⚡ Quick Actions</h4>
+                    <button class="quick-action-btn" onclick="downloadAllInvoices()">
+                        <i class="fas fa-download"></i> Download All Invoices
+                    </button>
+                    <button class="quick-action-btn" onclick="showHelpCenter()">
+                        <i class="fas fa-question-circle"></i> Help Center
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>

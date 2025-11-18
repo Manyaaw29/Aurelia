@@ -71,8 +71,8 @@ const productSchema = new mongoose.Schema({
     },
     sku: {
         type: String,
-        unique: true,
         required: true
+        // Removed unique: true - defined in index below instead
     },
     rating: {
         average: {
@@ -132,8 +132,8 @@ const productSchema = new mongoose.Schema({
     },
     orderId: {
         type: Number,
-        required: true,
-        unique: true
+        required: true
+        // Removed unique: true - defined in index below instead
     },
     views: {
         type: Number,
@@ -147,9 +147,10 @@ const productSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Indexes for better query performance
+// Indexes for better query performance (only define here, not in schema fields)
 productSchema.index({ category: 1, inStock: 1 });
-productSchema.index({ sku: 1 });
+productSchema.index({ sku: 1 }, { unique: true }); // Unique index defined here
+productSchema.index({ orderId: 1 }, { unique: true }); // Unique index defined here
 productSchema.index({ name: 'text', description: 'text' });
 
 // Virtual for discounted price

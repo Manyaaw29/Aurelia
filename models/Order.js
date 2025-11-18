@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const orderSchema = new mongoose.Schema({
     orderNumber: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+        // Removed unique: true - defined in index below instead
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -121,9 +121,9 @@ const orderSchema = new mongoose.Schema({
     timestamps: true
 });
 
-// Index for faster queries
+// Index for faster queries (only define here, not in schema fields)
 orderSchema.index({ user: 1, orderStatus: 1 });
-orderSchema.index({ orderNumber: 1 });
+orderSchema.index({ orderNumber: 1 }, { unique: true }); // Unique index defined here
 
 // Generate order number before saving
 orderSchema.pre('save', async function(next) {

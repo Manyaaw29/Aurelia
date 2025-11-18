@@ -1,0 +1,331 @@
+<main class="wishlist-container">
+        <div class="wishlist-header">
+            <h1 class="wishlist-title">Your Personal Wishlist</h1>
+            <p class="wishlist-subtitle">Save your favorite pieces here before they're gone.</p>
+            <span class="wishlist-count" id="wishlistCount">0 items</span>
+        </div>
+
+        <div id="wishlistContent">
+            <div class="loading" id="loadingMessage">Loading your exquisite collection...</div>
+            <div id="emptyMessage" class="empty-message" style="display: none;">
+                <i class="fas fa-heart"></i>
+                <p>Your wishlist is empty</p>
+                <a href="/collections" class="browse-link">Browse Collections</a>
+            </div>
+            <div id="wishlistGrid" class="wishlist-grid"></div>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 id="confirmModalTitle">Confirm Action</h3>
+            <p id="confirmModalMessage"></p>
+            <div class="modal-buttons">
+                <button id="confirmCancelBtn" class="modal-btn modal-btn-cancel">Cancel</button>
+                <button id="confirmOkBtn" class="modal-btn modal-btn-ok">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+        
+        .wishlist-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .wishlist-item:hover {
+            border-color: #D4AF37;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .remove-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: #fff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .remove-btn:hover {
+            background: #ff4444;
+            transform: scale(1.1);
+        }
+        
+        .product-link {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-price {
+            color: #D4AF37;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .product-original-price {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .original {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+        
+        .discount {
+            background: #ff4444;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-stock {
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .in-stock {
+            color: #4CAF50;
+        }
+        
+        .out-of-stock {
+            color: #ff4444;
+        }
+        
+        .product-actions {
+            padding: 0 20px 20px;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn-add-to-cart {
+            flex: 1;
+            background: linear-gradient(135deg, #D4AF37, #F4D03F);
+            color: #000;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-add-to-cart:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-add-to-cart:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-view {
+            flex: 1;
+            background: #333;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-view:hover {
+            background: #555;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(85, 85, 85, 0.4);
+        }
+        
+        .empty-message {
+            text-align: center;
+            padding: 60px 20px;
+            color: #ccc;
+        }
+        
+        .empty-message i {
+            font-size: 4rem;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+        
+        .empty-message p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .browse-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #D4AF37, #F4D03F);
+            color: #000;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .browse-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: #1a1a1a;
+            border: 2px solid #D4AF37;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            color: #fff;
+            text-align: center;
+        }
+        
+        .modal-content h3 {
+            color: #D4AF37;
+            margin-bottom: 15px;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .modal-content p {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .modal-btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn-ok {
+            background: linear-gradient(135deg, #D4AF37, #F4D03F);
+            color: #000;
+        }
+        
+        .modal-btn-ok:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .modal-btn-cancel {
+            background: #333;
+            color: #fff;
+        }
+        
+        .modal-btn-cancel:hover {
+            background: #444;
+        }
+        
+        /* Wishlist Action Buttons */
+        button[onclick="addAllToCart()"],
+        button[onclick="clearWishlist()"] {
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+        
+        button[onclick="addAllToCart()"]:hover,
+        button[onclick="clearWishlist()"]:hover {
+            background: linear-gradient(135deg, #F4D03F, #D4AF37) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        button[onclick="addAllToCart()"]:active,
+        button[onclick="clearWishlist()"]:active {
+            transform: translateY(0);
+        }
+    </style>

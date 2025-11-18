@@ -43,6 +43,10 @@ exports.protect = async (req, res, next) => {
                 });
             }
 
+            // Add convenient id property for consistency
+            // This allows both req.user._id and req.user.id to work
+            req.user.id = req.user._id.toString();
+
             next();
         } catch (error) {
             return res.status(401).json({
@@ -87,6 +91,11 @@ exports.optionalAuth = async (req, res, next) => {
             try {
                 const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
                 req.user = await User.findById(decoded.id).select('-password');
+                
+                // Add convenient id property
+                if (req.user) {
+                    req.user.id = req.user._id.toString();
+                }
             } catch (error) {
                 // Token invalid, but we continue anyway
                 req.user = null;

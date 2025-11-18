@@ -1,0 +1,84 @@
+<div class="global-success-notification" id="loginSuccessNotification">
+        <p>Login successful! Redirecting to homepage...</p>
+    </div>
+
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="signin-container">
+        <div class="signin-box">
+            <div class="logo">
+                <h1 class="logo-text">Aurelia</h1>
+                <p class="logo-subtitle">Elegance That Lasts Forever</p>
+            </div>
+
+            <div class="error-message" id="errorMessage">
+                &nbsp; </div>
+
+            <form id="signinForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="signin-btn">
+                    Sign In
+                </button>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink"> <strong> Forgot your password? </strong></a>
+                </div>
+            </form>
+
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+
+            <div class="social-signin">
+                <a href="https://accounts.google.com/" class="social-btn" title="Sign in with Google" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
+                        alt="Google logo">
+                </a>
+                <a href="https://www.facebook.com/" class="social-btn" title="Sign in with Facebook" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Facebook_icon_2013.svg"
+                        alt="Facebook logo">
+                </a>
+                <a href="https://appleid.apple.com/" class="social-btn" title="Sign in with Apple" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Apple_logo_white.svg"
+                        alt="Apple logo">
+                </a>
+            </div>
+
+            <div class="signup-link">
+                Don't have an account? <a href="/signup">Sign up here</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="forgotPasswordModal">
+        <div class="modal">
+            <button class="modal-close" id="closeModal">&times;</button>
+            <h2 class="modal-title">Reset Password</h2>
+            <p class="modal-subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+
+            <div class="success-message" id="successMessage">
+                Password reset link sent! Please check your email.
+            </div>
+
+            <form id="resetPasswordForm">
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" name="resetEmail" placeholder="Enter your email" required>
+                </div>
+                <button type="submit" class="reset-btn">
+                    Send Reset Link
+                </button>
+            </form>
+        </div>
+    </div>
