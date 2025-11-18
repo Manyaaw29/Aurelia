@@ -1,0 +1,129 @@
+<div class="account-container">
+        <div class="account-header">
+            <h1 class="account-title">My Account</h1>
+            <p class="account-subtitle">Manage your personal information and preferences</p>
+        </div>
+
+        <aside class="account-sidebar">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="account.html">
+                        <span class="menu-icon">👤</span>
+                        Personal Information
+                    </a>
+                </li>
+                <li>
+                    <a href="myorder.html">
+                        <span class="menu-icon">📦</span>
+                        My Orders
+                    </a>
+                </li>
+                <li>
+                    <a href="wishlist.html">
+                        <span class="menu-icon">❤</span>
+                        My Wishlist
+                    </a>
+                </li>
+                <li>
+                    <a href="my-addresses.html" class="active">
+                        <span class="menu-icon">📍</span>
+                        My Addresses
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="signOutLink">
+                        <span class="menu-icon">🚪</span>
+                        Sign Out
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="account-content">
+            <div class="content-header">
+                <h2 class="content-title">My Addresses</h2>
+                <button class="add-address-btn" id="openAddModalBtn">+ Add New Address</button>
+            </div>
+
+            <div class="addresses-grid" id="addressesGrid">
+            </div>
+        </main>
+    </div>
+
+    <div id="addressModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 id="modalTitle" class="modal-title">Add New Address</h2>
+            <form id="addressForm">
+                <input type="hidden" id="addressId" name="id">
+
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <select id="addressType" name="type" required>
+                        <option value="Home">Home</option>
+                        <option value="Office">Office</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addressLine1">Address Line 1</label>
+                    <input type="text" id="addressLine1" name="line1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="addressLine2">Address Line 2 (Area/Locality)</label>
+                    <input type="text" id="addressLine2" name="line2">
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" name="city" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text" id="state" name="state" required>
+                    </div>
+                </div>
+
+                <div class="form-group-inline">
+                    <div class="form-group">
+                        <label for="zipCode">Zip/Pincode</label>
+                        <input type="text" id="zipCode" name="zip" required pattern="[0-9]{6}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text" id="country" name="country" required value="India">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" name="phone" required pattern="[0-9+ ]{10,15}">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="isDefault" name="isDefault">
+                    <label for="isDefault">Set as default address</label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="add-address-btn">Save Address</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="confirmModal" class="modal">
+        <div class="modal-content confirm-content">
+            <p id="confirmMessage" class="confirm-message">Are you sure you want to remove this address?</p>
+            <div class="confirm-actions">
+                <button id="confirmCancel" class="btn cancel-btn">Cancel</button>
+                <button id="confirmDelete" class="btn delete-btn">Remove Address</button>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,295 @@
+<div class="container">
+  <main class="product-section">
+
+    <!-- Left Column: Image + Extra Content -->
+    <div class="product-image">
+      <!-- Gallery -->
+      <div class="gallery">
+        <% product.images.forEach((img, index) => { %>
+          <input type="radio" name="select" id="img<%= index + 1 %>" <%= index === 0 ? 'checked' : '' %>>
+        <% }); %>
+
+        <div class="media-container">
+          <% product.images.forEach((img, index) => { %>
+            <img src="<%= img %>" class="media" id="media<%= index + 1 %>" alt="<%= product.name %> - View <%= index + 1 %>">
+          <% }); %>
+        </div>
+
+        <!-- Thumbnails -->
+        <div class="thumbnails">
+          <% product.images.forEach((img, index) => { %>
+            <label for="img<%= index + 1 %>"><img src="<%= img %>" alt="View <%= index + 1 %>"></label>
+          <% }); %>
+        </div>
+      </div>
+
+      <!-- Discount -->
+      <% if (product.discount > 0) { %>
+        <div class="discount-badge"><%= product.discount %>% OFF</div>
+      <% } %>
+
+      <!-- Extra Content Below Image -->
+      <div class="extra-content">
+        <h2>Product Description</h2>
+        <p><%= product.description %></p>
+
+        <h2>Styling Tip</h2>
+        <p><%= product.stylingTip %></p>
+
+        <% if (product.matchingProducts && product.matchingProducts.length > 0) { %>
+          <h2>Matching Collection</h2>
+          <div class="matching-gallery">
+            <% product.matchingProducts.forEach(match => { %>
+              <a href="/product/<%= match._id %>"><img src="<%= match.images[0] %>" alt="<%= match.name %>"></a>
+            <% }); %>
+          </div>
+        <% } %>
+
+        <!-- Suggested Items Section -->
+        <% if (product.suggestedItems && product.suggestedItems.length > 0) { %>
+          <div class="suggested-items">
+            <h2>You May Also Like</h2>
+            <div class="suggested-wrapper">
+              <% product.suggestedItems.forEach(item => { %>
+                <a href="/product/<%= item._id %>" class="suggested-item">
+                  <img src="<%= item.images[0] %>" alt="<%= item.name %>">
+                  <div class="item-name"><%= item.name %></div>
+                  <div class="item-price">₹<%= item.price.toLocaleString('en-IN') %></div>
+                </a>
+              <% }); %>
+            </div>
+          </div>
+        <% } %>
+
+      </div>
+    </div>
+
+    <!-- Right Column: Product Details -->
+    <div class="product-details">
+      
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <h1 class="product-title" style="margin: 0;"><%= product.name %></h1>
+        <button id="wishlistBtn" style="background: none; border: none; cursor: pointer; padding: 5px; transition: all 0.3s ease;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FF0000" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="price-section">
+        <span class="current-price">₹<%= product.price.toLocaleString('en-IN') %></span>
+        <% if (product.originalPrice && product.originalPrice > product.price) { %>
+          <span class="original-price">₹<%= product.originalPrice.toLocaleString('en-IN') %></span>
+          <span class="discount-percent">SAVE <%= Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) %>%</span>
+        <% } %>
+      </div>
+
+      <div class="product-info">
+        <div class="info-item"><span class="info-label">SKU:</span> <span class="info-value"><%= product.sku %></span></div>
+        <div class="info-item">
+          <span class="info-label">Availability:</span> 
+          <span class="info-value stock-info">
+            <%= product.stock > 0 ? `In Stock (${product.stock} pieces)` : 'Out of Stock' %>
+          </span>
+        </div>
+        <div class="info-item"><span class="info-label">Material:</span> <span class="info-value"><%= product.material %></span></div>
+        <% if (product.dimensions && product.dimensions.length) { %>
+          <div class="info-item"><span class="info-label">Length:</span> <span class="info-value"><%= product.dimensions.length %></span></div>
+        <% } %>
+        <% if (product.weight) { %>
+          <div class="info-item"><span class="info-label">Weight:</span> <span class="info-value"><%= product.weight %></span></div>
+        <% } %>
+        <div class="info-item">
+          <span class="info-label">Customer Rating:</span>
+          <span class="info-value">
+            <%= product.rating %>/5
+            <span class="rating-stars"><%= '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating)) %></span>
+            (<%= product.reviewCount || 0 %> reviews)
+          </span>
+        </div>
+      </div>
+
+      <!-- Offers -->
+      <% if (product.offers && product.offers.length > 0) { %>
+        <div class="offers-section">
+          <h3 class="offers-title">Exclusive Offers</h3>
+          <% product.offers.forEach(offer => { %>
+            <div class="offer-item"><%= offer %></div>
+          <% }); %>
+        </div>
+      <% } %>
+
+      <!-- Guarantee -->
+      <div class="guarantee-section">
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🛡</span>
+          <div class="guarantee-title">Lifetime Warranty</div>
+          <div class="guarantee-desc">Free repair & maintenance</div>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">🚚</span>
+          <div class="guarantee-title">Express Delivery</div>
+          <div class="guarantee-desc">Free shipping on all orders</div>
+        </div>
+        <div class="guarantee-item">
+          <span class="guarantee-icon">💎</span>
+          <div class="guarantee-title">Certified Quality</div>
+          <div class="guarantee-desc">Hallmarked & authenticated</div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="button-section">
+        <button class="btn btn-primary" onclick="buyNow()">Buy Now</button>
+        <button class="btn btn-secondary" id="addToCartBtn" onclick="addToCart()">Add to Cart</button>
+      </div>
+      
+      <script>
+        const productId = '<%= product._id %>';
+        
+        async function addToCart() {
+          const btn = document.getElementById('addToCartBtn');
+          btn.disabled = true;
+          btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
+          
+          try {
+            const response = await fetch('/api/cart/add', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ productId, quantity: 1 })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+              btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+              showNotification('Product added to cart successfully!');
+              setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = 'Add to Cart';
+              }, 2000);
+            } else {
+              throw new Error(data.message);
+            }
+          } catch (error) {
+            btn.innerHTML = 'Add to Cart';
+            btn.disabled = false;
+            showNotification('Error adding to cart: ' + error.message, 'error');
+          }
+        }
+        
+        function buyNow() {
+          addToCart().then(() => {
+            setTimeout(() => window.location.href = '/cart', 1000);
+          });
+        }
+        
+        // Wishlist functionality
+        const wishlistBtn = document.getElementById('wishlistBtn');
+        wishlistBtn.addEventListener('click', async () => {
+          const svg = wishlistBtn.querySelector('svg');
+          const path = svg.querySelector('path');
+          
+          try {
+            const response = await fetch('/api/wishlist/add', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ productId })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+              // Fill the heart
+              path.setAttribute('fill', '#FF0000');
+              showNotification('Product added to wishlist!');
+            } else {
+              throw new Error(data.message);
+            }
+          } catch (error) {
+            showNotification('Error adding to wishlist: ' + error.message, 'error');
+          }
+        });
+        
+        function showNotification(message, type = 'success') {
+          const notification = document.createElement('div');
+          notification.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: ${type === 'success' ? '#D4AF37' : '#ff4444'};
+            color: #000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 10001;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+          `;
+          notification.textContent = message;
+          document.body.appendChild(notification);
+          
+          setTimeout(() => {
+            notification.style.animation = 'slideOut 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+          }, 3000);
+        }
+      </script>
+
+      <!-- Customer Reviews Section -->
+      <section class="customer-reviews">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <h2 style="margin: 0;">Customer Reviews (<%= product.reviews ? product.reviews.length : 0 %>)</h2>
+          <button id="writeReviewBtn" style="background: linear-gradient(135deg, #D4AF37, #F4D03F); border: none; padding: 10px 15px; border-radius: 50%; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">
+            <i class="fas fa-pencil-alt" style="color: #000; font-size: 18px;"></i>
+          </button>
+        </div>
+
+        <% if (product.reviews && product.reviews.length > 0) { %>
+          <!-- Display first 2 reviews -->
+          <% product.reviews.slice(0, 2).forEach(review => { %>
+            <div class="review-item">
+              <div class="review-stars"><%= '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) %></div>
+              <div class="review-name"><%= review.customerName %> - <%= new Date(review.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) %></div>
+              <div class="review-text"><%= review.comment %></div>
+            </div>
+          <% }); %>
+
+          <!-- Collapsible Section for remaining reviews -->
+          <% if (product.reviews.length > 2) { %>
+            <details class="reviews-toggle" id="reviewsToggle">
+              <summary id="showMoreReviews"></summary>
+              
+              <% product.reviews.slice(2).forEach(review => { %>
+                <div class="review-item">
+                  <div class="review-stars"><%= '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating) %></div>
+                  <div class="review-name"><%= review.customerName %> - <%= new Date(review.date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) %></div>
+                  <div class="review-text"><%= review.comment %></div>
+                </div>
+              <% }); %>
+
+              <summary id="showLessReviews" style="display: none;"></summary>
+            </details>
+          <% } %>
+        <% } else { %>
+          <p style="color: #ccc; font-style: italic;">No reviews yet. Be the first to review this product!</p>
+        <% } %>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<!-- Inject product data for JavaScript -->
+<script>
+  window.productData = <%- JSON.stringify({
+    id: product._id,
+    name: product.name,
+    price: product.price,
+    images: product.images,
+    category: product.category
+  }) %>;
+</script>
+
+<script src="/js/product.js"></script>
+
+</body>
+</html>
