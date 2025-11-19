@@ -117,7 +117,7 @@ const products = [
       }
     ],
     "sku": "SKU-R003",
-    "material": "18K Gold Plated Stainless Steel",
+    "material": "Diamond",
     "weight": 10,
     "dimensions": {
       "length": 6.5

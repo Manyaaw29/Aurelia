@@ -326,7 +326,7 @@ async function addToCart() {
             if (btn) {
                 btn.innerHTML = '<i class="fas fa-check"></i> Added!';
             }
-            cart.showNotification('Product added to cart successfully!');
+            cart.showNotification('Product added to cartttttttttttttttttttttttttt!');
             setTimeout(() => {
                 if (btn) {
                     btn.disabled = false;

@@ -83,6 +83,7 @@ const checkAuth = (req, res, next) => {
 
 // Frontend Routes - Render EJS templates with layout
 
+
 // Root route - redirect to signin
 app.get('/', (req, res) => {
     const token = req.cookies.token || (req.headers.authorization && req.headers.authorization.split(' ')[1]);
@@ -535,6 +536,57 @@ app.get('/product/:id', checkAuth, async (req, res) => {
         res.status(500).send('Error loading product page');
     }
 });
+
+// ==================== SEARCH PAGE ROUTE ====================
+app.get('/search', checkAuth, async (req, res) => {
+    try {
+        const Product = require('./models/Product');
+
+        const searchQuery = req.query.q || "";
+        const category = req.query.category || "";
+        const sort = req.query.sort || "";
+        const minPrice = req.query.minPrice || "";
+        const maxPrice = req.query.maxPrice || "";
+
+        // Build MongoDB filters
+        let filters = {};
+
+        if (searchQuery.trim() !== "") {
+            filters.name = { $regex: searchQuery, $options: "i" };
+        }
+
+        if (category) filters.category = category;
+
+        if (minPrice || maxPrice) {
+            filters.price = {};
+            if (minPrice) filters.price.$gte = Number(minPrice);
+            if (maxPrice) filters.price.$lte = Number(maxPrice);
+        }
+
+        // Sorting
+        let sortOption = {};
+        if (sort === "price-asc") sortOption.price = 1;
+        else if (sort === "price-desc") sortOption.price = -1;
+        else if (sort === "name") sortOption.name = 1;
+
+        // Fetch products
+        const products = await Product.find(filters).sort(sortOption).lean();
+
+        res.render('layout', {
+            title: `Search Results | Aurelia`,
+            body: require('ejs').render(
+                require('fs').readFileSync(path.join(__dirname, 'views', 'search.ejs'), 'utf-8'),
+                { products, searchQuery, filters: req.query }
+            ),
+            styles: ['search.css'],
+            scripts: ['search.js']
+        });
+    } catch (error) {
+        console.error('Search error:', error);
+        res.status(500).send('Error loading search page');
+    }
+});
+
 
 // ============ API ROUTES ============
 

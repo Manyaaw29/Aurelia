@@ -52,7 +52,7 @@ class ShoppingCart {
         }
         
         this.updateCartBadge();
-        this.showNotification(`${product.name} added to cart!`);
+        this.showNotification(`${product.name} added to cartttttttttttttt!`);
     }
 
     getTotalItems() {

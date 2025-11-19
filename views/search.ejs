@@ -1,0 +1,181 @@
+<section class="search-page">
+    <div class="container">
+        <!-- Search Header -->
+        <div class="search-header">
+            <% if (searchQuery) { %>
+                <h1 class="search-title">Search Results for "<span class="query-highlight"><%= searchQuery %></span>"</h1>
+                <p class="search-count"><%= products.length %> product<%= products.length !== 1 ? 's' : '' %> found</p>
+            <% } else { %>
+                <h1 class="search-title">Search Products</h1>
+                <p class="search-count">Enter a search term to find products</p>
+            <% } %>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-bar-section">
+            <form class="search-form" method="GET" action="/search">
+                <div class="search-input-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input 
+                        type="text" 
+                        name="q" 
+                        class="search-input" 
+                        placeholder="Search for jewelry..." 
+                        value="<%= searchQuery %>"
+                        autocomplete="off"
+                    >
+                    <button type="submit" class="search-submit-btn">Search</button>
+                </div>
+            </form>
+        </div>
+
+        <% if (searchQuery && products.length > 0) { %>
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label class="filter-label">Category:</label>
+                <select class="filter-select" id="categoryFilter" onchange="applyFilters()">
+                    <option value="">All Categories</option>
+                    <option value="Rings" <%= filters.category === 'Rings' ? 'selected' : '' %>>Rings</option>
+                    <option value="Earrings" <%= filters.category === 'Earrings' ? 'selected' : '' %>>Earrings</option>
+                    <option value="Necklaces" <%= filters.category === 'Necklaces' ? 'selected' : '' %>>Necklaces</option>
+                    <option value="Bracelets" <%= filters.category === 'Bracelets' ? 'selected' : '' %>>Bracelets</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Sort By:</label>
+                <select class="filter-select" id="sortFilter" onchange="applyFilters()">
+                    <option value="">Relevance</option>
+                    <option value="price-asc" <%= filters.sort === 'price-asc' ? 'selected' : '' %>>Price: Low to High</option>
+                    <option value="price-desc" <%= filters.sort === 'price-desc' ? 'selected' : '' %>>Price: High to Low</option>
+                    <option value="name" <%= filters.sort === 'name' ? 'selected' : '' %>>Name: A to Z</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label class="filter-label">Price Range:</label>
+                <div class="price-inputs">
+                    <input 
+                        type="number" 
+                        id="minPrice" 
+                        class="price-input" 
+                        placeholder="Min" 
+                        value="<%= filters.minPrice || '' %>"
+                    >
+                    <span class="price-separator">-</span>
+                    <input 
+                        type="number" 
+                        id="maxPrice" 
+                        class="price-input" 
+                        placeholder="Max" 
+                        value="<%= filters.maxPrice || '' %>"
+                    >
+                    <button class="apply-price-btn" onclick="applyFilters()">Apply</button>
+                </div>
+            </div>
+
+            <button class="clear-filters-btn" onclick="clearFilters()">
+                <i class="fas fa-times"></i> Clear Filters
+            </button>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="search-results-grid">
+            <% products.forEach(product => { %>
+                <div class="product-card">
+                    <a href="/product/<%= product._id %>" class="product-link">
+                        <div class="product-image" style="background-image: url('<%= product.images[0].url || product.images[0] %>');"></div>
+                        <div class="product-info">
+                            <div class="product-category"><%= product.category %></div>
+                            <div class="product-name"><%= product.name %></div>
+                            <div class="product-price">₹<%= product.price.toLocaleString('en-IN') %></div>
+                            <% if (product.originalPrice && product.originalPrice > product.price) { %>
+                                <div class="product-original-price">₹<%= product.originalPrice.toLocaleString('en-IN') %></div>
+                            <% } %>
+                        </div>
+                    </a>
+                    <button 
+                        class="add-to-cart-btn" 
+                        onclick="event.preventDefault(); addToCartFromSearch('<%= product._id %>', '<%= product.name %>', <%= product.price %>, '<%= product.images[0].url || product.images[0] %>')"
+                    >
+                        Add to Cart
+                    </button>
+                </div>
+            <% }); %>
+        </div>
+        <% } else if (searchQuery && products.length === 0) { %>
+        <!-- No Results -->
+        <div class="no-results">
+            <i class="fas fa-search no-results-icon"></i>
+            <h2 class="no-results-title">No products found</h2>
+            <p class="no-results-text">We couldn't find any products matching "<%= searchQuery %>"</p>
+            <div class="suggestions">
+                <p class="suggestions-title">Try searching for:</p>
+                <div class="suggestion-chips">
+                    <a href="/search?q=ring" class="suggestion-chip">Rings</a>
+                    <a href="/search?q=earring" class="suggestion-chip">Earrings</a>
+                    <a href="/search?q=necklace" class="suggestion-chip">Necklaces</a>
+                    <a href="/search?q=bracelet" class="suggestion-chip">Bracelets</a>
+                    <a href="/search?q=gold" class="suggestion-chip">Gold Jewelry</a>
+                </div>
+            </div>
+            <a href="/collections" class="browse-all-btn">Browse All Collections</a>
+        </div>
+        <% } %>
+    </div>
+</section>
+
+<script>
+    function applyFilters() {
+        const searchQuery = '<%= searchQuery %>';
+        const category = document.getElementById('categoryFilter').value;
+        const sort = document.getElementById('sortFilter').value;
+        const minPrice = document.getElementById('minPrice').value;
+        const maxPrice = document.getElementById('maxPrice').value;
+        
+        let url = `/search?q=${encodeURIComponent(searchQuery)}`;
+        if (category) url += `&category=${category}`;
+        if (sort) url += `&sort=${sort}`;
+        if (minPrice) url += `&minPrice=${minPrice}`;
+        if (maxPrice) url += `&maxPrice=${maxPrice}`;
+        
+        window.location.href = url;
+    }
+    
+    function clearFilters() {
+        const searchQuery = '<%= searchQuery %>';
+        window.location.href = `/search?q=${encodeURIComponent(searchQuery)}`;
+    }
+    
+    async function addToCartFromSearch(productId, productName, productPrice, productImage) {
+        try {
+            const response = await fetch('/api/cart/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ productId, quantity: 1 })
+            });
+            
+            const data = await response.json();
+            if (data.success) {
+                showNotification(`${productName} added to cart!`);
+            } else {
+                throw new Error(data.message);
+            }
+        } catch (error) {
+            showNotification('Error adding to cart: ' + error.message);
+        }
+    }
+    
+    function showNotification(message) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); animation: slideInRight 0.3s ease;';
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2000);
+    }
+</script>

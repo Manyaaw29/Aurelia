@@ -29,6 +29,6 @@ document.querySelectorAll('.cart-btn').forEach(btn => {
         e.preventDefault();
         e.stopPropagation();
         const productName = btn.getAttribute('data-name');
-        showNotification(`${productName} added to cart!`);
+        showNotification(`${productName} added to cartttttttttttttttttttt!`);
     });
 });
