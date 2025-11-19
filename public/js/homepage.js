@@ -1,6 +1,4 @@
-// ========== ENHANCED OOP JavaScript Implementation ==========
-
-// Product Class
+// Product Class - Represents a jewelry product
 class Product {
     constructor(id, name, price, image, category) {
         this.id = id;
@@ -13,19 +11,9 @@ class Product {
     getFormattedPrice() {
         return `₹${this.price.toLocaleString('en-IN')}`;
     }
-
-    getDetails() {
-        return {
-            id: this.id,
-            name: this.name,
-            price: this.price,
-            image: this.image,
-            category: this.category
-        };
-    }
 }
 
-// CartItem Class
+// CartItem Class - Represents an item in the cart
 class CartItem {
     constructor(product, quantity = 1) {
         this.product = product;
@@ -45,91 +33,26 @@ class CartItem {
     getTotalPrice() {
         return this.product.price * this.quantity;
     }
-
-    getFormattedTotalPrice() {
-        return `₹${this.getTotalPrice().toLocaleString('en-IN')}`;
-    }
 }
 
-// ShoppingCart Class
+// ShoppingCart Class - Manages the shopping cart
 class ShoppingCart {
     constructor() {
         this.items = [];
         this.cartBadge = null;
     }
 
-    async addItem(product) {
-        try {
-            const token = localStorage.getItem('authToken');
-            const headers = {
-                'Content-Type': 'application/json'
-            };
-            
-            if (token) {
-                headers['Authorization'] = `Bearer ${token}`;
-            }
-
-            const response = await fetch('/api/cart/add', {
-                method: 'POST',
-                headers: headers,
-                body: JSON.stringify({
-                    productId: product.productId || product.id,
-                    quantity: 1
-                })
-            });
-
-            let data;
-            try {
-                data = await response.json();
-            } catch (jsonError) {
-                this.showNotification('Network error: Invalid server response', 'error');
-                return;
-            }
-
-            if (response.ok && data.success) {
-                // Update local cart state
-                const existingItem = this.items.find(item => 
-                    (item.product.productId || item.product.id) === (product.productId || product.id)
-                );
-                
-                if (existingItem) {
-                    existingItem.increaseQuantity();
-                } else {
-                    this.items.push(new CartItem(product));
-                }
-                
-                this.updateCartUI();
-                this.showNotification(`${product.name} added to cart!`, 'success');
-                
-                // Refresh cart count from server
-                await this.fetchCartFromServer();
-            } else {
-                this.showNotification('Error: ' + (data.message || 'Unable to add to cart'), 'error');
-            }
-        } catch (error) {
-            console.error('Cart error:', error);
-            this.showNotification('Network error: Unable to reach server', 'error');
+    addItem(product) {
+        const existingItem = this.items.find(item => item.product.id === product.id);
+        
+        if (existingItem) {
+            existingItem.increaseQuantity();
+        } else {
+            this.items.push(new CartItem(product));
         }
-    }
-
-    async fetchCartFromServer() {
-        try {
-            const response = await fetch('/api/cart');
-            if (response.ok) {
-                const data = await response.json();
-                if (data.success && data.cart) {
-                    // Update cart badge with server count
-                    this.updateCartBadge(data.cart.items?.length || 0);
-                }
-            }
-        } catch (error) {
-            console.error('Error fetching cart:', error);
-        }
-    }
-
-    removeItem(productId) {
-        this.items = this.items.filter(item => item.product.id !== productId);
-        this.updateCartUI();
+        
+        this.updateCartBadge();
+        this.showNotification(`${product.name} added to cart!`);
     }
 
     getTotalItems() {
@@ -144,479 +67,397 @@ class ShoppingCart {
         return `₹${this.getTotalPrice().toLocaleString('en-IN')}`;
     }
 
-    updateCartUI() {
-        this.updateCartBadge();
-        this.renderCartItems();
-    }
-
-    updateCartBadge(count = null) {
+    updateCartBadge() {
         const cartIcon = document.querySelector('a[href="/cart"]');
-        if (!cartIcon) return;
-
-        if (!this.cartBadge) {
+        if (!this.cartBadge && cartIcon) {
             this.cartBadge = document.createElement('span');
             this.cartBadge.style.cssText = 'position: absolute; top: -8px; right: -8px; background: #D4AF37; color: #000; border-radius: 50%; width: 20px; height: 20px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 700;';
             cartIcon.style.position = 'relative';
             cartIcon.appendChild(this.cartBadge);
         }
         
-        const totalItems = count !== null ? count : this.getTotalItems();
-        this.cartBadge.textContent = totalItems;
-        this.cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
-    }
-
-    renderCartItems() {
-        const cartItemsContainer = document.getElementById('cartItems');
-        const cartCountElement = document.getElementById('cartCount');
-        const cartTotalElement = document.getElementById('cartTotal');
-
-        if (!cartItemsContainer) return;
-
-        if (this.items.length === 0) {
-            cartItemsContainer.innerHTML = '<p style="color: #ccc; text-align: center; padding: 40px 0;">Your cart is empty</p>';
-        } else {
-            cartItemsContainer.innerHTML = this.items.map(item => `
-                <div style="display: flex; gap: 15px; margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
-                    <img src="${item.product.image}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">
-                    <div style="flex: 1;">
-                        <h4 style="color: #D4AF37; margin-bottom: 5px; font-size: 0.95rem;">${item.product.name}</h4>
-                        <p style="color: #ccc; font-size: 0.9rem;">${item.product.getFormattedPrice ? item.product.getFormattedPrice() : formatINR(item.product.price)}</p>
-                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
-                            <button onclick="cart.decreaseQuantity('${item.product.productId || item.product.id}')" style="background: rgba(212, 175, 55, 0.2); border: none; color: #D4AF37; width: 25px; height: 25px; border-radius: 5px; cursor: pointer;">-</button>
-                            <span style="color: #fff; font-weight: 600;">${item.quantity}</span>
-                            <button onclick="cart.increaseQuantity('${item.product.productId || item.product.id}')" style="background: rgba(212, 175, 55, 0.2); border: none; color: #D4AF37; width: 25px; height: 25px; border-radius: 5px; cursor: pointer;">+</button>
-                            <button onclick="cart.removeItem('${item.product.productId || item.product.id}')" style="background: rgba(255, 0, 0, 0.2); border: none; color: #ff6666; padding: 5px 10px; border-radius: 5px; cursor: pointer; margin-left: auto;">Remove</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        if (cartCountElement) cartCountElement.textContent = this.getTotalItems();
-        if (cartTotalElement) cartTotalElement.textContent = this.getFormattedTotalPrice();
-    }
-
-    increaseQuantity(productId) {
-        const item = this.items.find(item => (item.product.productId || item.product.id) === productId);
-        if (item) {
-            item.increaseQuantity();
-            this.updateCartUI();
+        if (this.cartBadge) {
+            const totalItems = this.getTotalItems();
+            this.cartBadge.textContent = totalItems;
+            this.cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
         }
     }
 
-    decreaseQuantity(productId) {
-        const item = this.items.find(item => (item.product.productId || item.product.id) === productId);
-        if (item) {
-            item.decreaseQuantity();
-            this.updateCartUI();
-        }
-    }
-
-    showNotification(message, type = 'success') {
+    showNotification(message) {
         const notification = document.createElement('div');
         notification.textContent = message;
-        
-        const bgColor = type === 'success' ? '#D4AF37' : '#ff6666';
-        const textColor = type === 'success' ? '#000' : '#fff';
-        
-        notification.style.cssText = `position: fixed; top: 100px; right: 20px; background: ${bgColor}; color: ${textColor}; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001; animation: slideIn 0.3s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.3);`;
+        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: #D4AF37; color: #000; padding: 15px 25px; border-radius: 10px; font-weight: 600; z-index: 10001; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);';
         document.body.appendChild(notification);
 
+        notification.style.animation = 'slideInRight 0.3s ease';
+        
         setTimeout(() => {
-            notification.style.animation = 'slideOut 0.3s ease';
+            notification.style.animation = 'slideOutRight 0.3s ease';
             setTimeout(() => notification.remove(), 300);
-        }, 3000);
+        }, 2000);
     }
 }
 
-// Newsletter Class
-class Newsletter {
-    constructor() {}
+// Initialize cart
+const cart = new ShoppingCart();
 
-    async subscribe(email) {
-        if (!this.isValidEmail(email)) {
-            throw new Error('Please enter a valid email address');
+// Get product ID from window object
+const productId = window.productData ? window.productData.id : null;
+
+// Helper function to get cookie
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+// Review Modal Function
+function showReviewModal() {
+    // Remove any existing modal first
+    const existingModal = document.getElementById('reviewModalOverlay');
+    if (existingModal) {
+        existingModal.remove();
+    }
+
+    const modal = document.createElement('div');
+    modal.id = 'reviewModalOverlay';
+    modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; justify-content: center; align-items: center; z-index: 10003; animation: fadeIn 0.3s ease;';
+    
+    const modalContent = document.createElement('div');
+    modalContent.style.cssText = 'background: linear-gradient(135deg, #1A3D2E, #0D2818); padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3); border: 2px solid #D4AF37; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; animation: scaleIn 0.3s ease;';
+    
+    modalContent.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+            <h2 style="color: #D4AF37; font-family: 'Playfair Display', serif; font-size: 1.8rem; margin: 0;">Write a Review</h2>
+            <button id="closeReviewModal" style="background: none; border: none; color: #fff; font-size: 28px; cursor: pointer; transition: transform 0.3s ease; line-height: 1;">&times;</button>
+        </div>
+        
+        <form id="reviewForm" style="color: #fff;">
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #D4AF37;">Rating *</label>
+                <div id="starRating" style="display: flex; gap: 5px;">
+                    <span class="star" data-rating="1" style="font-size: 30px; color: #ccc; cursor: pointer; transition: color 0.3s ease;">★</span>
+                    <span class="star" data-rating="2" style="font-size: 30px; color: #ccc; cursor: pointer; transition: color 0.3s ease;">★</span>
+                    <span class="star" data-rating="3" style="font-size: 30px; color: #ccc; cursor: pointer; transition: color 0.3s ease;">★</span>
+                    <span class="star" data-rating="4" style="font-size: 30px; color: #ccc; cursor: pointer; transition: color 0.3s ease;">★</span>
+                    <span class="star" data-rating="5" style="font-size: 30px; color: #ccc; cursor: pointer; transition: color 0.3s ease;">★</span>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <label for="reviewTitle" style="display: block; margin-bottom: 8px; font-weight: 600; color: #D4AF37;">Review Title (Optional)</label>
+                <input type="text" id="reviewTitle" maxlength="200" style="width: 100%; padding: 12px; border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 10px; background: rgba(255, 255, 255, 0.1); color: #fff; font-size: 1rem; transition: all 0.3s ease;" placeholder="Summarize your experience">
+            </div>
+            
+            <div style="margin-bottom: 30px;">
+                <label for="reviewText" style="display: block; margin-bottom: 8px; font-weight: 600; color: #D4AF37;">Your Review *</label>
+                <textarea id="reviewText" required maxlength="1000" style="width: 100%; padding: 12px; border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 10px; background: rgba(255, 255, 255, 0.1); color: #fff; font-size: 1rem; min-height: 120px; resize: vertical; transition: all 0.3s ease;" placeholder="Share your experience with this product..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: flex-end;">
+                <button type="button" id="cancelReview" style="padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: #fff; border: 2px solid rgba(212, 175, 55, 0.3); border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">Cancel</button>
+                <button type="submit" style="padding: 12px 24px; background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #000; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);">Submit Review</button>
+            </div>
+        </form>
+    `;
+    
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    
+    const closeBtn = modalContent.querySelector('#closeReviewModal');
+    const cancelBtn = modalContent.querySelector('#cancelReview');
+    
+    const closeModal = () => {
+        modal.style.animation = 'fadeOut 0.3s ease';
+        modalContent.style.animation = 'scaleOut 0.3s ease';
+        setTimeout(() => modal.remove(), 300);
+    };
+    
+    closeBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    
+    // Star rating functionality
+    let selectedRating = 0;
+    const stars = modalContent.querySelectorAll('.star');
+    
+    stars.forEach((star, index) => {
+        star.addEventListener('click', () => {
+            selectedRating = index + 1;
+            stars.forEach((s, i) => {
+                s.style.color = i < selectedRating ? '#D4AF37' : '#ccc';
+            });
+        });
+        
+        star.addEventListener('mouseenter', () => {
+            stars.forEach((s, i) => {
+                s.style.color = i <= index ? '#D4AF37' : '#ccc';
+            });
+        });
+        
+        star.addEventListener('mouseleave', () => {
+            stars.forEach((s, i) => {
+                s.style.color = i < selectedRating ? '#D4AF37' : '#ccc';
+            });
+        });
+    });
+    
+    // Form submission
+    const form = modalContent.querySelector('#reviewForm');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const titleInput = modalContent.querySelector('#reviewTitle');
+        const reviewInput = modalContent.querySelector('#reviewText');
+        const title = titleInput.value.trim();
+        const reviewText = reviewInput.value.trim();
+        
+        // Clear previous errors
+        const existingErrors = modalContent.querySelectorAll('.error-message');
+        existingErrors.forEach(err => err.remove());
+        
+        reviewInput.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+        
+        let hasError = false;
+        
+        // Validate rating
+        if (selectedRating === 0) {
+            const starRating = modalContent.querySelector('#starRating');
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.style.cssText = 'color: #ff4444; font-size: 0.9rem; margin-top: 5px; font-weight: 600;';
+            errorMsg.textContent = 'Please select a rating';
+            starRating.parentElement.appendChild(errorMsg);
+            hasError = true;
         }
-
+        
+        // Validate review text
+        if (!reviewText) {
+            reviewInput.style.borderColor = '#ff4444';
+            const errorMsg = document.createElement('div');
+            errorMsg.className = 'error-message';
+            errorMsg.style.cssText = 'color: #ff4444; font-size: 0.9rem; margin-top: 5px; font-weight: 600;';
+            errorMsg.textContent = 'Please write your review';
+            reviewInput.parentElement.appendChild(errorMsg);
+            hasError = true;
+        }
+        
+        if (hasError) return;
+        
+        // Check authentication
+        const token = localStorage.getItem('authToken') || getCookie('token');
+        if (!token) {
+            cart.showNotification('Please login to submit a review');
+            closeModal();
+            setTimeout(() => window.location.href = '/signin', 1500);
+            return;
+        }
+        
+        // Disable submit button
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        
         try {
-            const res = await fetch('/api/newsletter', {
+            const response = await fetch('/api/reviews', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ email: email })
+                body: JSON.stringify({
+                    product: productId,
+                    rating: selectedRating,
+                    title: title || 'Product Review',
+                    comment: reviewText
+                })
             });
-
-            if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(errorData.error || `Error: ${res.statusText}`);
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                cart.showNotification('Thank you! Your review has been submitted successfully! ⭐');
+                closeModal();
+                // Reload page to show new review
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                throw new Error(data.message || 'Failed to submit review');
             }
-
-            return true;
-        } catch (err) {
-            throw new Error(err.message || 'Subscription failed. Please try again.');
+        } catch (error) {
+            console.error('Error submitting review:', error);
+            cart.showNotification('Error submitting review: ' + error.message);
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
         }
-    }
-
-    isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+    });
+    
+    // Focus on textarea
+    setTimeout(() => {
+        modalContent.querySelector('#reviewText').focus();
+    }, 300);
 }
 
-// SearchManager Class
-class SearchManager {
-    constructor(products) {
-        this.products = products;
+// API Integration Functions
+async function addToCart() {
+    if (!productId) {
+        cart.showNotification('Product information not available');
+        return;
     }
-
-    search(query) {
-        const lowercaseQuery = query.toLowerCase().trim();
-        return this.products.filter(product => 
-            product.name.toLowerCase().includes(lowercaseQuery) ||
-            product.category.toLowerCase().includes(lowercaseQuery)
-        );
+    
+    const btn = document.getElementById('addToCartBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
     }
-}
-
-// Animation Observer Class
-class AnimationObserver {
-    constructor() {
-        this.observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            },
-            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-        );
-    }
-
-    observe(elements) {
-        elements.forEach((element, index) => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(30px)';
-            element.style.transition = `all 0.6s ease ${index * 0.1}s`;
-            this.observer.observe(element);
+    
+    try {
+        const response = await fetch('/api/cart/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId, quantity: 1 })
         });
+        
+        const data = await response.json();
+        if (data.success) {
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-check"></i> Added!';
+            }
+            cart.showNotification('Product added to cart successfully!');
+            setTimeout(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Add to Cart';
+                }
+            }, 2000);
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        if (btn) {
+            btn.innerHTML = 'Add to Cart';
+            btn.disabled = false;
+        }
+        cart.showNotification('Error adding to cart: ' + error.message);
     }
 }
 
-// Initialize cart globally
-let cart;
-
-// Helper function for formatting INR
-function formatINR(price) {
-    return `₹${Number(price).toLocaleString('en-IN')}`;
-}
-
-// Global function to add to cart from product card
-function addToCartFromCard(event, btn) {
-    // Prevent default button behavior
-    if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    
-    const card = btn.closest('.product-card');
-    if (!card) {
-        console.error('Product card not found');
+async function addToWishlist() {
+    if (!productId) {
+        cart.showNotification('Product information not available');
         return;
     }
     
-    const product = {
-        productId: card.getAttribute('data-product-id'),
-        name: card.getAttribute('data-product-name'),
-        price: Number(card.getAttribute('data-product-price')),
-        image: card.getAttribute('data-product-image')
-    };
-    
-    if (!product.productId || !product.name || !product.price) {
-        console.error('Invalid product data:', product);
-        cart.showNotification('Error: Invalid product data', 'error');
-        return;
+    const btn = document.getElementById('addToWishlistBtn');
+    if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Adding...';
     }
     
-    if (cart && typeof cart.addItem === 'function') {
-        cart.addItem(product);
-    } else {
-        console.error('Cart not initialized');
+    try {
+        const response = await fetch('/api/wishlist/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ productId })
+        });
+        
+        const data = await response.json();
+        if (data.success) {
+            if (btn) {
+                btn.innerHTML = '<i class="fas fa-heart"></i> Added!';
+            }
+            cart.showNotification('Product added to wishlist!');
+            setTimeout(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-heart"></i> Wishlist';
+                }
+            }, 2000);
+        } else {
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-heart"></i> Wishlist';
+            btn.disabled = false;
+        }
+        cart.showNotification('Error adding to wishlist: ' + error.message);
     }
 }
 
-// Page Load Handler
-window.addEventListener('load', () => {
-    // Hide loading overlay
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    if (loadingOverlay) {
-        setTimeout(() => {
-            loadingOverlay.classList.add('hidden');
-        }, 500);
+function buyNow() {
+    if (!productId) {
+        cart.showNotification('Product information not available');
+        return;
     }
+    window.location.href = '/checkout?productId=' + productId;
+}
 
-    // Initialize animations
-    const animationObserver = new AnimationObserver();
-    const categoryCards = document.querySelectorAll('.category-card');
-    const productCards = document.querySelectorAll('.product-card');
-    const testimonialCards = document.querySelectorAll('.testimonial-card');
-    
-    if (categoryCards.length) animationObserver.observe([...categoryCards]);
-    if (productCards.length) animationObserver.observe([...productCards]);
-    if (testimonialCards.length) animationObserver.observe([...testimonialCards]);
-});
-
-// DOM Content Loaded
+// Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize cart
-    cart = new ShoppingCart();
-    window.cart = cart; // Make it globally accessible
+    console.log('Product page loaded, productId:', productId);
     
-    // Fetch initial cart count
-    cart.fetchCartFromServer();
+    // Add event listener to the review button
+    const writeReviewBtn = document.getElementById('writeReviewBtn');
+    if (writeReviewBtn) {
+        console.log('Review button found, attaching event listener');
+        writeReviewBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Review button clicked');
+            showReviewModal();
+        });
+    } else {
+        console.warn('Review button not found on page');
+    }
     
-    const newsletter = new Newsletter();
-    const products = []; // Will be populated from page data
-    const searchManager = new SearchManager(products);
-
-    // Cart modal functionality
-    const cartIcon = document.querySelector('a[href="/cart"]');
-    const cartModal = document.getElementById('cartModal');
-    const closeCart = document.getElementById('closeCart');
-    const checkoutBtn = document.getElementById('checkoutBtn');
-
-    if (cartIcon && cartModal) {
-        cartIcon.addEventListener('click', (e) => {
-            e.preventDefault();
-            cartModal.style.display = 'flex';
-        });
+    // Remove the old unused modal from DOM if it exists
+    const oldModal = document.getElementById('reviewModal');
+    if (oldModal) {
+        oldModal.remove();
     }
-
-    if (closeCart && cartModal) {
-        closeCart.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
-
-        closeCart.addEventListener('mouseover', () => {
-            closeCart.style.transform = 'rotate(90deg)';
-        });
-
-        closeCart.addEventListener('mouseout', () => {
-            closeCart.style.transform = 'rotate(0deg)';
-        });
-    }
-
-    if (cartModal) {
-        cartModal.addEventListener('click', (e) => {
-            if (e.target === cartModal) {
-                cartModal.style.display = 'none';
-            }
-        });
-    }
-
-    if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', () => {
-            if (cart.getTotalItems() > 0) {
-                window.location.href = '/checkout';
-            } else {
-                alert('Your cart is empty!');
-            }
-        });
-
-        checkoutBtn.addEventListener('mouseover', () => {
-            checkoutBtn.style.transform = 'scale(1.05)';
-        });
-
-        checkoutBtn.addEventListener('mouseout', () => {
-            checkoutBtn.style.transform = 'scale(1)';
-        });
-    }
-
-    // Newsletter form
-    const newsletterForm = document.getElementById('newsletterForm');
-    const newsletterMessage = document.getElementById('newsletterMessage');
-    const newsletterButton = newsletterForm?.querySelector('.newsletter-button');
-
-    if (newsletterForm) {
-        newsletterForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const emailInput = document.getElementById('newsletterEmail');
-            const originalButtonText = newsletterButton?.textContent || 'Subscribe';
-
-            if (newsletterButton) {
-                newsletterButton.textContent = 'Subscribing...';
-                newsletterButton.disabled = true;
-            }
-            
-            try {
-                await newsletter.subscribe(emailInput.value);
-                
-                if (newsletterMessage) {
-                    newsletterMessage.textContent = '✓ Successfully subscribed! Check your email.';
-                    newsletterMessage.style.color = '#D4AF37';
-                }
-                emailInput.value = '';
-            } catch (error) {
-                if (newsletterMessage) {
-                    newsletterMessage.textContent = '✗ ' + error.message;
-                    newsletterMessage.style.color = '#ff6666';
-                }
-            } finally {
-                if (newsletterButton) {
-                    setTimeout(() => {
-                        newsletterButton.textContent = originalButtonText;
-                        newsletterButton.disabled = false;
-                    }, 1000);
-                }
-            }
-
-            if (newsletterMessage) {
-                setTimeout(() => {
-                    newsletterMessage.textContent = '';
-                }, 4000);
-            }
-        });
-    }
-
-    // Search functionality
-    const searchInput = document.querySelector('.search-input');
-    let searchTimeout;
-
-    if (searchInput) {
-        searchInput.addEventListener('input', (e) => {
-            clearTimeout(searchTimeout);
-            const query = e.target.value;
-            
-            searchTimeout = setTimeout(() => {
-                if (query.length > 2) {
-                    const results = searchManager.search(query);
-                    
-                    if (results.length > 0) {
-                        const notification = document.createElement('div');
-                        notification.textContent = `Found ${results.length} product(s) matching "${query}"`;
-                        notification.style.cssText = 'position: fixed; top: 100px; right: 20px; background: #1A3D2E; color: #D4AF37; padding: 15px 25px; border-radius: 10px; font-weight: 500; z-index: 10001; animation: slideIn 0.3s ease; border: 1px solid #D4AF37;';
-                        document.body.appendChild(notification);
-                        
-                        setTimeout(() => {
-                            notification.style.animation = 'slideOut 0.3s ease';
-                            setTimeout(() => notification.remove(), 300);
-                        }, 2500);
-                    }
-                }
-            }, 500);
-        });
-    }
-
-    // Scroll to Top Button
-    const scrollTopBtn = document.getElementById('scrollTop');
-    if (scrollTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 300) {
-                scrollTopBtn.classList.add('active');
-            } else {
-                scrollTopBtn.classList.remove('active');
-            }
-        });
-
-        scrollTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-
-    // Parallax effect for hero section
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const hero = document.querySelector('.hero');
-        if (hero) {
-            hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
-        }
-    });
-
-    // Enhanced hover effects for product cards
-    const allProductCards = document.querySelectorAll('.product-card');
-    allProductCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const xPercent = (x / rect.width) - 0.5;
-            const yPercent = (y / rect.height) - 0.5;
-            
-            card.style.transform = `translateY(-10px) rotateY(${xPercent * 10}deg) rotateX(${-yPercent * 10}deg)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'translateY(0) rotateY(0) rotateX(0)';
-        });
-    });
-
-    // Add ripple effect to CTA buttons
-    document.querySelectorAll('.cta-button, .section-cta, .newsletter-button').forEach(button => {
-        button.addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const ripple = document.createElement('span');
-            ripple.style.cssText = `
-                position: absolute;
-                width: 20px;
-                height: 20px;
-                background: rgba(255, 255, 255, 0.5);
-                border-radius: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                animation: rippleEffect 0.6s ease-out;
-                pointer-events: none;
-                left: ${x}px;
-                top: ${y}px;
-            `;
-            
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            
-            setTimeout(() => ripple.remove(), 600);
-        });
-    });
-
-    // Add ripple animation
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes rippleEffect {
-            to {
-                transform: translate(-50%, -50%) scale(20);
-                opacity: 0;
-            }
-        }
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        @keyframes slideOut {
-            from {
-                transform: translateX(0);
-                opacity: 1;
-            }
-            to {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(style);
-
-    console.log('🎨 Aurelia Homepage Enhanced - All features loaded!');
-    console.log('✨ Cart system initialized and ready');
 });
+
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideInRight {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOutRight {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(400px); opacity: 0; }
+    }
+    @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+    @keyframes fadeOut {
+        from { opacity: 1; }
+        to { opacity: 0; }
+    }
+    @keyframes scaleOut {
+        from { transform: scale(1); opacity: 1; }
+        to { transform: scale(0.8); opacity: 0; }
+    }
+    
+    /* Input focus effects */
+    #reviewText:focus,
+    #reviewTitle:focus {
+        outline: none;
+        border-color: #D4AF37 !important;
+        box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+`;
+document.head.appendChild(style);

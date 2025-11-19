@@ -280,46 +280,34 @@ body {
 }
 
 /* ===== HERO SECTION WITH PARALLAX ===== */
+/* ===== HERO SECTION WITH PARALLAX (Fixed for Full Viewport Image) ===== */
 .hero {
-    height: 50vh;
-    min-height: 400px;
+    /* 1. SIZING: Ensure full viewport height */
+    height: 100vh;
     
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(13, 40, 24, 0.6)), 
                 url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    
+    /* 2. IMAGE DISPLAY */
     background-size: cover;
-    background-position: center;
-    background-attachment: scroll;
+    background-position: center; 
+    /* 3. PARALLAX: Keep fixed for effect */
+    background-attachment: fixed; 
+    
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     position: relative;
-    margin-top: 90px;
     overflow: hidden;
+    
+    /* CRITICAL FIX: Remove margin-top so the background image is not pushed down */
+    margin-top: 0; 
 }
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%);
-    animation: pulseGlow 6s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.6; }
-}
-
 .hero-content {
     max-width: 600px;
     z-index: 2;
-    animation: fadeInUp 1s ease;
 }
-
 .hero-title {
     font-family: 'Playfair Display', serif;
     font-size: 4rem;
@@ -327,12 +315,6 @@ body {
     color: #D4AF37;
     margin-bottom: 20px;
     text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
-    animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-    0%, 100% { text-shadow: 0 0 30px rgba(212, 175, 55, 0.5); }
-    50% { text-shadow: 0 0 50px rgba(212, 175, 55, 0.8), 0 0 80px rgba(212, 175, 55, 0.4); }
 }
 
 .hero-subtitle {
@@ -342,6 +324,51 @@ body {
     font-weight: 300;
 }
 
+.cta-button {
+    display: inline-block;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #D4AF37, #F4D03F);
+    color: #000000;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+}
+/* 4. CONTENT FIX: Use padding on the section *after* the hero (e.g., .tagline-section) 
+   to ensure the page content starts below the fixed header (90px) */
+.tagline-section {
+    padding-top: calc(90px + 80px); /* 90px (header height) + 80px (original padding) */
+    padding-bottom: 80px; /* Keep original bottom padding */
+    background: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Also ensure we remove the hero margin-top from the media query */
+@media (max-width: 768px) {
+    /* ... other styles ... */
+    
+    .hero {
+        /* FIX: Remove the margin-top for mobile as well */
+        margin-top: 0;
+    }
+    
+    /* FIX: Adjust padding of the next section for the mobile header height (130px) */
+    .tagline-section {
+        padding-top: calc(130px + 80px); /* 130px (mobile header height) + 80px (original padding) */
+    }
+
+    /* ... other styles ... */
+}
 .cta-button {
     display: inline-block;
     padding: 16px 40px;

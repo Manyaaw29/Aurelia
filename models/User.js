@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         trim: true,
         match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please provide a valid email']
-        // Removed unique: true - defined in index below instead
     },
     password: {
         type: String,
@@ -24,8 +23,14 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
         type: String,
-        trim: true,
-        match: [/^[0-9]{10}$/, 'Please provide a valid 10-digit phone number']
+        trim: true
+    },
+    birthday: {
+        type: Date
+    },
+    gender: {
+        type: String,
+        enum: ['male', 'female', 'non-binary', 'prefer-not', 'other', '']
     },
     role: {
         type: String,

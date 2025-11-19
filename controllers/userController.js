@@ -139,11 +139,19 @@ exports.getProfile = async (req, res) => {
 // @access  Private
 exports.updateProfile = async (req, res) => {
     try {
-        const { name, email, phone } = req.body;
+        const { name, email, phone, birthday, gender } = req.body;
+
+        // Build update object with only provided fields
+        const updateData = {};
+        if (name) updateData.name = name;
+        if (email) updateData.email = email;
+        if (phone) updateData.phone = phone;
+        if (birthday !== undefined) updateData.birthday = birthday;
+        if (gender !== undefined) updateData.gender = gender;
 
         const user = await User.findByIdAndUpdate(
             req.user.id,
-            { name, email, phone },
+            updateData,
             { new: true, runValidators: true }
         ).select('-password');
 
@@ -168,6 +176,22 @@ exports.changePassword = async (req, res) => {
     try {
         const { currentPassword, newPassword } = req.body;
 
+        // Validate input
+        if (!currentPassword || !newPassword) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide both current and new password'
+            });
+        }
+
+        // Validate new password length
+        if (newPassword.length < 6) {
+            return res.status(400).json({
+                success: false,
+                message: 'New password must be at least 6 characters long'
+            });
+        }
+
         const user = await User.findById(req.user.id).select('+password');
 
         // Check current password
@@ -178,6 +202,7 @@ exports.changePassword = async (req, res) => {
             });
         }
 
+        // Update password
         user.password = newPassword;
         await user.save();
 
@@ -198,11 +223,21 @@ exports.changePassword = async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Private
 exports.logout = async (req, res) => {
-    req.session.destroy();
-    res.status(200).json({
-        success: true,
-        message: 'Logged out successfully'
-    });
+    try {
+        // Clear cookie if it exists
+        res.clearCookie('token');
+        
+        res.status(200).json({
+            success: true,
+            message: 'Logged out successfully'
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error logging out',
+            error: error.message
+        });
+    }
 };
 
 // @desc    Get user addresses
